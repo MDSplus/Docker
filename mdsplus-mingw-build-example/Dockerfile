@@ -1,4 +1,7 @@
 # Sample dockerfile to build MDSplus for Windows from scratch
+#
+# Run this with docker run --rm -v /localdir:/out sample:build
+#
 FROM fedora
 
 MAINTAINER Tom Fredian, version: 0.1
@@ -28,6 +31,7 @@ RUN ./configure --host=i686-w64-mingw32 --build=i686-redhat-linux-gnu --target=i
     make clean
 WORKDIR /tmp/mingw-build
 RUN makensis -DMAJOR=0 -DMINOR=0 -DRELEASE=1 -DFLAVOR=-docker -NOCD \
-             -DOUTDIR=/tmp /tmp/mdsplus/deploy/mdsplus.nsi; ls /tmp
+             -DOUTDIR=/tmp /tmp/mdsplus/deploy/mdsplus.nsi; \
+    cp *.exe /out
 
 RUN find /tmp/mingw-build
