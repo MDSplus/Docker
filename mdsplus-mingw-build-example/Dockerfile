@@ -32,6 +32,6 @@ RUN ./configure --host=i686-w64-mingw32 --build=i686-redhat-linux-gnu --target=i
 WORKDIR /tmp/mingw-build
 RUN makensis -DMAJOR=0 -DMINOR=0 -DRELEASE=1 -DFLAVOR=-docker -NOCD \
              -DOUTDIR=/tmp /tmp/mdsplus/deploy/mdsplus.nsi; \
-    cp *.exe /out
+    cp /tmp/MDSplus*.exe /out
 
 RUN find /tmp/mingw-build

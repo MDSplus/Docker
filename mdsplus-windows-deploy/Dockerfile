@@ -6,7 +6,7 @@
 #
 # Run this using docker with the command:
 #
-#    docker run --rm=true -e BUILD_NUMBER=${BUILD_NUMBER} -e JOB_NAME="${JOB_NAME}" -v /mdsplus:/mdsplus mdsplus:buildWindows
+#    docker run --rm=true -e BUILD_NUMBER=${BUILD_NUMBER} -e JOB_NAME="${JOB_NAME}" -e BUILD_FLAVOR=${BUILD_FLAVOR} -v /mdsplus:/mdsplus mdsplus:buildWindows
 #
 # Where: /mdsplus on the host is a mount of alchome:/scratch/mdsplus
 #        BUILD_NUMBER and JOB_NAME defined by hudson with the job is run. That is used to add a reference to the job alongside the kit
@@ -36,4 +36,4 @@ ENTRYPOINT cvs -q update -d; \
 	   export WORKSPACE=/tmp/deploy; \
 	   export MDSPLUS_DIST=/mdsplus/dist; \
            export MDSPLUS_CERTS=/mdsplus/certs; \
-	   python release.py deploy ${BUILD_FLAVOR}
+	   python release.py deploy
