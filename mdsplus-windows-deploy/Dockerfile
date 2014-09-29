@@ -22,12 +22,8 @@ RUN yum -y install autoconf automake cvs 'mingw*-gcc-*' 'mingw*-readline' 'mingw
     	   	   'mingw*-readline*' 'mingw32-nsis*' '*-openjdk-devel*' wget binutils make \
 		   mono-devel
 RUN yum -y update
-RUN mkdir /mdsplus
-WORKDIR /tmp
-RUN cvs -d :pserver:MDSguest:MDSguest@www.mdsplus.org:/mdsplus/repos co deploy;
-WORKDIR /tmp/deploy
-ENTRYPOINT cvs -q update -d; \
-	   export DIST=windows; \
+RUN mkdir /mdsplus 
+ENTRYPOINT export DIST=windows; \
 	   export LABVIEW_DIR=/mdsplus/extras/Labview-x86; \
 	   export LABVIEW64_DIR=/mdsplus/extras/Labview-x86_64; \
 	   export IDL_DIR=/mdsplus/extras/idl-x86; \
@@ -36,4 +32,7 @@ ENTRYPOINT cvs -q update -d; \
 	   export WORKSPACE=/tmp/deploy; \
 	   export MDSPLUS_DIST=/mdsplus/dist; \
            export MDSPLUS_CERTS=/mdsplus/certs; \
-	   python release.py deploy
+	   export CVSROOT=:pserver:MDSguest:MDSguest@www.mdsplus.org:/mdsplus/repos; \
+	   mkdir -p /tmp/deploy; \
+	   cd /tmp/deploy; \
+	   python /mdsplus/deploy/release.py deploy

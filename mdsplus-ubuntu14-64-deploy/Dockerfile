@@ -1,13 +1,13 @@
-# Sample dockerfile to build MDSplus for Ubuntu12-64 from scratch
-FROM ubuntu:12.04
+# Sample dockerfile to build MDSplus for Ubuntu14-64 from scratch
+FROM ubuntu:14.04
 # To build docker image:
 #
-#    docker build -t mdsplus:build_ubuntu12-64 .
+#    docker build -t mdsplus:build_ubuntu14-64 .
 # 
 # To run MDSplus build in hudson:
 #
 #    docker run --rm=true -e BUILD_NUMBER=${BUILD_NUMBER} -e JOB_NAME="${JOB_NAME}" -e BUILD_FLAVOR=${BUILD_FLAVOR} -v \
-#                 /mdsplus:/mdsplus mdsplus:build_ubuntu12-64
+#                 /mdsplus:/mdsplus mdsplus:build_ubuntu14-64
 #
 # Where: /mdsplus on the host is a mount of alchome:/scratch/mdsplus
 #        BUILD_NUMBER and JOB_NAME defined by hudson with the job is run. That is used to add a reference to the job alongside the kit
@@ -37,7 +37,7 @@ RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" \
     apt-get -y upgrade; \
     mkdir /mdsplus
 ENTRYPOINT apt-key add /mdsplus/dist/mdsplus.gpg.key; \
-	   export DIST=Ubuntu12; \
+	   export DIST=Ubuntu14; \
 	   export LABVIEW64_DIR=/mdsplus/extras/Labview-x86_64; \
            export LABVIEW_DIR=/mdsplus/extras/Labview-x86; \
 	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \

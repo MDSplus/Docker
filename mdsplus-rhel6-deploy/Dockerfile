@@ -1,20 +1,20 @@
 # Sample dockerfile to build MDSplus for rhel5 from scratch
 #
 #
-# To build rhel5 image:
+# To build rhel6 image:
 #
-# yum --installroot=/mdsplus/docker-images/rhel5root install -y yum tcsh redhat-release coreutils wget bind-utils \
+# yum --installroot=/mdsplus/docker-images/rhel6root install -y yum tcsh redhat-release coreutils wget bind-utils \
 #     vim-minimal openssl rhn-client-tools python-setuptools pexpect numpy rsync make automake cvs \
 #     sudo readline-devel.* ncurses-devel.* gcc gcc-gfortran gcc-c++ java-1.7.0-openjdk-devel.* openmotif-devel.i386 \
-#     curl-devel.* rpm-build
-# /bin/cp /mdsplus/docker-images/rhel5root/usr/bin/uil /mdsplus/docker-images/rhel5root/usr/bin/uil32
-# yum --installroot=/mdsplus/docker-images/rhel5root install -y openmotif-devel.x86_64
-# mknod /mdsplus/rhel5root/dev/random c 1 9
-# mknod /mdsplus/rhel5root/dev/urandom c 1 9
-# cp ~twf/mit-activate /mdsplus/rhel5root/
-# chroot /mdsplus/rhel5root
+#     curl-devel.* rpm-build tar
+# /bin/cp /mdsplus/docker-images/rhel6root/usr/bin/uil /mdsplus/docker-images/rhel6root/usr/bin/uil32
+# yum --installroot=/mdsplus/docker-images/rhel6root install -y openmotif-devel.x86_64
+# mknod /mdsplus/rhel6root/dev/random c 1 9
+# mknod /mdsplus/rhel6root/dev/urandom c 1 9
+# cp ~twf/mit-activate /mdsplus/rhel6root/
+# chroot /mdsplus/rhel6root
 # csh ./mit-activate
-##### install epel yum repo using the url of the rpm on the epel website for rhel5 --- needed for globus and freetds pkgs
+##### install epel yum repo using the url of the rpm on the epel website for rhel6 --- needed for globus and freetds pkgs
 # yum install -y globus-common-progs globus-callout-devel.* globus-gridmap-callout-error-devel.* \
 #		 globus-gsi-credential-devel.* globus-gsi-proxy-core-devel.* \
 #		 globus-gss-assist-devel.* globus-gssapi-gsi-devel.* globus-xio-gsi-driver-devel.*  \
@@ -22,13 +22,13 @@
 # /usr/bin/easy_install-2.6 pexpect
 # exit
 # On build system:
-# cd /mdsplus/docker-images/rhel5root
-# tar -czf - . | docker import - rhel5-deploy
+# cd /mdsplus/docker-images/rhel6root
+# tar -czf - . | docker import - rhel6-deploy
 
-FROM rhel5-deploy
+FROM rhel6-deploy
 # To build docker image:
 #
-#    docker build -t mdsplus:build_rhel5 .
+#    docker build -t mdsplus:build_rhel6 .
 # 
 # To run MDSplus build in hudson:
 #
@@ -44,7 +44,7 @@ FROM rhel5-deploy
 
 MAINTAINER Tom Fredian, version: 0.1
 
-ENTRYPOINT export DIST=el5; \
+ENTRYPOINT export DIST=el6; \
 	   export LABVIEW64_DIR=/mdsplus/extras/Labview-x86_64; \
            export LABVIEW_DIR=/mdsplus/extras/Labview-x86; \
 	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \
@@ -56,4 +56,4 @@ ENTRYPOINT export DIST=el5; \
 	   export CVSROOT=:pserver:MDSguest:MDSguest@www.mdsplus.org:/mdsplus/repos; \
 	   mkdir /tmp/deploy; \
 	   cd /tmp/deploy; \
-	   python26 /mdsplus/deploy/release.py deploy
+	   python /mdsplus/deploy/release.py deploy
