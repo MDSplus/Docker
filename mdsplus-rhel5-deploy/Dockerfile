@@ -3,23 +3,31 @@
 #
 # To build rhel5 image:
 #
-# yum --installroot=/mdsplus/docker-images/rhel5root install -y yum tcsh redhat-release coreutils wget bind-utils \
-#     vim-minimal openssl rhn-client-tools python-setuptools pexpect numpy rsync make automake cvs \
-#     sudo readline-devel.* ncurses-devel.* gcc gcc-gfortran gcc-c++ java-1.7.0-openjdk-devel.* openmotif-devel.i386 \
-#     curl-devel.* rpm-build
-# /bin/cp /mdsplus/docker-images/rhel5root/usr/bin/uil /mdsplus/docker-images/rhel5root/usr/bin/uil32
-# yum --installroot=/mdsplus/docker-images/rhel5root install -y openmotif-devel.x86_64
-# mknod /mdsplus/rhel5root/dev/random c 1 9
-# mknod /mdsplus/rhel5root/dev/urandom c 1 9
-# cp ~twf/mit-activate /mdsplus/rhel5root/
+# yum --installroot=/mdsplus/docker-images/rhel5root install -y yum tcsh redhat-release coreutils wget rpm-build
+# cp /mdsplus/dist/mdsplus.gpg.key /mdsplus/docker-images/rhel5root/
+# cp ~twf/mit-activate /mdsplus/docker-images/rhel5root/
+# pushd /mdsplus/docker-images/rhel5root/root; tar zxf /mdsplus/certs/rpm-signing-keys.tgz; chown -R root:root .gnupg; popd
 # chroot /mdsplus/rhel5root
+# export PATH=/bin:$PATH ### not sure why /bin isn't in path
+# mknod /dev/random c 1 9
+# mknod /dev/urandom c 1 9
+# mount -t proc proc /proc
 # csh ./mit-activate
+# yum install wget bind-utils \
+#     vim-minimal openssl rhn-client-tools python-setuptools pexpect which numpy rsync make automake cvs \
+#     sudo readline-devel readline-devel.i386 ncurses-devel ncurses-devel.i386 gcc gcc-gfortran gcc-c++ \
+#     java-1.6.0-openjdk-devel openmotif-devel.i386 \
+#     curl-devel curl-devel.i386 rpm-build repocreate
+# cp /bin/uil /bin/uil32
+# yum install -y openmotif-devel.x86_64
 ##### install epel yum repo using the url of the rpm on the epel website for rhel5 --- needed for globus and freetds pkgs
-# yum install -y globus-common-progs globus-callout-devel.* globus-gridmap-callout-error-devel.* \
-#		 globus-gsi-credential-devel.* globus-gsi-proxy-core-devel.* \
-#		 globus-gss-assist-devel.* globus-gssapi-gsi-devel.* globus-xio-gsi-driver-devel.*  \
-#		 freetds-devel.* python26 python26-distribute python26-numpy
+# yum install -y globus-xio-gsi-driver-devel globus-xio-devel.i386 globus-xio-gsi-driver-devel.i386 \
+#                globus-gridmap-callout-error-devel globus-gridmap-callout-error-devel.i686 \
+#		 freetds-devel freetds-devel.i686 python26 python26-distribute python26-numpy \
+#                devtoolset-1.1* devtoolset-1.1*.i686
 # /usr/bin/easy_install-2.6 pexpect
+# rpm --import /mdsplus.gpg.key
+# umount /proc
 # exit
 # On build system:
 # cd /mdsplus/docker-images/rhel5root
@@ -56,4 +64,4 @@ ENTRYPOINT export DIST=el5; \
 	   export CVSROOT=:pserver:MDSguest:MDSguest@www.mdsplus.org:/mdsplus/repos; \
 	   mkdir /tmp/deploy; \
 	   cd /tmp/deploy; \
-	   python26 /mdsplus/deploy/release.py deploy
+	   scl enable devtoolset-1.1 'python26 /mdsplus/deploy/release.py deploy'
