@@ -1,4 +1,4 @@
-# Sample dockerfile to build MDSplus for Windows from scratch
+# Sample dockerfile to build MDSplus for Ubuntu12-64 from scratch
 FROM ubuntu:12.04
 
 MAINTAINER Tom Fredian, version: 0.1
