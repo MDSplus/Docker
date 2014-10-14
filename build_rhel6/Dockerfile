@@ -1,18 +1,18 @@
-# Sample dockerfile to build MDSplus for rhel5 from scratch
+# Sample dockerfile to build MDSplus for rhel6 from scratch
 #
 #
 # To build rhel6 image:
 #
-# yum --installroot=/mdsplus/docker-images/rhel6root install -y yum tcsh redhat-release coreutils wget bind-utils \
+# yum --installroot=/mdsplus/docker/roots/rhel6 install -y yum tcsh redhat-release coreutils wget bind-utils \
 #     vim-minimal openssl rhn-client-tools python-setuptools pexpect numpy rsync make automake cvs \
 #     sudo readline-devel.* ncurses-devel.* gcc gcc-gfortran gcc-c++ java-1.7.0-openjdk-devel.* openmotif-devel.i386 \
-#     curl-devel.* rpm-build tar
-# /bin/cp /mdsplus/docker-images/rhel6root/usr/bin/uil /mdsplus/docker-images/rhel6root/usr/bin/uil32
-# yum --installroot=/mdsplus/docker-images/rhel6root install -y openmotif-devel.x86_64
-# mknod /mdsplus/rhel6root/dev/random c 1 9
-# mknod /mdsplus/rhel6root/dev/urandom c 1 9
-# cp ~twf/mit-activate /mdsplus/rhel6root/
-# chroot /mdsplus/rhel6root
+#     curl-devel.* python-devel rpm-build tar
+# /bin/cp /mdsplus/docker/roots/rhel6/usr/bin/uil /mdsplus/docker/roots/rhel6/usr/bin/uil32
+# yum --installroot=/mdsplus/docker/roots/rhel6 install -y openmotif-devel.x86_64
+# mknod /mdsplus/rhel6/dev/random c 1 9
+# mknod /mdsplus/rhel6/dev/urandom c 1 9
+# cp ~twf/mit-activate /mdsplus/rhel6/
+# chroot /mdsplus/rhel6
 # csh ./mit-activate
 ##### install epel yum repo using the url of the rpm on the epel website for rhel6 --- needed for globus and freetds pkgs
 # yum install -y globus-common-progs globus-callout-devel.* globus-gridmap-callout-error-devel.* \
@@ -22,10 +22,10 @@
 # /usr/bin/easy_install-2.6 pexpect
 # exit
 # On build system:
-# cd /mdsplus/docker-images/rhel6root
-# tar -czf - . | docker import - rhel6-deploy
+# cd /mdsplus/docker/roots/rhel6
+# tar -czf - . | docker import - mdsplus rhel6
 
-FROM rhel6-deploy
+FROM mdsplus:rhel6
 # To build docker image:
 #
 #    docker build -t mdsplus:build_rhel6 .
@@ -54,6 +54,7 @@ ENTRYPOINT export DIST=el6; \
 	   export MDSPLUS_DIST=/mdsplus/dist; \
 	   export MDSPLUS_CERTS=/mdsplus/certs; \
 	   export CVSROOT=:pserver:MDSguest:MDSguest@www.mdsplus.org:/mdsplus/repos; \
+	   export PYTHON_INCLUDE_DIR=/usr/include/python2.6; \
 	   mkdir /tmp/deploy; \
 	   cd /tmp/deploy; \
-	   python /mdsplus/deploy/release.py deploy
+	   scl enable devtoolset-2 'python /mdsplus/deploy/release.py deploy'

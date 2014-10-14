@@ -3,11 +3,11 @@
 #
 # To build rhel5 image:
 #
-# yum --installroot=/mdsplus/docker-images/rhel5root install -y yum tcsh redhat-release coreutils wget rpm-build
-# cp /mdsplus/dist/mdsplus.gpg.key /mdsplus/docker-images/rhel5root/
-# cp ~twf/mit-activate /mdsplus/docker-images/rhel5root/
-# pushd /mdsplus/docker-images/rhel5root/root; tar zxf /mdsplus/certs/rpm-signing-keys.tgz; chown -R root:root .gnupg; popd
-# chroot /mdsplus/rhel5root
+# yum --installroot=/mdsplus/docker/roots/rhel5 install -y yum tcsh redhat-release coreutils wget rpm-build
+# cp /mdsplus/dist/mdsplus.gpg.key /mdsplus/docker/roots/rhel5/
+# cp ~twf/mit-activate /mdsplus/docker/roots/rhel5/
+# pushd /mdsplus/docker/roots/rhel5/root; tar zxf /mdsplus/certs/rpm-signing-keys.tgz; chown -R root:root .gnupg; popd
+# chroot /mdsplus/rhel5
 # export PATH=/bin:$PATH ### not sure why /bin isn't in path
 # mknod /dev/random c 1 9
 # mknod /dev/urandom c 1 9
@@ -30,10 +30,10 @@
 # umount /proc
 # exit
 # On build system:
-# cd /mdsplus/docker-images/rhel5root
-# tar -czf - . | docker import - rhel5-deploy
+# cd /mdsplus/docker/roots/rhel5
+# tar -czf - . | docker import - mdsplus rhel5
 
-FROM rhel5-deploy
+FROM mdsplus:rhel5
 # To build docker image:
 #
 #    docker build -t mdsplus:build_rhel5 .
