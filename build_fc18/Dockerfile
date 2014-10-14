@@ -3,23 +3,23 @@
 #
 # To build fc18 image:
 #
-# yum --installroot=/mdsplus/docker-images/fc18root --releasever=18 install -y --nogpgcheck fedora-release coreutils yum\
+# yum --installroot=/mdsplus/docker/roots/fc18 --releasever=18 install -y --nogpgcheck fedora-release coreutils yum\
 #     tcsh which wget bind-utils vim-minimal openssl python-setuptools pexpect numpy rsync make automake cvs \
 #     sudo rpm-sign rpm-build createrepo yum-utils tar \ 
 #     readline-devel readline-devel.i686 gcc glibc-devel glibc-devel.i686 gcc-gfortran gcc-gfortran.i686 \
 #     gcc-c++ gcc-c++.i686 java-1.7.0-openjdk-devel libcurl-devel libcurl-devel.i686 \
 #     globus-xio-gsi-driver-devel globus-xio-gsi-driver-devel.i686 \
 #     globus-gridmap-callout-error-devel globus-gridmap-callout-error-devel.i686 \
-#     freetds-devel hdf5-devel  \
+#     freetds-devel hdf5-devel python-devel  \
 #     motif-devel.i686 libSM-devel.i686 libICE-devel.i686 libX11-devel.i686
-# mknod /mdsplus/docker-images/fc18root/dev/random c 1 9
-# mknod /mdsplus/docker-images/fc18root/dev/urandom c 1 9
-# cp /etc/resolv.conf /mdsplus/docker-images/fc18root/etc/
-# tar -zxf -C /mdsplus/certs/rpm-signing-keys.tgz /mdsplus/docker-images/fc18root/root/
-# chown -R root:root /mdsplus/docker-images/fc18root/root/.gnupg
-# cp /mdsplus/dist/mdsplus.gpg.key /mdsplus/docker-images/fc18root/
-# cp /etc/resolv.conf /mdsplus/docker-images/fc18root/etc/
-# chroot /mdsplus/docker-images/fc18root
+# mknod /mdsplus/docker/roots/fc18/dev/random c 1 9
+# mknod /mdsplus/docker/roots/fc18/dev/urandom c 1 9
+# cp /etc/resolv.conf /mdsplus/docker/roots/fc18/etc/
+# tar -zxf -C /mdsplus/certs/rpm-signing-keys.tgz /mdsplus/docker/roots/fc18/root/
+# chown -R root:root /mdsplus/docker/roots/fc18/root/.gnupg
+# cp /mdsplus/dist/mdsplus.gpg.key /mdsplus/docker/roots/fc18/
+# cp /etc/resolv.conf /mdsplus/docker/roots/fc18/etc/
+# chroot /mdsplus/docker/roots/fc18
 #### hdf5 and freetds-devel have a problem installing both the 32-bit and 64-bit rpms so this is the workaround
 # yum install hdf5.i686 libgcrypt.i686
 # yumdownloader hdf5-devel.i686
@@ -31,10 +31,10 @@
 #     libSM-devel.x86_64 libICE-devel.x86_64 libX11-devel.x86_64
 # exit
 # On build system:
-# cd /mdsplus/docker-images/fc18root
-# tar -czf - . | docker import - fc18-deploy
+# cd /mdsplus/docker/roots/fc18
+# tar -czf - . | docker import - mdsplus fc18
 
-FROM fc18-deploy
+FROM mdsplus:fc18
 # To build docker image:
 #
 #    docker build -t mdsplus:build_fc18 .
@@ -63,6 +63,7 @@ ENTRYPOINT export DIST=fc18; \
 	   export MDSPLUS_DIST=/mdsplus/dist; \
 	   export MDSPLUS_CERTS=/mdsplus/certs; \
 	   export CVSROOT=:pserver:MDSguest:MDSguest@www.mdsplus.org:/mdsplus/repos; \
+	   export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
 	   mkdir -p /tmp/deploy; \
 	   cd /tmp/deploy; \
 	   python /mdsplus/deploy/release.py deploy

@@ -1,5 +1,30 @@
 # Sample dockerfile to build MDSplus for Ubuntu12-64 from scratch
-FROM ubuntu:12.04
+#### First explort a ubuntu:12.04 image.
+#### copy /etc/resolv.conf to root/etc so you can do dns lookups.
+#### chroot to it and do the following:
+# echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" \
+#    	 > /etc/apt/sources.list.d/motif.list;\
+#    apt-get update; \
+#    apt-get install -y autoconf automake cvs gcc gfortran g++ libreadline-dev \
+#    	    	       openjdk-7-jdk wget make rsync sudo pkg-config \
+#            	       globus-common-progs libglobus-callout-dev \
+#		       libglobus-gridmap-callout-error-dev \
+#		       libglobus-gsi-credential-dev \
+#		       libglobus-gsi-proxy-core-dev \
+#		       libglobus-gss-assist-dev \
+#		       libglobus-gssapi-gsi-dev \
+#		       libglobus-xio-gsi-driver-dev  \
+#		       freetds-dev \
+#         	       libmotif-dev libxt-dev libxmu-dev libxp-dev libx11-dev \
+#          	       libcurl4-openssl-dev reprepro python-setuptools \
+#          	       python-numpy python-pexpect python-dev;
+# mdir /mdsplus
+# Make a image from this root:
+#
+# cd ubuntu12-64
+# tar zcf - . | docker import - mdsplus ubuntu12-64
+#
+FROM mdsplus:ubuntu12-64
 # To build docker image:
 #
 #    docker build -t mdsplus:build_ubuntu12-64 .
@@ -18,24 +43,6 @@ FROM ubuntu:12.04
 
 MAINTAINER Tom Fredian, version: 0.1
 
-RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" \
-    	 > /etc/apt/sources.list.d/motif.list;\
-    apt-get update; \
-    apt-get install -y autoconf automake cvs gcc gfortran g++ libreadline-dev \
-    	    	       openjdk-7-jdk wget make rsync sudo pkg-config \
-            	       globus-common-progs libglobus-callout-dev \
-		       libglobus-gridmap-callout-error-dev \
-		       libglobus-gsi-credential-dev \
-		       libglobus-gsi-proxy-core-dev \
-		       libglobus-gss-assist-dev \
-		       libglobus-gssapi-gsi-dev \
-		       libglobus-xio-gsi-driver-dev  \
-		       freetds-dev \
-          	       libmotif-dev libxt-dev libxmu-dev libxp-dev libx11-dev \
-          	       libcurl4-openssl-dev reprepro python-setuptools \
-          	       python-numpy python-pexpect; \
-    apt-get -y upgrade; \
-    mkdir /mdsplus
 ENTRYPOINT apt-key add /mdsplus/dist/mdsplus.gpg.key; \
 	   export DIST=Ubuntu12; \
 	   export LABVIEW64_DIR=/mdsplus/extras/Labview-x86_64; \
@@ -47,6 +54,7 @@ ENTRYPOINT apt-key add /mdsplus/dist/mdsplus.gpg.key; \
 	   export MDSPLUS_DIST=/mdsplus/dist; \
 	   export MDSPLUS_CERTS=/mdsplus/certs; \
 	   export CVSROOT=:pserver:MDSguest:MDSguest@www.mdsplus.org/mdsplus/repos; \
+	   export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
 	   mkdir -p /tmp/deploy; \
            cd /tmp/deploy; \
 	   python /mdsplus/deploy/release.py deploy
