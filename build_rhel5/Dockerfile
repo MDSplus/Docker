@@ -63,4 +63,4 @@ ENTRYPOINT export DIST=el5; \
            git checkout alpha; \
            git pull; \
 	   cd /tmp/deploy; \
-	   scl enable devtoolset-1.1 'python26 /mdsplus/git/deploy/release.py deploy'
+	   scl enable devtoolset-1.1 'python26 /mdsplus/git/mdsplus/deploy/release.py deploy'
