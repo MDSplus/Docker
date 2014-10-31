@@ -4,7 +4,7 @@
 # To build fc17 image:
 #
 # yum --installroot=/mdsplus/docker/roots/fc17 --releasever=18 install -y --nogpgcheck fedora-release coreutils yum\
-#     tcsh which wget bind-utils vim-minimal openssl python-setuptools pexpect numpy rsync make automake cvs \
+#     tcsh which wget bind-utils vim-minimal openssl python-setuptools pexpect numpy rsync make automake cvs git \
 #     sudo rpm-sign rpm-build createrepo yum-utils tar \ 
 #     readline-devel readline-devel.i686 gcc glibc-devel glibc-devel.i686 gcc-gfortran gcc-gfortran.i686 \
 #     gcc-c++ java-1.7.0-openjdk-devel libcurl-devel libcurl-devel.i686 \
@@ -62,11 +62,11 @@ ENTRYPOINT export DIST=fc17; \
 	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \
            export IDL_DIR=/mdsplus/extras/idl-x86; \
 	   export JDK_DIR=/etc/alternatives/java_sdk_openjdk; \
-	   export WORKSPACE=/tmp/deploy; \
 	   export MDSPLUS_DIST=/mdsplus/dist; \
-	   export MDSPLUS_CERTS=/mdsplus/certs; \
-	   export CVSROOT=:pserver:MDSguest:MDSguest@www.mdsplus.org:/mdsplus/repos; \
            export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
 	   mkdir -p /tmp/deploy; \
+           cd /mdsplus/git/mdsplus; \
+           git checkout alpha; \
+           git pull; \
 	   cd /tmp/deploy; \
-	   python /mdsplus/deploy/release.py deploy
+	   python /mdsplus/git/mdsplus/deploy/release.py deploy
