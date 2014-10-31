@@ -62,7 +62,6 @@ ENTRYPOINT export DIST=fc17; \
 	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \
            export IDL_DIR=/mdsplus/extras/idl-x86; \
 	   export JDK_DIR=/etc/alternatives/java_sdk_openjdk; \
-	   export MDSPLUS_DIST=/mdsplus/dist; \
            export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
 	   mkdir -p /tmp/deploy; \
            cd /mdsplus/git/mdsplus; \

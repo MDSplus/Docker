@@ -45,12 +45,11 @@ ENTRYPOINT apt-key add /mdsplus/dist/mdsplus.gpg.key; \
            export LABVIEW_DIR=/mdsplus/extras/Labview-x86; \
 	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \
            export IDL_DIR=/mdsplus/extras/idl-x86; \
-	   export JDK_DIR=/usr/lib/jvm/java-7-openjdk-amd64; \
-	   export WORKSPACE=/tmp/deploy; \
-	   export MDSPLUS_DIST=/mdsplus/dist; \
-	   export MDSPLUS_CERTS=/mdsplus/certs; \
-	   export CVSROOT=:pserver:MDSguest:MDSguest@www.mdsplus.org/mdsplus/repos; \
-	   export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
+	   export JDK_DIR=/etc/alternatives/java_sdk_openjdk; \
+           export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
 	   mkdir -p /tmp/deploy; \
-           cd /tmp/deploy; \
-	   python /mdsplus/deploy/release.py deploy
+           cd /mdsplus/git/mdsplus; \
+           git checkout alpha; \
+           git pull; \
+	   cd /tmp/deploy; \
+	   python /mdsplus/git/mdsplus/deploy/release.py deploy
