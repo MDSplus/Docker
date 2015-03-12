@@ -49,7 +49,7 @@ ENTRYPOINT apt-key add /mdsplus/dist/mdsplus.gpg.key; \
            export LABVIEW_DIR=/mdsplus/extras/Labview-x86; \
 	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \
            export IDL_DIR=/mdsplus/extras/idl-x86; \
-	   export JDK_DIR=/etc/alternatives/java_sdk_openjdk; \
+	   export JDK_DIR=/usr/lib/jvm/java-7-openjdk-amd64; \
            export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
 	   mkdir -p /tmp/deploy; \
            cd /mdsplus/git/mdsplus; \
