@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e 
+wget -q -O - https://github.com/MDSplus/3rd-party-apis/archive/master.tar.gz | (cd /; tar zxf -)
+export LABVIEW_DIR=/3rd-party-apis-master/labview
+export IDL_DIR=/3rd-party-apis-master/idl
+export PYTHON_INCLUDE_DIR=/3rd-party-apis-master/windows-python27
+mkdir -p $BUILDROOT
+cd ${SOURCE}
+./configure --prefix=${BUILDROOT}/usr/local/mdsplus \
+            --exec_prefix=${BUILDROOT}/usr/local/mdsplus \
+            --with-labview=$LABVIEW_DIR \
+            --with-jdk=$JDK_DIR \
+            --with-idl=$IDL_DIR \
+            --bindir=${BUILDROOT}/usr/local/mdsplus/bin_x86_64 \
+            --libdir=${BUILDROOT}/usr/local/mdsplus/bin_x86_64 \
+            --host=x86_64-w64-mingw32 \
+            --with-java_target=6 --with-java_bootclasspath=$(pwd)/rt.jar;
+make clean > /dev/null
+env LANG=en_US.UTF-8 make
+make install
+make clean >/dev/null;
+./configure --prefix=${BUILDROOT}/usr/local/mdsplus \
+            --exec_prefix=${BUILDROOT}/usr/local/mdsplus \
+            --with-labview=$LABVIEW_DIR \
+            --with-jdk=$JDK_DIR \
+            --with-idl=$IDL_DIR \
+            --bindir=${BUILDROOT}/usr/local/mdsplus/bin_x86 \
+            --libdir=${BUILDROOT}/usr/local/mdsplus/bin_x86 \
+            --host=i686-w64-mingw32 \
+            --with-java_target=6 --with-java_bootclasspath=$(pwd)/rt.jar;
+env LANG=en_US.UTF-8 make;
+env MDSPLUS_VERSION=${mdsplus_version} make install;
+make clean >/dev/null;

@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+set -e
+case "$1" in
+build)
+ mkdir /buildsrc
+ export JDK_DIR=/etc/alternatives/java_sdk_openjdk;
+ export BUILDROOT="/buildroot";
+ if [ -z "$2" ]
+ then tag=stable;
+ else tag=$2;
+ fi;
+ if [ -d /source ]
+ then 
+   rsync -a /source /buildsrc/
+   export SOURCE="/buildsrc/source"
+ else
+   cd /buildsrc;
+   wget -q -O - https://github.com/MDSplus/mdsplus/archive/${tag}.tar.gz | tar zxf -;
+   export SOURCE="/buildsrc/mdsplus-${tag}"
+ fi
+ export PATH=${SOURCE}/deploy:$PATH
+ build_windows_mdsplus
+ ;;
+*) echo Unknown option. Valid options are '"build"';;
+esac
