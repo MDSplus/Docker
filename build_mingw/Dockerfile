@@ -1,7 +1,7 @@
-FROM mdsplus:mingw
+FROM mdsplus/docker:mingw
 # To build docker image:
 #
-#    docker build -t mdsplus:build_mingw .
+#    docker build -t mdsplus/docker:build_mingw .
 #
 #
 #    To build MDSplus for Windows use the following command:
