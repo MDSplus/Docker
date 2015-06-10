@@ -1,7 +1,7 @@
-FROM mdsplus:centos6
+FROM mdsplus/docker:centos6
 # To build docker image:
 #
-#    docker build -t mdsplus:build_centos6 .
+#    docker build -t mdsplus/docker:build_centos6 .
 #
 #
 #    To build MDSplus for centos6 use the following command:
