@@ -1,0 +1,12 @@
+#!/bin/bash
+ 
+# wget -q -O - https://github.com/MDSplus/3rd-party-apis/archive/master.tar.gz | (cd /; tar zxf -)
+# export LABVIEW_DIR=/3rd-party-apis-master/labview
+# export IDL_DIR=/3rd-party-apis-master/idl
+mkdir -p $BUILDROOT
+cd ${SOURCE}
+./configure --prefix=${BUILDROOT}/ \
+            --with-jdk=$JDK_DIR \
+            --enable-doxygen-man
+make -C docs clean > /dev/null
+make -C docs install
