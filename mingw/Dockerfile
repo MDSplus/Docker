@@ -7,6 +7,8 @@ RUN yum install -y wget make tar \
       mingw64-gcc mingw64-gcc-c++ mingw64-gcc-gfortran mingw64-libxml2 \
       mingw64-dlfcn mingw64-winpthreads mingw64-curl mingw64-readline \
       mingw64-bintools \
+      mingw32-libxml2-static mingw64-libxml2-static \
+      mingw32-zlib-static mingw64-zlib-static \
       java-devel libxml2-devel binutils rsync wine
      
 

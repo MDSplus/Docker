@@ -4,6 +4,8 @@ wget -q -O - https://github.com/MDSplus/3rd-party-apis/archive/master.tar.gz | (
 export LABVIEW_DIR=/3rd-party-apis-master/labview
 export IDL_DIR=/3rd-party-apis-master/idl
 export PYTHON_INCLUDE_DIR=/3rd-party-apis-master/windows-python27
+export JNI_INCLUDE_DIR=/3rd-party-apis-master/windows-jdk
+export JNI_MD_INCLUDE_DIR=/3rd-party-apis-master/windows-jdk/win32
 mkdir -p $BUILDROOT
 cd ${SOURCE}
 ./configure --prefix=${BUILDROOT}/usr/local/mdsplus \
