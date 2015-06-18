@@ -30,8 +30,8 @@ ENTRYPOINT export DIST=windows; \
 	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \ 
 	   export JDK_DIR=/etc/alternatives/java_sdk_openjdk; \
 	   export PYTHON_INCLUDE_DIR=/mdsplus/extras/windows-python27; \
-           export JNI_INCLUDE_DIR=/mdsplus/extras/windows-jdk; \
-           export JNI_MD_INCLUDE_DIR=/mdsplus/extras/windows-jdk/win32; \
+           export JNI_INCLUDE_DIR=/mdsplus/extras/windows-jdk/include; \
+           export JNI_MD_INCLUDE_DIR=/mdsplus/extras/windows-jdk/include/win32; \
 	   mkdir -p /tmp/deploy; \
            cd /mdsplus/git/mdsplus; \
            git checkout alpha; \
