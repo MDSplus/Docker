@@ -22,6 +22,15 @@ FROM mdsplus/docker:mingw
 
 MAINTAINER Tom Fredian, version: 0.1
 
+#
+# Since configure now builds test executables and executes them wine must have the mingw dll's
+# installed in its drive_c/windows/... directories. Run wine to create ~/.wine and then add symlinks
+#
+
+RUN wine cmd /c echo test >/dev/null 2>&1 < /dev/null; \
+    ln -sf /usr/i686-w64-mingw32/sys-root/mingw/bin/*.dll ~/.wine/drive_c/windows/syswow64/; \
+    ln -sf  /usr/x86_64-w64-mingw32/sys-root/mingw/bin/*.dll ~/.wine/drive_c/windows/system32
+
 COPY build_* /usr/local/bin/
 
 ENTRYPOINT ["build_mdsplus"]

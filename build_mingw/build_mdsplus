@@ -3,7 +3,7 @@
 set -e
 case "$1" in
 build)
- mkdir /buildsrc
+ mkdir -p /buildsrc
  export JDK_DIR=/etc/alternatives/java_sdk_openjdk;
  export BUILDROOT="/buildroot";
  if [ -z "$2" ]
