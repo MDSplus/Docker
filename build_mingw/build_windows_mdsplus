@@ -50,13 +50,13 @@ then
     # Prepare windows share for building the MdsObjectsCppShr-VS.dll and the import libraries
     #
     rsync -am --include="*/" --include="*.h" --include="*.def" --exclude="*" /buildsrc/ ./
-    rsync -a /buildsrc/mdsobjects/cpp /buildsrc/mdsobjects/MdsObjects* ./mdsobjects/
+    rsync -a /buildsrc/mdsobjects/cpp /buildsrc/mdsobjects/MdsObjects* /buildsrc/mdsobjects/VS-* ./mdsobjects/
     rsync -a /buildsrc/deploy/winbld.bat ./deploy/
     rsync -a /buildroot/usr/local/mdsplus/bin_* ./
     #
     # Build VS dll's and import libs
     #
-    winexe --debug-strerr -U ${WINBLD_USER} -d 0 //${WINBLD_HOST} "cmd /c ${topsrcdir}/deploy/winbld" 2>/dev/null | tee /var/log/winbld.log
+    winexe --debug-stderr -U ${WINBLD_USER} -d 0 //${WINBLD_HOST} "cmd /c ${topsrcdir}/deploy/winbld" 2>/dev/null | tee /var/log/winbld.log
     grep "Build: 2 succeeded" /var/log/winbld.log >/dev/null 2>&1
     rsync -a /winbld/${tmpdir}/bin_x86* /buildroot/usr/local/mdsplus/
 fi
