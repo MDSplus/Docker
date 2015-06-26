@@ -1,35 +1,63 @@
 #!/bin/bash
+
+cleanup() {
+    rm -Rf /winbld/${tmpdir}
+}
+
 set -e 
 wget -q -O - https://github.com/MDSplus/3rd-party-apis/archive/master.tar.gz | (cd /; tar zxf -)
-export LABVIEW_DIR=/3rd-party-apis-master/labview
-export IDL_DIR=/3rd-party-apis-master/idl
-export PYTHON_INCLUDE_DIR=/3rd-party-apis-master/windows-python27
 export JNI_INCLUDE_DIR=/3rd-party-apis-master/windows-jdk
 export JNI_MD_INCLUDE_DIR=/3rd-party-apis-master/windows-jdk/win32
-mkdir -p $BUILDROOT
-cd ${SOURCE}
-./configure --prefix=${BUILDROOT}/usr/local/mdsplus \
-            --exec_prefix=${BUILDROOT}/usr/local/mdsplus \
-            --with-labview=$LABVIEW_DIR \
+cd /buildsrc
+./configure --prefix=/buildroot/usr/local/mdsplus \
+            --exec_prefix=/buildroot/usr/local/mdsplus \
+            --with-labview=/3rd-party-apis-master/labview \
             --with-jdk=$JDK_DIR \
-            --with-idl=$IDL_DIR \
-            --bindir=${BUILDROOT}/usr/local/mdsplus/bin_x86_64 \
-            --libdir=${BUILDROOT}/usr/local/mdsplus/bin_x86_64 \
+            --with-idl=/3rd-party-apis-master/idl \
+            --bindir=/buildroot/usr/local/mdsplus/bin_x86_64 \
+            --libdir=/buildroot/usr/local/mdsplus/bin_x86_64 \
             --host=x86_64-w64-mingw32 \
-            --with-java_target=6 --with-java_bootclasspath=$(pwd)/rt.jar;
+	    --with-python_include=/3rd-party-apis-master/windows-python27 \
+            --with-java_target=6 --with-java_bootclasspath=/buildsrc/rt.jar;
 make clean > /dev/null
 env LANG=en_US.UTF-8 make
 make install
 make clean >/dev/null;
-./configure --prefix=${BUILDROOT}/usr/local/mdsplus \
-            --exec_prefix=${BUILDROOT}/usr/local/mdsplus \
-            --with-labview=$LABVIEW_DIR \
+./configure --prefix=/buildroot/usr/local/mdsplus \
+            --exec_prefix=/buildroot/usr/local/mdsplus \
+            --with-labview=/3rd-party-apis-master/labview \
             --with-jdk=$JDK_DIR \
-            --with-idl=$IDL_DIR \
-            --bindir=${BUILDROOT}/usr/local/mdsplus/bin_x86 \
-            --libdir=${BUILDROOT}/usr/local/mdsplus/bin_x86 \
+            --with-idl=$/3rd-party-apis-master/idl \
+            --bindir=/buildroot/usr/local/mdsplus/bin_x86 \
+            --libdir=/buildroot/usr/local/mdsplus/bin_x86 \
             --host=i686-w64-mingw32 \
-            --with-java_target=6 --with-java_bootclasspath=$(pwd)/rt.jar;
+	    --with-python_include=/3rd-party-apis-master/windows-python27 \
+            --with-java_target=6 --with-java_bootclasspath=/buildsrc/rt.jar;
 env LANG=en_US.UTF-8 make;
 env MDSPLUS_VERSION=${mdsplus_version} make install;
 make clean >/dev/null;
+if [   ! -z "$WINBLD_USER" -a \
+       ! -z "$WINBLD_HOST" -a \
+       ! -z "$WINBLD_REMDIR" -a \
+       -d /winbld -a ]
+then
+    cd /winbld
+    tmpdir=$(mktemp -d mdsplus-XXXXXXXXXX)
+    #trap cleanup EXIT
+    topsrcdir=${WINBLD_REMDIR}/${tmpdir}
+    cd ${tmpdir}
+    #
+    # Prepare windows share for building the MdsObjectsCppShr-VS.dll and the import libraries
+    #
+    rsync -am --include="*/" --include="*.h" --include="*.def" --exclude="*" /buildsrc/ ./
+    rsync -a /buildsrc/mdsobjects/cpp /buildsrc/mdsobjects/MdsObjects* ./mdsobjects/
+    rsync -a /buildsrc/deploy/winbld.bat ./deploy/
+    rsync -a /buildroot/usr/local/mdsplus/bin_* ./
+    #
+    # Build VS dll's and import libs
+    #
+    winexe --debug-strerr -U ${WINBLD_USER} -d 0 //${WINBLD_HOST} "cmd /c ${topsrcdir}/deploy/winbld" 2>/dev/null | tee /var/log/winbld.log
+    grep "Build: 2 succeeded" /var/log/winbld.log >/dev/null 2>&1
+    rsync -a /winbld/${tmpdir}/bin_x86* /buildroot/usr/local/mdsplus/
+fi
+	   
