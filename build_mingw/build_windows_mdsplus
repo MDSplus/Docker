@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -o verbose
 cleanup() {
     rm -Rf /winbld/${tmpdir}
 }
@@ -43,21 +43,25 @@ if [   ! -z "$WINBLD_USER" -a \
 then
     cd /winbld
     tmpdir=$(mktemp -d mdsplus-XXXXXXXXXX)
-    #trap cleanup EXIT
+    trap cleanup EXIT
     topsrcdir=${WINBLD_REMDIR}/${tmpdir}
     cd ${tmpdir}
     #
     # Prepare windows share for building the MdsObjectsCppShr-VS.dll and the import libraries
     #
-    rsync -am --include="*/" --include="*.h" --include="*.def" --exclude="*" /buildsrc/ ./
+    rsync -am --include="*/" --include="*.h*" --include="*.def" --exclude="*" /buildsrc/ ./
     rsync -a /buildsrc/mdsobjects/cpp /buildsrc/mdsobjects/MdsObjects* /buildsrc/mdsobjects/VS-* ./mdsobjects/
     rsync -a /buildsrc/deploy/winbld.bat ./deploy/
     rsync -a /buildroot/usr/local/mdsplus/bin_* ./
     #
     # Build VS dll's and import libs
     #
-    winexe --debug-stderr -U ${WINBLD_USER} -d 0 //${WINBLD_HOST} "cmd /c ${topsrcdir}/deploy/winbld" 2>/dev/null | tee /var/log/winbld.log
-    grep "Build: 2 succeeded" /var/log/winbld.log >/dev/null 2>&1
-    rsync -a /winbld/${tmpdir}/bin_x86* /buildroot/usr/local/mdsplus/
+    # Strange command needed because of winexe behavior when running without a terminal
+    #
+    cat < /dev/null | winexe --debug-stderr -U ${WINBLD_USER} -d 0 //${WINBLD_HOST} "cmd /c ${topsrcdir}/deploy/winbld"
+    # see if files are there
+    ls /winbld/${tmpdir}/bin_x86*.lib /winbld/${tmpdir}/MdsObjectsCppShr-VS.* > /dev/null
+    rsync -av --include="*/" --include="*.lib" --include="MdsObectsCppShr-VS.dll" --exclude="*" /winbld/${tmpdir}/bin_x86* /buildroot/usr/local/mdsplus/
 fi
-	   
+
+ 
