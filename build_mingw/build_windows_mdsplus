@@ -34,7 +34,7 @@ make clean >/dev/null;
 	    --with-python_include=/3rd-party-apis-master/windows-python27 \
             --with-java_target=6 --with-java_bootclasspath=/buildsrc/rt.jar
 env LANG=en_US.UTF-8 make
-env MDSPLUS_VERSION=${mdsplus_version} make install
+env MDSPLUS_VERSION=${RELEASE} make install
 make clean >/dev/null
 if [   ! -z "$WINBLD_USER" -a \
        ! -z "$WINBLD_HOST" -a \
@@ -62,6 +62,29 @@ then
     # see if files are there
     ls /winbld/${tmpdir}/bin_x86*.lib /winbld/${tmpdir}/MdsObjectsCppShr-VS.* > /dev/null
     rsync -av --include="*/" --include="*.lib" --include="MdsObectsCppShr-VS.dll" --exclude="*" /winbld/${tmpdir}/bin_x86* /buildroot/usr/local/mdsplus/
+    VS_SwITCH=-DVisualStudio
+fi
+if [ -d /installer ]
+then
+    makensis -DMAJOR=${MAJOR} -DMINOR=${MINOR} -DRELEASE=${RELEASE} -DFLAVOR=${BRANCH} -NOCD \
+             -DOUTDIR=/installer ${VS_SWITCH} /buildsrc/deploy/mdsplus.nsi
+    if [ "${BRANCH}" = "stable" ]
+    then
+	BNAME=""
+    else
+	BNAME="-${BRANCH}"
+    fi
+    if [ -d /certs ]
+    then
+	echo mdsplus | signcode -spc /certs/mdsplus.spc \
+				-v /certs/mdsplus.pvk \
+				-a sha1 \
+				-$ individual \
+				-n MDSplus  \
+				-i http://www.mdsplus.org/ \
+				-t http://timestamp.verisign.com/scripts/timestamp.dll \
+				-tr 10 /installer/MDSplus${BNAME}-${MAJOR}.${MINOR}-${RELEASE}.exe
+    fi
 fi
 
  
