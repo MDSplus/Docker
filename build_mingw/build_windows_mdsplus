@@ -60,7 +60,7 @@ then
     #
     cat < /dev/null | winexe --debug-stderr -U ${WINBLD_USER} -d 0 //${WINBLD_HOST} "cmd /c ${topsrcdir}/deploy/winbld"
     # see if files are there
-    ls /winbld/${tmpdir}/bin_x86*.lib /winbld/${tmpdir}/MdsObjectsCppShr-VS.* > /dev/null
+    ls /winbld/${tmpdir}/bin_x86*/*.lib /winbld/${tmpdir}/bin_x86*/MdsObjectsCppShr-VS.* > /dev/null
     rsync -av --include="*/" --include="*.lib" --include="MdsObectsCppShr-VS.dll" --exclude="*" /winbld/${tmpdir}/bin_x86* /buildroot/usr/local/mdsplus/
     VS_SwITCH=-DVisualStudio
 fi
