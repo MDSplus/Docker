@@ -4,7 +4,32 @@ cleanup() {
     rm -Rf /winbld/${tmpdir}
 }
 
-set -e 
+set -e
+if [ "$BRANCH" = "local" ]
+then
+    trap "" EXIT
+    export BRANCH=$(git branch --list 2>/dev/null | grep '*' | awk '{print $2}')
+    if [ -z "$BRANCH" ]; then export BRANCH="local"; fi
+    trap "" EXIT
+    tag=$(git show-ref refs/heads/${branch} 2>/dev/null | awk '{system("git tag -l --contains "$1" \"'${branch}'_release*\"");}')
+    if [ -z "$tag" ]; then tag="local-0-0-0"; fi
+    export $(echo $tag | awk -F- '{print "MAJOR="$2" MINOR="$3" RELEASE="$4;}')
+fi
+if [ -d /installer ]
+then
+    if [ "${BRANCH}" = "stable" ]
+    then
+	BNAME=""
+    else
+	BNAME="-${BRANCH}"
+    fi
+    INSTALLER="/installer/MDSplus${BNAME}-${MAJOR}-${MINOR}-${RELEASE}.exe"
+    if [ -r  "$INSTALLER" ]
+    then
+	echo "$INSTALLER already exists. Nothing to do."
+	exit 0
+    fi
+fi
 wget -q -O - https://github.com/MDSplus/3rd-party-apis/archive/master.tar.gz | (cd /; tar zxf -)
 export JNI_INCLUDE_DIR=/3rd-party-apis-master/windows-jdk
 export JNI_MD_INCLUDE_DIR=/3rd-party-apis-master/windows-jdk/win32
@@ -67,12 +92,6 @@ fi
 if [ -d /installer ]
 then
     cd /buildroot
-    if [ "${BRANCH}" = "stable" ]
-    then
-	BNAME=""
-    else
-	BNAME="-${BRANCH}"
-    fi
     makensis -DMAJOR=${MAJOR} -DMINOR=${MINOR} -DRELEASE=${RELEASE} -DFLAVOR=${BNAME} -NOCD \
              -DOUTDIR=/installer ${VS_SWITCH} /buildsrc/deploy/mdsplus.nsi
     if [ -d /certs ]
