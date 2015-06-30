@@ -9,13 +9,13 @@ wget -q -O - https://github.com/MDSplus/3rd-party-apis/archive/master.tar.gz | (
 export JNI_INCLUDE_DIR=/3rd-party-apis-master/windows-jdk
 export JNI_MD_INCLUDE_DIR=/3rd-party-apis-master/windows-jdk/win32
 cd /buildsrc
-./configure --prefix=/buildroot/usr/local/mdsplus \
-            --exec_prefix=/buildroot/usr/local/mdsplus \
+./configure --prefix=/buildroot \
+            --exec_prefix=/buildroot \
             --with-labview=/3rd-party-apis-master/labview \
             --with-jdk=$JDK_DIR \
             --with-idl=/3rd-party-apis-master/idl \
-            --bindir=/buildroot/usr/local/mdsplus/bin_x86_64 \
-            --libdir=/buildroot/usr/local/mdsplus/bin_x86_64 \
+            --bindir=/buildroot/bin_x86_64 \
+            --libdir=/buildroot/bin_x86_64 \
             --host=x86_64-w64-mingw32 \
 	    --with-python_include=/3rd-party-apis-master/windows-python27 \
             --with-java_target=6 --with-java_bootclasspath=/buildsrc/rt.jar
@@ -23,13 +23,13 @@ make clean > /dev/null
 env LANG=en_US.UTF-8 make
 make install
 make clean >/dev/null;
-./configure --prefix=/buildroot/usr/local/mdsplus \
-            --exec_prefix=/buildroot/usr/local/mdsplus \
+./configure --prefix=/buildroot \
+            --exec_prefix=/buildroot \
             --with-labview=/3rd-party-apis-master/labview \
             --with-jdk=$JDK_DIR \
             --with-idl=$/3rd-party-apis-master/idl \
-            --bindir=/buildroot/usr/local/mdsplus/bin_x86 \
-            --libdir=/buildroot/usr/local/mdsplus/bin_x86 \
+            --bindir=/buildroot/bin_x86 \
+            --libdir=/buildroot/bin_x86 \
             --host=i686-w64-mingw32 \
 	    --with-python_include=/3rd-party-apis-master/windows-python27 \
             --with-java_target=6 --with-java_bootclasspath=/buildsrc/rt.jar
@@ -52,7 +52,7 @@ then
     rsync -am --include="*/" --include="*.h*" --include="*.def" --exclude="*" /buildsrc/ ./
     rsync -a /buildsrc/mdsobjects/cpp /buildsrc/mdsobjects/MdsObjects* /buildsrc/mdsobjects/VS-* ./mdsobjects/
     rsync -a /buildsrc/deploy/winbld.bat ./deploy/
-    rsync -a /buildroot/usr/local/mdsplus/bin_* ./
+    rsync -a /buildroot/bin_* ./
     #
     # Build VS dll's and import libs
     #
@@ -61,12 +61,12 @@ then
     cat < /dev/null | winexe --debug-stderr -U ${WINBLD_USER} -d 0 //${WINBLD_HOST} "cmd /c ${topsrcdir}/deploy/winbld"
     # see if files are there
     ls /winbld/${tmpdir}/bin_x86*/*.lib /winbld/${tmpdir}/bin_x86*/MdsObjectsCppShr-VS.* > /dev/null
-    rsync -av --include="*/" --include="*.lib" --include="MdsObectsCppShr-VS.dll" --exclude="*" /winbld/${tmpdir}/bin_x86* /buildroot/usr/local/mdsplus/
+    rsync -av --include="*/" --include="*.lib" --include="MdsObectsCppShr-VS.dll" --exclude="*" /winbld/${tmpdir}/bin_x86* /buildroot/
     VS_SwITCH=-DVisualStudio
 fi
 if [ -d /installer ]
 then
-    cd /buildsrc
+    cd /buildroot
     makensis -DMAJOR=${MAJOR} -DMINOR=${MINOR} -DRELEASE=${RELEASE} -DFLAVOR=${BRANCH} -NOCD \
              -DOUTDIR=/installer ${VS_SWITCH} /buildsrc/deploy/mdsplus.nsi
     if [ "${BRANCH}" = "stable" ]
