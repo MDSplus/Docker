@@ -5,15 +5,19 @@ cleanup() {
 }
 
 set -e
+echo BRANCH is currently set to $BRANCH
 if [ "$BRANCH" = "local" ]
 then
     trap "" EXIT
     export BRANCH=$(git branch --list 2>/dev/null | grep '*' | awk '{print $2}')
+    echo BRANCH is now set to $BRANCH
     if [ -z "$BRANCH" ]; then export BRANCH="local"; fi
     trap "" EXIT
     tag=$(git show-ref refs/heads/${branch} 2>/dev/null | awk '{system("git tag -l --contains "$1" \"'${branch}'_release*\"");}')
+    echo tag is now set to $tag
     if [ -z "$tag" ]; then tag="local-0-0-0"; fi
     export $(echo $tag | awk -F- '{print "MAJOR="$2" MINOR="$3" RELEASE="$4;}')
+    echo $tag | awk -F- '{print "MAJOR="$2" MINOR="$3" RELEASE="$4;}'
 fi
 if [ -d /installer ]
 then
