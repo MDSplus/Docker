@@ -22,6 +22,19 @@ build)
      mv mdsplus-${tag}/* ./
  fi
  export $(echo $tag | awk -F- '{print "BRANCH="$1" MAJOR="$2" MINOR="$3" RELEASE="$4" NF="NF;}')
+ if [ -z "${RELEASE}" ]
+ then
+    export RELEASE=0
+ fi
+ if [ -z "${MINOR}" ]
+ then
+     export MINOR=0
+ fi
+ if [ -z "${MAJOR}" ]
+ then
+     export MAJOR=0
+ fi
+ 
  if [ "${BRANCH:${#BRANCH}-8}" = "_release" ]
  then
      export BRANCH=${BRANCH:0:${#BRANCH}-8}
