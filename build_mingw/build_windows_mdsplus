@@ -66,6 +66,7 @@ then
 fi
 if [ -d /installer ]
 then
+    cd /buildsrc
     makensis -DMAJOR=${MAJOR} -DMINOR=${MINOR} -DRELEASE=${RELEASE} -DFLAVOR=${BRANCH} -NOCD \
              -DOUTDIR=/installer ${VS_SWITCH} /buildsrc/deploy/mdsplus.nsi
     if [ "${BRANCH}" = "stable" ]
