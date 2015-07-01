@@ -1,6 +1,6 @@
 from fedora:21
 
-RUN yum install -y wget make tar \
+RUN yum install -y wget make tar git \
       mingw32-gcc mingw32-gcc-c++ mingw32-gcc-gfortran mingw32-libxml2 \
       mingw32-dlfcn mingw32-winpthreads mingw32-curl mingw32-readline \
       mingw32-bintools mingw32-nsis\
