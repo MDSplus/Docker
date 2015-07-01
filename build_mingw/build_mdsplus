@@ -55,7 +55,7 @@ case "$1" in
 	export $(echo $tag | awk -F- '{print "MAJOR="$2" MINOR="$3" RELEASE="$4" NF="NF;}')
 	if [ -d /installer ]
 	then
-	    export INSTALLER="/installer/MDSplus${BNAME}-${MAJOR}-${MINOR}-${RELEASE}.exe"
+	    export INSTALLER="/installer/MDSplus${BNAME}-${MAJOR}.${MINOR}-${RELEASE}.exe"
 	    if [ -r ${INSTALLER} ]
 	    then
 		echo "Installer for release $tag already exists so nothing to do."
