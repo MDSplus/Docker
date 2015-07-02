@@ -66,6 +66,7 @@ case "$1" in
 	cd /buildsrc
 	wget -q -O - https://github.com/MDSplus/mdsplus/archive/${tag}.tar.gz | tar zxf -;
 	mv mdsplus-${tag}/* ./
+	export PATH=/buildsrc/deploy:$PATH
 	build_windows_mdsplus
 	;;
 *) echo Unknown option. Valid options are '"build"';;
