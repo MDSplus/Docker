@@ -25,6 +25,7 @@ RUN yum install -y wget epel-release; \
       openmotif-devel.i686 \ 
       libcurl-devel libcurl-devel.i686 \
       libxml2-devel libxml2-devel.i686 \
+      zlib-devel zlib-devel.i686 \
       globus-common-progs \
       globus-callout-devel globus-callout-devel.i686 \
       globus-gridmap-callout-error-devel globus-gridmap-callout-error-devel.i686 \
