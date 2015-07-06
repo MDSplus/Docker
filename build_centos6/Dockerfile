@@ -22,6 +22,6 @@ FROM mdsplus/docker:centos6
 
 MAINTAINER Tom Fredian, version: 0.1
 
-COPY build_* /usr/local/bin/
+COPY build* /usr/local/bin/
 
 ENTRYPOINT ["build_mdsplus"]
