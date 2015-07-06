@@ -1,9 +1,6 @@
 #!/bin/bash
 #
-# OS environment variables:
-#
-export JDK_DIR=/etc/alternatives/java_sdk_openjdk;
-#
+source build.conf
 set -e
 case "$1" in
     build)
@@ -40,7 +37,7 @@ case "$1" in
 	    export BRANCH=${BRANCH:0:${#BRANCH}-8}
 	fi
 	export PATH=/buildsrc/deploy:$PATH
-	build_windows_mdsplus
+	build_it
 	;;
     build_latest_release)
 	export BRANCH="$2"
@@ -53,21 +50,18 @@ case "$1" in
 	tag=$(wget -O - -q https://github.com/MDSplus/mdsplus/releases | grep ${BRANCH}_release| awk '{print $0; exit;}' | awk -F/ '{print $NF}' | awk -F\" '{print $1}')
 	
 	export $(echo $tag | awk -F- '{print "MAJOR="$2" MINOR="$3" RELEASE="$4" NF="NF;}')
-	if [ -d /installer ]
+	mkdir -p /installer
+	if ( release_available )
 	then
-	    export INSTALLER="/installer/MDSplus${BNAME}-${MAJOR}.${MINOR}-${RELEASE}.exe"
-	    if [ -r ${INSTALLER} ]
-	    then
-		echo "Installer for release $tag already exists so nothing to do."
-		exit 0
-	    fi
+	    echo "Installer for release $tag already exists so nothing to do."
+	else
+	    mkdir -p /buildsrc;
+	    cd /buildsrc
+	    wget -q -O - https://github.com/MDSplus/mdsplus/archive/${tag}.tar.gz | tar zxf -;
+	    mv mdsplus-${tag}/* ./
+	    export PATH=/buildsrc/deploy:$PATH
+	    build_it
 	fi
-	mkdir -p /buildsrc;
-	cd /buildsrc
-	wget -q -O - https://github.com/MDSplus/mdsplus/archive/${tag}.tar.gz | tar zxf -;
-	mv mdsplus-${tag}/* ./
-	export PATH=/buildsrc/deploy:$PATH
-	build_windows_mdsplus
 	;;
-*) echo Unknown option. Valid options are '"build"';;
+*) echo Unknown option. Valid options are '"build","build_latest_release"';;
 esac
