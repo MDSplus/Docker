@@ -213,3 +213,5 @@ Buildarch: noarch
     if subprocess.Popen("createrepo -q /installer" % info,shell=True).wait() != 0:
         sys.stdout.flush()
         raise Exception("Problem creating repository from RPMS")
+
+buildRpms()
