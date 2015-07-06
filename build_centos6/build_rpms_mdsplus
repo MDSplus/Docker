@@ -90,6 +90,7 @@ def buildRpms():
             info['summary']=package.attrib['summary']
             info['description']=package.attrib['description']
             out,specfilename=tempfile.mkstemp()
+	    print info,rpmspec
             os.write(out,rpmspec % info)
             for require in package.getiterator("requires"):
                 doRequire(info,out,root,require)
