@@ -208,8 +208,8 @@ Buildarch: noarch
             sys.stdout.flush()
             raise Exception("Error signing rpms. status=%d" % child.status)
     except:
+	print("Error signing rpms.")
         sys.stdout.flush()
-        raise Exception("Error signing rpms: %s" % sys.exc_info()[1])
     if subprocess.Popen("createrepo -q /installer" % info,shell=True).wait() != 0:
         sys.stdout.flush()
         raise Exception("Problem creating repository from RPMS")
