@@ -27,6 +27,6 @@ MAINTAINER Tom Fredian, version: 0.1
 # installed in its drive_c/windows/... directories. Run wine to create ~/.wine and then add symlinks
 #
 
-COPY build_* /usr/local/bin/
+COPY build* /usr/local/bin/
 
 ENTRYPOINT ["build_mdsplus"]
