@@ -58,6 +58,7 @@ def buildRpms():
         info['BNAME']=""
     else:
         info['BNAME']="-%s" % info['BRANCH']
+    info['rflavor']=info['BNAME']
     tree=ET.parse('deploy/packaging.xml')
     root=tree.getroot()
     rpmspec=root.find('rpm').find('spec_start').text
