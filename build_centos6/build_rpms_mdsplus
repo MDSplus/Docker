@@ -213,7 +213,7 @@ Buildarch: noarch
     except:
 	print("Error signing rpms.")
         sys.stdout.flush()
-    if subprocess.Popen("createrepo -q /installer" % info,shell=True).wait() != 0:
+    if subprocess.Popen("createrepo -q /installer/RPMS" % info,shell=True).wait() != 0:
         sys.stdout.flush()
         raise Exception("Problem creating repository from RPMS")
 
