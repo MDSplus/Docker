@@ -40,5 +40,18 @@ then
         tar zxf /certs/rpm-signing-keys.tgz
        popd
     fi    
+    mkdir -p /buildroot/etc/yum.repos.d
+    mkdir -p /buildroot/etc/pki/rpm-gpg/
+    cp deploy/RPM-GPG-KEY-MDSplus /buildroot/etc/pki/rpm-gpg/
+    outfile=/buildroot/etc/yum.repos.d/mdsplus${BNAME}.repo
+    echo [MDSplus${BNAME}] > $outfile
+    echo "name=MDSplus${BNAME}" >> $outfile
+    echo "baseurl=http://www.mdsplus.org/dist/${DIST}/${BRANCH}/RPMS" >> $outfile
+    echo "enabled=1" >> $outfile
+    cat - >> $outfile <<EOF
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-MDSplus
+metadata_expire=300
+EOF
     build_rpms_mdsplus
 fi
