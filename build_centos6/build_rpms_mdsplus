@@ -54,6 +54,7 @@ def buildRpms():
     info['major']=int(os.environ['MAJOR'])
     info['minor']=int(os.environ['MINOR'])
     info['release']=int(os.environ['RELEASE'])
+    info['dist']=os.environ['DIST']
     if info['BRANCH']=="stable":
         info['BNAME']=""
     else:
