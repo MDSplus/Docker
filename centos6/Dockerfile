@@ -4,7 +4,7 @@ RUN yum install -y wget epel-release; \
     rpm --import https://github.com/cms-sw/cms-docker/raw/master/slc6-vanilla/RPM-GPG-KEY-cern; \
     wget -O /etc/yum.repos.d/slc6-devtoolset.repo http://linuxsoft.cern.ch/cern/devtoolset/slc6-devtoolset.repo; \
     yum clean all; \
-    yum install -y yum-utils python-setuptools pexpect numpy \
+    yum install -y yum-utils python-setuptools pexpect numpy createrepo \
       rsync \
       automake git \
       which \
