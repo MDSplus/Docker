@@ -41,7 +41,7 @@ def fixFilename(info,filename):
 
 def doRequire(info, out, root, require):
     if 'external' in require.attrib:
-        pkg=externalPackage(root,require.attrib['package'])
+        pkg=externalPackage(info,root,require.attrib['package'])
         if pkg is not None:
             os.write(out,"Requires: %s\n" % pkg)
     else:
