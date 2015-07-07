@@ -51,9 +51,9 @@ def doRequire(info, out, root, require):
 def buildRpms():
     info=dict()
     info['BRANCH']=os.environ['BRANCH']
-    info['major']=os.environ['MAJOR']
-    info['minor']=os.environ['MINOR']
-    info['release']=os.environ['RELEASE']
+    info['major']=int(os.environ['MAJOR'])
+    info['minor']=int(os.environ['MINOR'])
+    info['release']=int(os.environ['RELEASE'])
     if info['BRANCH']=="stable":
         info['BNAME']=""
     else:
