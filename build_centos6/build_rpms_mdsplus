@@ -37,7 +37,7 @@ def fixFilename(info,filename):
         ans=filename % info
     except:
         raise Exception("Error fixing filename "+filename)
-        return ans
+    return ans
 
 def doRequire(info, out, root, require):
     if 'external' in require.attrib:
