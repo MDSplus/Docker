@@ -132,7 +132,7 @@ def buildRpms():
             sys.stdout.flush()
             subprocess.Popen("/bin/cat %(specfilename)s" % info,shell=True).wait();
             p = subprocess.Popen("""
-            rpmbuild -bb --define '_topdir /buildsrc' --buildroot=/buildroot --target=%(target)s %(specfilename)s 2>&1
+            rpmbuild -bb --define '_topdir /installer' --buildroot=/buildroot --target=%(target)s %(specfilename)s 2>&1
 """ % info,stdout=subprocess.PIPE,shell=True)
             messages=p.stdout.readlines()
             status=p.wait()
@@ -190,7 +190,7 @@ Buildarch: noarch
         sys.stdout.flush()
         subprocess.Popen("/bin/cat %(specfilename)s" % info,shell=True).wait();
         p=subprocess.Popen("""
-        rpmbuild -bb --define '_topdir /buildsrc' --buildroot=/buildroot %(specfilename)s 2>&1
+        rpmbuild -bb --define '_topdir /installer' --buildroot=/buildroot %(specfilename)s 2>&1
 """ % info,stdout=subprocess.PIPE,shell=True)
         messages=p.stdout.readlines()
         status = p.wait()
