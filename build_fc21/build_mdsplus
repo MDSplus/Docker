@@ -43,9 +43,9 @@ case "$1" in
 	export BRANCH="$2"
 	if [ "${BRANCH}" = "stable" ]
 	then
-	    BNAME=""
+	    export BNAME=""
 	else
-	    BNAME="-${BRANCH}"
+	    export BNAME="-${BRANCH}"
 	fi
 	tag=$(wget -O - -q https://github.com/MDSplus/mdsplus/releases | grep ${BRANCH}_release| awk '{print $0; exit;}' | awk -F/ '{print $NF}' | awk -F\" '{print $1}')
 	
@@ -63,5 +63,9 @@ case "$1" in
 	    build_it
 	fi
 	;;
-*) echo Unknown option. Valid options are '"build","build_latest_release"';;
+    *)
+	echo Unknown option. Valid options are '"build","build_latest_release"'
+	exit 1
+	;;
 esac
+
