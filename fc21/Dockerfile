@@ -1,9 +1,9 @@
 from fedora:21
 
-RUN yum install -y wget yum-utils python-setuptools pexpect numpy \
+RUN yum update -y; \
+    yum install -y wget yum-utils python-setuptools pexpect numpy \
       rsync \
-      automake git \
-      which \
+      automake make git \
       rpm-build \
       tar \
       gcc gcc-c++ gcc-gfortran \
@@ -16,10 +16,10 @@ RUN yum install -y wget yum-utils python-setuptools pexpect numpy \
       hdf5-devel hdf5.i686 \
       readline-devel readline-devel.i686 \
       python-devel python-libs.i686 \
-      java7-devel \
-      openmotif-devel.i686 \ 
-      libcurl-devel libcurl-devel.i686 \
-      libxml2-devel libxml2-devel.i686 \
+      java-1.8.0-openjdk-devel \
+      motif-devel.i686 \ 
+      libcurl libcurl.i686 libcurl-devel libcurl-devel.i686 \
+      libxml2-devel libxml2-devel.i686 libxml2.i686 \
       globus-common-progs \
       globus-callout-devel globus-callout-devel.i686 \
       globus-gridmap-callout-error-devel globus-gridmap-callout-error-devel.i686 \
@@ -31,7 +31,7 @@ RUN yum install -y wget yum-utils python-setuptools pexpect numpy \
       libX11-devel libX11-devel.i686 \
       freetds-devel freetds-devel.i686; \
     /bin/mv /usr/bin/uil /usr/bin/uil32; \
-    yum install -y openmotif-devel.x86_64 libXt-devel.x86_64; \
+    yum install -y motif-devel.x86_64 libXt-devel.x86_64; \
     yumdownloader hdf5-devel.i686; \
     rpm -i --force hdf5-devel*.rpm
 
