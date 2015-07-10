@@ -4,7 +4,7 @@ RUN yum update -y; \
     yum install -y wget yum-utils python-setuptools pexpect numpy \
       rsync \
       automake make git \
-      rpm-build \
+      rpm-build rpm-sign createrepo \
       tar \
       gcc gcc-c++ gcc-gfortran \
       binutils \

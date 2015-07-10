@@ -1,72 +1,41 @@
-# Sample dockerfile to build MDSplus for fc20 from scratch
-#
-#
-# To build fc20 image:
-#
-# yum --installroot=/mdsplus/docker/roots/fc20 --releasever=20 install -y --nogpgcheck fedora-release coreutils yum\
-#     tcsh which wget bind-utils vim-minimal openssl python-setuptools pexpect numpy rsync make automake cvs \
-#     sudo rpm-sign createrepo yum-utils autoconf \ 
-#     readline-devel readline-devel.i686 gcc glibc-devel glibc-devel.i686 gcc-gfortran gcc-gfortran.i686 \
-#     gcc-c++ gcc-c++.i686 java-1.8.0-openjdk-devel libcurl-devel libcurl-devel.i686 rpm-build \
-#     globus-xio-gsi-driver-devel globus-xio-gsi-driver-devel.i686 \
-#     globus-gridmap-callout-error-devel globus-gridmap-callout-error-devel.i686 \
-#     freetds-devel freetds-devel.i686 hdf5-devel hdf5.i686 python-devel \
-#     motif-devel.i686 libSM-devel.i686 libICE-devel.i686 libX11-devel.i686
-##################
-# if using for mingw builds add the following packages:
-#     'mingw*-gcc-*' 'mingw*-readline' 'mingw*-dlfcn*' 'mingw*-readline*' 'mingw32-nsis*' binutils
-##################
-# mknod /mdsplus/docker/roots/fc20/dev/random c 1 9
-# mknod /mdsplus/docker/roots/fc20/dev/urandom c 1 9
-# tar -zxf -C /mdsplus/certs/rpm-signing-keys.tgz /mdsplus/docker/roots/fc20/root/
-# chown -R root:root /mdsplus/docker/roots/fc20/root/.gnupg
-# cp /mdsplus/dist/mdsplus.gpg.key /mdsplus/docker/roots/fc20/
-# chroot /mdsplus/docker/roots/fc20
-#### hdf5 has a problem installing both the 32-bit and 64-bit rpms so this is the workaround
-# yumdownloader hdf5-devel.i686
-# rpm -i --force hdf5-devel*.i686.rpm
-####
-# rpm --import /mdsplus-gpg.key
-# cp /mdsplus/docker/roots/fc20/usr/bin/uil /mdsplus/docker/images/fc20/usr/bin/uil32
-# cp /etc/resolv.conf /mdsplus/docker/roots/fc20/etc/
-# yum --installroot=/mdsplus/docker/roots/fc20 install -y motif.devel.x86_64 \
-#     libSM-devel.x86_64 libICE-devel.x86_64 libX11-devel.x86_64
-# 
-# exit
-# On build system:
-# cd /mdsplus/docker/roots/fc20
-# tar -czf - . | docker import - mdsplus fc20
-
-FROM mdsplus:fc20
-
+FROM mdsplus/docker:fc20
 # To build docker image:
 #
-#    docker build -t mdsplus:build_fc20 .
-# 
-# To run MDSplus build in hudson:
+#    docker build -t mdsplus/docker:build_fc20 .
 #
-#    docker run --rm=true -e BUILD_NUMBER=${BUILD_NUMBER} -e JOB_NAME="${JOB_NAME}" -e BUILD_FLAVOR=${BUILD_FLAVOR} \
-#                          -v /mdsplus:/mdsplus mdsplus:${JOB_NAME}
 #
-# Where: /mdsplus on the host is a mount of alchome:/scratch/mdsplus
-#        BUILD_NUMBER and JOB_NAME defined by hudson with the job is run. That is used to add a reference to the job alongside the kit
-#        on the download page.
-#        BUILD_FLAVOR (i.e. alpha | beta | stable | all)
+#    To build MDSplus for centos6 use the following command:
+#
+#    docker run --rm \
+#                [-v /your-buildroot-dir:/buildroot ] \
+#                [-v /your-source-dir:/source ] \
+#                [-v /your-installer-dir:/source ] \
+#                mdsplus:build_centos6 build|build_latest_release  \
+#                [branch/tag]
+#
+#    Using the build option:
+#
+#    If you want the contents of an MDSplus build install include a directory specification using the -v /dir:/buildroot
+#    option. If you want to build using your own copy of mdsplus sources use the -v /dir:/source option and do not
+#    include the branch/tag parameter. If you do specify the branch/tag parameter the sources will be fetched
+#    from the github MDSplus repository. For example, use alpha for the latest commit to the alpha branch or use
+#    stable_release-7.0.6 to use the sources used to generate the stable release 7.0.6.
+#
+#    Using the build_latest_release option:
+#
+#    When using the build_latest_release option, specify either alpha or stable for the branch/tag command parameter.
+#    The build script will then query github to find out the latest release for the specified branch using release tags.
+#    The script will then determine if the installer already exists in the directory specified for the /installer directory.
+#    If the installer does not exist, the script will fetch the sources for that release and build an installer for that
+#    release. If a certs directory is specified the script will sign the installer with keys in that directory (used for
+#    official MDSplus releases).
+#
+#    It is recommended to use the --rm option unless you are interested in looking inside the docker container after it completes.
 #
 #
 
 MAINTAINER Tom Fredian, version: 0.1
 
-ENTRYPOINT export DIST=fc20; \
-	   export LABVIEW64_DIR=/mdsplus/extras/Labview-x86_64; \
-           export LABVIEW_DIR=/mdsplus/extras/Labview-x86; \
-	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \
-           export IDL_DIR=/mdsplus/extras/idl-x86; \
-	   export JDK_DIR=/etc/alternatives/java_sdk_openjdk; \
-           export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
-	   mkdir -p /tmp/deploy; \
-           cd /mdsplus/git/mdsplus; \
-           git checkout alpha; \
-           git pull; \
-	   cd /tmp/deploy; \
-	   python /mdsplus/git/mdsplus/deploy/release.py deploy
+COPY build* /usr/local/bin/
+
+ENTRYPOINT ["build_mdsplus"]
