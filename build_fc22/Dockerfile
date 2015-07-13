@@ -1,7 +1,7 @@
-FROM mdsplus/roots:fc17
+FROM mdsplus/docker:fc22
 # To build docker image:
 #
-#    docker build -t mdsplus/docker:build_fc17 .
+#    docker build -t mdsplus/docker:build_fc21 .
 #
 #
 #    To build MDSplus for centos6 use the following command:
@@ -35,8 +35,6 @@ FROM mdsplus/roots:fc17
 #
 
 MAINTAINER Tom Fredian, version: 0.1
-
-RUN mkdir /tmp
 
 COPY build* /usr/local/bin/
 
