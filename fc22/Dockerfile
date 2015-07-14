@@ -17,7 +17,7 @@ RUN dnf update -y; \
       readline-devel.x86_64 readline-devel.i686 \
       python-devel.x86_64 python-libs.i686 \
       java-1.8.0-openjdk-devel.x86_64 \
-      motif-devel.i686 \ 
+      motif-devel.i686 libSM-devel.i686 libICE-devel.i686 \ 
       libcurl.x86_64 libcurl.i686 libcurl-devel.x86_64 libcurl-devel.i686 \
       libxml2-devel.x86_64 libxml2-devel.i686 libxml2.x86_64 libxml2.i686 \
       globus-common-progs \
