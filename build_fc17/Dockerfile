@@ -36,8 +36,6 @@ FROM mdsplus/roots:fc17
 
 MAINTAINER Tom Fredian, version: 0.1
 
-RUN mkdir /tmp
-
 COPY build* /usr/local/bin/
 
 ENTRYPOINT ["build_mdsplus"]
