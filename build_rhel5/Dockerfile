@@ -1,66 +1,41 @@
-# Sample dockerfile to build MDSplus for rhel5 from scratch
-#
-#
-# To build rhel5 image:
-#
-# yum --installroot=/mdsplus/docker/roots/rhel5 install -y yum tcsh redhat-release coreutils wget rpm-build
-# cp /mdsplus/dist/mdsplus.gpg.key /mdsplus/docker/roots/rhel5/
-# cp ~twf/mit-activate /mdsplus/docker/roots/rhel5/
-# pushd /mdsplus/docker/roots/rhel5/root; tar zxf /mdsplus/certs/rpm-signing-keys.tgz; chown -R root:root .gnupg; popd
-# chroot /mdsplus/rhel5
-# export PATH=/bin:$PATH ### not sure why /bin isn't in path
-# mknod /dev/random c 1 9
-# mknod /dev/urandom c 1 9
-# mount -t proc proc /proc
-# csh ./mit-activate
-# yum install wget bind-utils \
-#     vim-minimal openssl rhn-client-tools python-setuptools pexpect which numpy rsync make automake cvs \
-#     sudo readline-devel readline-devel.i386 ncurses-devel ncurses-devel.i386 gcc gcc-gfortran gcc-c++ \
-#     java-1.6.0-openjdk-devel openmotif-devel.i386 \
-#     curl-devel curl-devel.i386 rpm-build repocreate
-# cp /bin/uil /bin/uil32
-# yum install -y openmotif-devel.x86_64
-##### install epel yum repo using the url of the rpm on the epel website for rhel5 --- needed for globus and freetds pkgs
-# yum install -y globus-xio-gsi-driver-devel globus-xio-devel.i386 globus-xio-gsi-driver-devel.i386 \
-#                globus-gridmap-callout-error-devel globus-gridmap-callout-error-devel.i686 \
-#		 freetds-devel freetds-devel.i686 python26 python26-distribute python26-numpy \
-#                devtoolset-1.1* devtoolset-1.1*.i686
-# /usr/bin/easy_install-2.6 pexpect
-# rpm --import /mdsplus.gpg.key
-# umount /proc
-# exit
-# On build system:
-# cd /mdsplus/docker/roots/rhel5
-# tar -czf - . | docker import - mdsplus rhel5
-
-FROM mdsplus:rhel5
+FROM mdsplus/roots:rhel5
 # To build docker image:
 #
-#    docker build -t mdsplus:build_rhel5 .
-# 
-# To run MDSplus build in hudson:
+#    docker build -t mdsplus/docker:build_rhel5 .
 #
-#    docker run --rm=true -e BUILD_NUMBER=${BUILD_NUMBER} -e JOB_NAME="${JOB_NAME}" -e BUILD_FLAVOR=${BUILD_FLAVOR} \
-#                          -v /mdsplus:/mdsplus mdsplus:${JOB_NAME}
 #
-# Where: /mdsplus on the host is a mount of alchome:/scratch/mdsplus
-#        BUILD_NUMBER and JOB_NAME defined by hudson with the job is run. That is used to add a reference to the job alongside the kit
-#        on the download page.
-#        BUILD_FLAVOR (i.e. alpha | beta | stable | all)
+#    To build MDSplus for rhel65use the following command:
+#
+#    docker run --rm \
+#                [-v /your-buildroot-dir:/buildroot ] \
+#                [-v /your-source-dir:/source ] \
+#                [-v /your-installer-dir:/source ] \
+#                mdsplus:build_rhel5 build|build_latest_release  \
+#                [branch/tag]
+#
+#    Using the build option:
+#
+#    If you want the contents of an MDSplus build install include a directory specification using the -v /dir:/buildroot
+#    option. If you want to build using your own copy of mdsplus sources use the -v /dir:/source option and do not
+#    include the branch/tag parameter. If you do specify the branch/tag parameter the sources will be fetched
+#    from the github MDSplus repository. For example, use alpha for the latest commit to the alpha branch or use
+#    stable_release-7.0.6 to use the sources used to generate the stable release 7.0.6.
+#
+#    Using the build_latest_release option:
+#
+#    When using the build_latest_release option, specify either alpha or stable for the branch/tag command parameter.
+#    The build script will then query github to find out the latest release for the specified branch using release tags.
+#    The script will then determine if the installer already exists in the directory specified for the /installer directory.
+#    If the installer does not exist, the script will fetch the sources for that release and build an installer for that
+#    release. If a certs directory is specified the script will sign the installer with keys in that directory (used for
+#    official MDSplus releases).
+#
+#    It is recommended to use the --rm option unless you are interested in looking inside the docker container after it completes.
 #
 #
 
 MAINTAINER Tom Fredian, version: 0.1
 
-ENTRYPOINT export DIST=el5; \
-	   export LABVIEW64_DIR=/mdsplus/extras/Labview-x86_64; \
-           export LABVIEW_DIR=/mdsplus/extras/Labview-x86; \
-	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \
-           export IDL_DIR=/mdsplus/extras/idl-x86; \
-	   export JDK_DIR=/etc/alternatives/java_sdk_openjdk; \
-	   mkdir -p /tmp/deploy; \
-           cd /mdsplus/git/mdsplus; \
-           git checkout alpha; \
-           git pull; \
-	   cd /tmp/deploy; \
-	   scl enable devtoolset-1.1 'python26 /mdsplus/git/mdsplus/deploy/release.py deploy $OTHER_FLAVORS'
+COPY build* /usr/local/bin/
+
+ENTRYPOINT ["build_mdsplus"]

@@ -1,61 +1,41 @@
-# Sample dockerfile to build MDSplus for rhel7 from scratch
-#
-#
-# To build rhel7 image:
-#
-# yum --installroot=/mdsplus/docker/roots/rhel7 install -y yum tcsh redhat-release coreutils wget bind-utils \
-#     vim-minimal openssl rhn-client-tools python-setuptools pexpect numpy rsync make automake cvs \
-#     sudo which readline-devel readline-devel.i686 gcc gcc-gfortran gcc-c++ \
-#     java-*-openjdk-devel java-*-openjdk-devel.i686 motif-devel.i686 \
-#     curl-devel curl-devel.i686 rpm-build tar
-# /bin/cp /mdsplus/docker/roots/rhel7/usr/bin/uil /mdsplus/docker/roots/rhel7/usr/bin/uil32
-# yum --installroot=/mdsplus/docker/roots/rhel7 install -y motif-devel.x86_64
-# mknod /mdsplus/rhel7/dev/random c 1 9
-# mknod /mdsplus/rhel7/dev/urandom c 1 9
-# cp ~twf/mit-activate /mdsplus/rhel7/
-# chroot /mdsplus/rhel7
-# csh ./mit-activate
-##### install epel yum repo using the url of the rpm on the epel website for rhel7 --- needed for globus and freetds pkgs
-# yum install -y globus-xio-gsi-driver-devel globus-xio-gsi-driver-devel.i686 \
-#                globus-gridmap-callout-error-devel globus-gridmap-callout-error-devel.i686 \
-#		 freetds-devel freetds-devel.i686
-##### because there is currently no i686 packages in EPEL for rhel7 it was necessary to try building mdsplus using chroot,
-##### checking out mdsplus in /tmp and doing 32-bit builds seeing what breaks and copy includes and libs from rhel6 until
-##### mdsplus builds.
-# exit
-# On build system:
-# cd /mdsplus/docker/roots/rhel7
-# tar -czf - . | docker import - mdsplus rhel7
-
-FROM mdsplus:rhel7
+FROM mdsplus/docker:rhel7
 # To build docker image:
 #
-#    docker build -t mdsplus:build_rhel7 .
-# 
-# To run MDSplus build in hudson:
+#    docker build -t mdsplus/docker:build_fc21 .
 #
-#    docker run --rm=true -e BUILD_NUMBER=${BUILD_NUMBER} -e JOB_NAME="${JOB_NAME}" -e BUILD_FLAVOR=${BUILD_FLAVOR} \
-#                          -v /mdsplus:/mdsplus mdsplus:${JOB_NAME}
 #
-# Where: /mdsplus on the host is a mount of alchome:/scratch/mdsplus
-#        BUILD_NUMBER and JOB_NAME defined by hudson with the job is run. That is used to add a reference to the job alongside the kit
-#        on the download page.
-#        BUILD_FLAVOR (i.e. alpha | beta | stable | all)
+#    To build MDSplus for centos6 use the following command:
+#
+#    docker run --rm \
+#                [-v /your-buildroot-dir:/buildroot ] \
+#                [-v /your-source-dir:/source ] \
+#                [-v /your-installer-dir:/source ] \
+#                mdsplus:build_centos6 build|build_latest_release  \
+#                [branch/tag]
+#
+#    Using the build option:
+#
+#    If you want the contents of an MDSplus build install include a directory specification using the -v /dir:/buildroot
+#    option. If you want to build using your own copy of mdsplus sources use the -v /dir:/source option and do not
+#    include the branch/tag parameter. If you do specify the branch/tag parameter the sources will be fetched
+#    from the github MDSplus repository. For example, use alpha for the latest commit to the alpha branch or use
+#    stable_release-7.0.6 to use the sources used to generate the stable release 7.0.6.
+#
+#    Using the build_latest_release option:
+#
+#    When using the build_latest_release option, specify either alpha or stable for the branch/tag command parameter.
+#    The build script will then query github to find out the latest release for the specified branch using release tags.
+#    The script will then determine if the installer already exists in the directory specified for the /installer directory.
+#    If the installer does not exist, the script will fetch the sources for that release and build an installer for that
+#    release. If a certs directory is specified the script will sign the installer with keys in that directory (used for
+#    official MDSplus releases).
+#
+#    It is recommended to use the --rm option unless you are interested in looking inside the docker container after it completes.
 #
 #
 
 MAINTAINER Tom Fredian, version: 0.1
 
-ENTRYPOINT export DIST=el7; \
-	   export LABVIEW64_DIR=/mdsplus/extras/Labview-x86_64; \
-           export LABVIEW_DIR=/mdsplus/extras/Labview-x86; \
-	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \
-           export IDL_DIR=/mdsplus/extras/idl-x86; \
-	   export JDK_DIR=/etc/alternatives/java_sdk_openjdk; \
-           export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
-	   mkdir -p /tmp/deploy; \
-           cd /mdsplus/git/mdsplus; \
-           git checkout alpha; \
-           git pull; \
-	   cd /tmp/deploy; \
-	   python /mdsplus/git/mdsplus/deploy/release.py deploy
+COPY build* /usr/local/bin/
+
+ENTRYPOINT ["build_mdsplus"]

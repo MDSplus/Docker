@@ -4,7 +4,7 @@ RUN yum install -y wget epel-release; \
     rpm --import https://github.com/cms-sw/cms-docker/raw/master/slc6-vanilla/RPM-GPG-KEY-cern; \
     wget -O /etc/yum.repos.d/slc6-devtoolset.repo http://linuxsoft.cern.ch/cern/devtoolset/slc6-devtoolset.repo; \
     yum clean all; \
-    yum install -y yum-utils python-setuptools pexpect numpy \
+    yum install -y yum-utils python-setuptools pexpect numpy createrepo \
       rsync \
       automake git \
       which \
@@ -25,6 +25,7 @@ RUN yum install -y wget epel-release; \
       openmotif-devel.i686 \ 
       libcurl-devel libcurl-devel.i686 \
       libxml2-devel libxml2-devel.i686 \
+      zlib-devel zlib-devel.i686 \
       globus-common-progs \
       globus-callout-devel globus-callout-devel.i686 \
       globus-gridmap-callout-error-devel globus-gridmap-callout-error-devel.i686 \
