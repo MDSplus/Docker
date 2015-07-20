@@ -7,6 +7,7 @@ mkdir -p $BUILDROOT
 cd ${SOURCE}
 ./configure --prefix=${BUILDROOT}/ \
             --with-jdk=$JDK_DIR \
+            --enable-doxygen-pdf \
             --enable-doxygen-man
 make -C docs clean > /dev/null
 make -C docs install
