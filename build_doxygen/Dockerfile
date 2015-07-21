@@ -1,4 +1,4 @@
-FROM mdsplus/docker:centos7
+FROM mdsplus/docker:rhel7
 
 # To build docker image:
 #
