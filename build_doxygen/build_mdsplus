@@ -4,7 +4,9 @@ set -e
 case "$1" in
 build)
  mkdir /buildsrc
- source /opt/rh/devtoolset-3/enable
+ if [ -d /opt/rh/devtoolset-3 ]; then
+   source /opt/rh/devtoolset-3/enable;
+ fi
  export JDK_DIR=/etc/alternatives/java_sdk_openjdk;
  export PYTHON_INCLUDE_DIR=/usr/include/python2.6;
  export BUILDROOT="/buildroot";
