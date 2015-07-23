@@ -10,7 +10,7 @@ RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt
       libmotif-dev:i386 libxt-dev:i386 x11proto-print-dev:i386 \
       g++:i386 gfortran:i386; \
     mv /usr/bin/uil /usr/bin/uil32; \
-    apt-get download python2.7-dev:i386 python2.7-minimal:i386 \
+    apt-get download python2.7:i386 python2.7-dev:i386 python2.7-minimal:i386 \
       globus-common-progs:i386 globus-core:i386 libglobus-callout-dev:i386 \
       libglobus-callout0:i386 \
       libglobus-common-dev:i386 \
