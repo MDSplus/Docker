@@ -18,7 +18,9 @@ RUN yum install -y doxygen \
     texlive-multirow \
     texlive-sectsty \
     texlive-tocloft \
-    texlive-epstopdfi \
+    texlive-epstopdf \
+    xorg-fonts-100dpi \
+    xorg-fonts-100dpi \
     dejavu-fonts-common.noarch \
     dejavu-sans-fonts.noarch \
     dejavu-sans-mono-fonts.noarch \
