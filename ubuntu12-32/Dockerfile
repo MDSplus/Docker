@@ -3,7 +3,7 @@ from ubuntu:precise
 RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt/sources.list.d/motif.list; \
     apt-get update; \
     apt-get -y upgrade; \
-    apt-get install -y rsync wget automake make tar \
+    apt-get install -y rsync reprepro wget automake make tar \
       libcurl4-gnutls-dev:i386 libreadline-dev:i386 \
       libdc1394-22-dev:i386 libraw1394-dev:i386 \
       libxml2-dev:i386 freetds-dev:i386 \
