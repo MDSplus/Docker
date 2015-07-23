@@ -1,77 +1,41 @@
-# Sample dockerfile to build MDSplus for Ubuntu12-32 from scratch
-#
-# Make a ubuntu12-32 root
-#
-# On a 32-bit ubuntu12-32 install:
-#
-# debootstrap precise /mdsplus/docker/roots/ubuntu12-32
-# cp /etc/apt/sources.list /mdsplus/docker/roots/ubuntu12-32/etc/apt/
-# chroot /mdsplus/docker/roots/ubuntu12-32
-# mount /proc
-# apt-get update; \
-# apt-get install -y autoconf automake cvs gcc gfortran g++ gcc-multilib libreadline-dev \
-#    	    	       openjdk-7-jdk wget make rsync sudo pkg-config \
-#            	       globus-common-progs libglobus-callout-dev \
-#		       libglobus-gridmap-callout-error-dev \
-#		       libglobus-gsi-credential-dev \
-#		       libglobus-gsi-proxy-core-dev \
-#		       libglobus-gss-assist-dev \
-#		       libglobus-gssapi-gsi-dev \
-#		       libglobus-xio-gsi-driver-dev  \
-#		       freetds-dev \
-#          	       libmotif-dev libxt-dev libxmu-dev libxp-dev libx11-dev \
-#          	       libcurl4-openssl-dev reprepro python-setuptools \
-#          	       python-numpy python-pexpect;
-#### Install gcc-4.8
-#
-# apt-get install python-software-properties
-# add-apt-repository ppa:ubuntu-toolchain-r/test
-# apt-get update
-# apt-get install gcc-4.8 gfortran-4.8 g++-4.8
-# update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50# apt-get -y upgrade;
-# update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-4.8 50
-# update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
-# apt-get -y upgrade;
-# mkdir /mdsplus
-# umount /proc
-# exit
-# On build system:
-# cd /mdsplus/docker/roots/ubuntu12-32
-# tar -czf - . | docker import - ubuntu12-32
-# 
+FROM mdsplus/docker:ubuntu12-32
 # To build docker image:
 #
-#    docker build -t mdsplus:build_ubuntu12-32 .
-# 
-# To run MDSplus build in hudson:
-#
-#    docker run --rm=true -e BUILD_NUMBER=${BUILD_NUMBER} -e JOB_NAME="${JOB_NAME}" -e BUILD_FLAVOR=${BUILD_FLAVOR} -v \
-#                 /mdsplus:/mdsplus mdsplus:build_ubuntu12-32
-#
-# Where: /mdsplus on the host is a mount of alchome:/scratch/mdsplus
-#        BUILD_NUMBER and JOB_NAME defined by hudson with the job is run. That is used to add a reference to the job alongside the kit
-#        on the download page.
-#        BUILD_FLAVOR (i.e. alpha | beta | stable | all)
+#    docker build -t mdsplus/docker:build_ubuntu12-32 .
 #
 #
-
-FROM mdsplus:ubuntu12-32
+#    To build MDSplus for centos6 use the following command:
+#
+#    docker run --rm \
+#                [-v /your-buildroot-dir:/buildroot ] \
+#                [-v /your-source-dir:/source ] \
+#                [-v /your-installer-dir:/source ] \
+#                mdsplus:build_ubuntu12-32 build|build_latest_release  \
+#                [branch/tag]
+#
+#    Using the build option:
+#
+#    If you want the contents of an MDSplus build install include a directory specification using the -v /dir:/buildroot
+#    option. If you want to build using your own copy of mdsplus sources use the -v /dir:/source option and do not
+#    include the branch/tag parameter. If you do specify the branch/tag parameter the sources will be fetched
+#    from the github MDSplus repository. For example, use alpha for the latest commit to the alpha branch or use
+#    stable_release-7.0.6 to use the sources used to generate the stable release 7.0.6.
+#
+#    Using the build_latest_release option:
+#
+#    When using the build_latest_release option, specify either alpha or stable for the branch/tag command parameter.
+#    The build script will then query github to find out the latest release for the specified branch using release tags.
+#    The script will then determine if the installer already exists in the directory specified for the /installer directory.
+#    If the installer does not exist, the script will fetch the sources for that release and build an installer for that
+#    release. If a certs directory is specified the script will sign the installer with keys in that directory (used for
+#    official MDSplus releases).
+#
+#    It is recommended to use the --rm option unless you are interested in looking inside the docker container after it completes.
+#
+#
 
 MAINTAINER Tom Fredian, version: 0.1
 
-ENTRYPOINT apt-key add /mdsplus/dist/mdsplus.gpg.key; \
-	   export DIST=Ubuntu12; \
-	   export LABVIEW64_DIR=/mdsplus/extras/Labview-x86_64; \
-           export LABVIEW_DIR=/mdsplus/extras/Labview-x86; \
-	   export IDL64_DIR=/mdsplus/extras/idl-x86_64; \
-           export IDL_DIR=/mdsplus/extras/idl-x86; \
-	   export JDK_DIR=/usr/lib/jvm/java-7-openjdk-i386; \
-	   export ARCH=i386; \
-           export PYTHON_INCLUDE_DIR=/usr/include/python2.7; \
-	   mkdir -p /tmp/deploy; \
-           cd /mdsplus/git/mdsplus; \
-           git checkout alpha; \
-           git pull; \
-	   cd /tmp/deploy; \
-	   python /mdsplus/git/mdsplus/deploy/release.py deploy
+COPY build* /usr/local/bin/
 
+ENTRYPOINT ["build_mdsplus"]
