@@ -9,9 +9,9 @@ function getsrc {
  export JDK_DIR=/etc/alternatives/java_sdk_openjdk;
  export PYTHON_INCLUDE_DIR=/usr/include/python2.6;
  export BUILDROOT="/buildroot";
- if [ -z "$2" ]
+ if [ -z "$1" ]
  then tag=stable;
- else tag=$2;
+ else tag=$1;
  fi;
  if [ -d /source ]
  then 
@@ -28,11 +28,11 @@ function getsrc {
 set -e
 case "$1" in
 build)
- getsrc;
+ getsrc $2;
  build_mdsplus_doxygen
  ;;
 shell)
- getsrc;
+ getsrc $2;
  bash
  ;;
 *) echo Unknown option. Valid options are '"build", "shell"';;

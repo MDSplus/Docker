@@ -1,2 +1,3 @@
 build_doxygen
 build_doxygen/arch
+build_doxygen/rhel7
