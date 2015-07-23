@@ -1,0 +1,10 @@
+#!/bin/bash
+ 
+mkdir -p $BUILDROOT
+cd ${SOURCE}
+./configure --prefix=${BUILDROOT}/ \
+            --disable-java \
+            --enable-doxygen-pdf \
+            --enable-doxygen-man
+make -C docs clean > /dev/null
+make -C docs install

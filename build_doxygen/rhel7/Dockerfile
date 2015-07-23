@@ -1,4 +1,4 @@
-FROM mdsplus/docker:centos7
+FROM mdsplus/docker:rhel7
 
 # To build docker image:
 #
@@ -6,6 +6,8 @@ FROM mdsplus/docker:centos7
 
 # ENV http_proxy 'eproxy2.rfx.local:8080'
 # ENV https_proxy 'eproxy2.rfx.local:8080'
+
+COPY build_* /usr/local/bin/
 
 RUN yum install -y doxygen \
     graphviz \
@@ -16,9 +18,12 @@ RUN yum install -y doxygen \
     texlive-multirow \
     texlive-sectsty \
     texlive-tocloft \
-    texlive-epstopdf
+    texlive-epstopdfi \
+    dejavu-fonts-common.noarch \
+    dejavu-sans-fonts.noarch \
+    dejavu-sans-mono-fonts.noarch \
+    dejavu-serif-fonts.noarch
 
 
-COPY build_* /usr/local/bin/
 
 ENTRYPOINT ["build_mdsplus"]

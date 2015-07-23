@@ -1,8 +1,7 @@
 #!/bin/bash
 #
-set -e
-case "$1" in
-build)
+
+function getsrc {
  mkdir /buildsrc
  if [ -d /opt/rh/devtoolset-3 ]; then
    source /opt/rh/devtoolset-3/enable;
@@ -23,8 +22,18 @@ build)
    wget -q -O - https://github.com/MDSplus/mdsplus/archive/${tag}.tar.gz | tar zxf -;
    export SOURCE="/buildsrc/mdsplus-${tag}"
  fi
- export PATH=${SOURCE}/deploy:$PATH
+ export PATH=${SOURCE}/deploy:$PATH  
+}
+
+set -e
+case "$1" in
+build)
+ getsrc;
  build_mdsplus_doxygen
  ;;
-*) echo Unknown option. Valid options are '"build"';;
+shell)
+ getsrc;
+ bash
+ ;;
+*) echo Unknown option. Valid options are '"build", "shell"';;
 esac
