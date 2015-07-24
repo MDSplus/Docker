@@ -11,7 +11,7 @@ RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt
       libmotif-dev:i386 libxt-dev:i386 x11proto-print-dev:i386 \
       g++:i386 gfortran:i386 openjdk-7-jdk:i386; \
     mv /usr/bin/uil /usr/bin/uil32; \
-    apt-get download python2.7:i386 python2.7-dev:i386 python2.7-minimal:i386 \
+    apt-get download libpython2.7-dev:i386 \
       globus-common-progs:i386 globus-core:i386 libglobus-callout-dev:i386 \
       libglobus-callout0:i386 \
       libglobus-common-dev:i386 \
@@ -44,5 +44,6 @@ RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt
       libglobus-xio-gsi-driver-dev:i386 \
       libglobus-xio-gsi-driver0:i386 \
       libglobus-xio0:i386; \
-    for deb in *.deb; do dpkg-deb -xv ${deb} /; done
+    for deb in *.deb; do dpkg-deb -xv ${deb} /; done; \
+    ln -sf /usr/lib/i386-linux-gnu/pkgconfig/*.pc /usr/lib/pkgconfig/
 
