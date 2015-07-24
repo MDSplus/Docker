@@ -1,8 +1,8 @@
 from ubuntu:trusty
 
 RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt/sources.list.d/motif.list; \
-    apt-get update; \
     dpkg --add-architecture i386; \
+    apt-get update; \
     apt-get -y upgrade; \
     apt-get install -y rsync reprepro wget automake make tar \
       libcurl4-gnutls-dev:i386 libreadline-dev:i386 \
