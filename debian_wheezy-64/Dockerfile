@@ -1,7 +1,7 @@
 from debian:wheezy
 
-RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" \
-    	  > /etc/apt/sources.list.d/motif.list;\
+RUN mv /etc/apt/sources.list /etc/apt/sources.list-orig;\
+    awk '{print($0 " non-free");}' /etc/apt/sources.list-orig > /etc/apt/sources.list;\
     apt-get update; \
     apt-get install -y --force-yes \
                 wget autoconf automake cvs gcc gfortran g++ libreadline-dev \
