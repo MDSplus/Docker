@@ -15,4 +15,4 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list-orig;\
 		libglobus-xio-gsi-driver-dev  \
 		freetds-dev libxml2-dev libcurl4-openssl-dev reprepro \
                 libmotif-dev libxt-dev libxmu-dev libxp-dev libx11-dev; \
-    apt-get -y upgrade; \
+    apt-get -y upgrade 
