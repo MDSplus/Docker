@@ -4,19 +4,24 @@ source build.conf
 set -e
 case "$1" in
     build)
-	if [ -z "$2" ]
+	shift 1
+	if [ -z "$1" ]
 	then tag=stable;
-	else tag=$2;
-	fi;
+	else tag=$1;
+	fi
+	if [ "$#" -ge 1 ]
+	then
+	  shift 1
+	fi
 	if [ -d /source ]
 	then
 	    tag="local"
 	    export BRANCH=local_release 
 	    rsync -a /source/ /buildsrc/
 	else
-	    mkdir -p /buildsrc;
+	    mkdir -p /buildsrc
 	    cd /buildsrc
-	    wget -q -O - https://github.com/MDSplus/mdsplus/archive/${tag}.tar.gz | tar zxf -;
+	    wget -q -O - https://github.com/MDSplus/mdsplus/archive/${tag}.tar.gz | tar zxf -
 	    mv mdsplus-${tag}/* ./
 	fi
 	export $(echo $tag | awk -F- '{print "BRANCH="$1" MAJOR="$2" MINOR="$3" RELEASE="$4" NF="NF;}')
@@ -37,10 +42,15 @@ case "$1" in
 	    export BRANCH=${BRANCH:0:${#BRANCH}-8}
 	fi
 	export PATH=/buildsrc/deploy:$PATH
-	build_it
+	build_it $@
 	;;
     build_latest_release)
-	export BRANCH="$2"
+	shift 1
+	export BRANCH="$1"
+	if [ "$#" -ge 1 ]
+	then
+	  shift 1
+	fi
 	if [ "${BRANCH}" = "stable" ]
 	then
 	    export BNAME=""
@@ -60,7 +70,7 @@ case "$1" in
 	    wget -q -O - https://github.com/MDSplus/mdsplus/archive/${tag}.tar.gz | tar zxf -;
 	    mv mdsplus-${tag}/* ./
 	    export PATH=/buildsrc/deploy:$PATH
-	    build_it
+	    build_it $@
 	fi
 	;;
     *)
