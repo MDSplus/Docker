@@ -5,7 +5,7 @@ COPY fedora.repo /
 RUN yum update -y
 RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 RUN yum install -y wget yum-utils python-setuptools pexpect numpy \
-      rsync \
+      rsync valgrind \
       automake make git \
       rpm-build rpm-sign createrepo \
       tar \
