@@ -2,7 +2,7 @@ from fedora:20
 
 RUN  yum downgrade -y krb5-libs openssl-libs nss-softokn-freebl nss-softokn nss-util \
                       nss nss-tools nss-sysinit; \
-     yum install -y wget yum-utils python-setuptools pexpect numpy \
+     yum install -y wget yum-utils python-setuptools pexpect numpy valgrind \
          yum-utils which automake make git rpm-build rpm-sign createrepo \
          gcc gcc-c++ gcc-gfortran binutils libstdc++-devel libstdc++-devel.i686 \
          libquadmath-devel libquadmath-devel.i686 glibc-devel glibc-devel.i686 \
