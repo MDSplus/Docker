@@ -4,7 +4,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list-orig;\
     awk '{print($0 " non-free");}' /etc/apt/sources.list-orig > /etc/apt/sources.list;\
     apt-get update; \
     apt-get install -y --force-yes \
-                wget autoconf automake cvs gcc gfortran g++ libreadline-dev \
+                wget autoconf automake cvs gcc gfortran g++ valgrind libreadline-dev \
     	    	openjdk-7-jdk wget make rsync sudo pkg-config \
             	globus-common-progs libglobus-callout-dev \
 		libglobus-gridmap-callout-error-dev \

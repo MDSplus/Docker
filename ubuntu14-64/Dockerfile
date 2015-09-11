@@ -3,8 +3,8 @@ from ubuntu:trusty
 RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt/sources.list.d/motif.list; \
     apt-get update; \
     apt-get -y upgrade; \
-    apt-get install -y rsync reprepro wget automake make tar \
-      libcurl4-gnutls-dev libreadline-dev python-dev \
+    apt-get install -y rsync reprepro wget automake make tar valgrind\
+      libcurl4-gnutls-dev libreadline-dev python-dev python-setuptools\
       libdc1394-22-dev libraw1394-dev \
       libxml2-dev freetds-dev \
       libmotif-dev libxt-dev x11proto-print-dev \

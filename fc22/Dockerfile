@@ -2,7 +2,7 @@ from fedora:22
 
 RUN dnf update -y; \ 
     dnf install -y wget python-setuptools pexpect numpy \
-      which rsync dnf-plugins-core \
+      which rsync dnf-plugins-core valgrind \
       automake make git \
       rpm-build rpm-sign createrepo \
       tar \

@@ -2,7 +2,7 @@ from fedora:21
 
 RUN yum update -y; \
     yum install -y wget yum-utils python-setuptools pexpect numpy \
-      rsync \
+      rsync valgrind \
       automake make git \
       rpm-build rpm-sign createrepo \
       tar \

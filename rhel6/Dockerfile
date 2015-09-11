@@ -5,7 +5,7 @@ RUN yum install -y wget epel-release; \
     wget -O /etc/yum.repos.d/slc6-devtoolset.repo http://linuxsoft.cern.ch/cern/devtoolset/slc6-devtoolset.repo; \
     yum clean all; \
     yum install -y yum-utils python-setuptools pexpect numpy createrepo \
-      rsync \
+      rsync valgrind \
       automake git \
       which \
       rpm-build \
