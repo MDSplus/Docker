@@ -1,39 +1,6 @@
 #!/bin/bash
 #
-
-function getsrc {
- mkdir /buildsrc
- if [ -d /opt/rh/devtoolset-3 ]; then
-   source /opt/rh/devtoolset-3/enable;
- fi
- export JDK_DIR=/etc/alternatives/java_sdk_openjdk;
- export PYTHON_INCLUDE_DIR=/usr/include/python2.6;
- export BUILDROOT="/buildroot";
- if [ -z "$1" ]
- then tag=stable;
- else tag=$1;
- fi;
- if [ -d /source ]
- then 
-   rsync -a /source /buildsrc/
-   export SOURCE="/buildsrc/source"
- else
-   cd /buildsrc;
-   wget -q -O - https://github.com/MDSplus/mdsplus/archive/${tag}.tar.gz | tar zxf -;
-   export SOURCE="/buildsrc/mdsplus-${tag}"
- fi
- export PATH=${SOURCE}/deploy:$PATH  
-}
-
 set -e
-case "$1" in
-build)
- getsrc $2;
- build_mdsplus_doxygen
- ;;
-shell)
- getsrc $2;
- bash
- ;;
-*) echo Unknown option. Valid options are '"build", "shell"';;
-esac
+wget -O /tmp/build_mdsplus -q https://github.com/MDSplus/mdsplus/raw/alpha/deploy/build_mdsplus
+chmod a+x /tmp/build_mdsplus
+/tmp/build_mdsplus $@
