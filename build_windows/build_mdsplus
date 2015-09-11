@@ -1,5 +1,5 @@
 #!/bin/bash
 #
-wget -O /tmp/build_mdsplus https://github.com/MDSplus/mdsplus/raw/new_build_bootstrap/deploy/build_mdsplus
+wget -O /tmp/build_mdsplus https://github.com/MDSplus/mdsplus/raw/alpha/deploy/build_mdsplus
 chmod a+x /tmp/build_mdsplus
 /tmp/build_mdsplus $@
