@@ -35,7 +35,7 @@ FROM mdsplus/roots:rhel5
 #
 
 MAINTAINER Tom Fredian, version: 0.1
-
+RUN cp /usr/bin/python26 /usr/local/bin/
 COPY build* /usr/local/bin/
 
 ENTRYPOINT ["build_mdsplus"]
