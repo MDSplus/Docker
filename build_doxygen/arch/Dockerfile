@@ -7,7 +7,7 @@ COPY build_* /usr/local/bin/
 
 RUN pacman -Sy --noconfirm; \
     pacman -S --noconfirm \
-    rsync wget git tar gzip \
+    rsync wget git tar gzip awk\
     gcc make \
     doxygen \
     graphviz \
