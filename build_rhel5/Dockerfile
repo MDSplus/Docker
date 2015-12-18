@@ -39,7 +39,7 @@ MAINTAINER Tom Fredian, version: 0.1
 #### Use python26 in the build rpms script because python24 does not have etree.
 
 RUN cp /usr/bin/python26 /usr/local/bin/python;\
-    yum install globus-common-devel.i386
+    yum -y install globus-common-devel.i386
 COPY build* /usr/local/bin/
 
 ENTRYPOINT ["build_mdsplus"]
