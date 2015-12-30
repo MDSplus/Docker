@@ -36,3 +36,11 @@ RUN dnf update -y; \
 RUN dnf download hdf5-devel.i686; \
     rpm -i --force /*.rpm
 
+RUN dnf download python.x86_64 python.i686 numpy.i686; \
+    dnf install -y atlas.i686; \
+    rpm -e --nodeps python; \
+    rpm -i python*.i686.rpm; \
+    rpm -i --force numpy*.rpm; \
+    mv /usr/bin/python2.7 /usr/bin/python-i686; \
+    rpm -i python*.x86_64.rpm
+
