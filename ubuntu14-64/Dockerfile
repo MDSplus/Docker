@@ -16,3 +16,9 @@ RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt
       libglobus-gss-assist-dev \
       libglobus-gssapi-gsi-dev \
       libglobus-xio-gsi-driver-dev;
+
+RUN apt-get install -y \
+      openssh-server \
+      gdb gdbserver \
+      libtest-harness-perl \
+      valgrind;

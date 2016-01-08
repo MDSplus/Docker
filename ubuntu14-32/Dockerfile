@@ -47,3 +47,19 @@ RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt
     for deb in *.deb; do dpkg-deb -xv ${deb} /; done; \
     ln -sf /usr/lib/i386-linux-gnu/pkgconfig/*.pc /usr/lib/pkgconfig/
 
+# tests
+RUN apt-get install -y \
+      openssh-server \
+      gdb:i386 gdbserver:i386 \
+      libtest-harness-perl \
+      valgrind:i386;
+
+# python 32 bit
+RUN  echo 'Yes, do as I say!' | apt-get install python:i386 python-numpy:i386 python-setuptools; \
+     easy_install pip; \
+     pip2 install nose tap tap.py;
+
+
+
+
+
