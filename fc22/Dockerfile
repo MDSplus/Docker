@@ -44,3 +44,17 @@ RUN dnf download python.x86_64 python.i686 numpy.i686; \
     mv /usr/bin/python2.7 /usr/bin/python-i686; \
     rpm -i python*.x86_64.rpm
 
+
+# Testing:
+#
+RUN dnf install -y \
+                   perl-Test-Harness.noarch \
+                   valgrind valgrind.i686
+
+# testing python
+RUN pip2 install nose tap tap.py
+
+# to run debugger in container
+RUN dnf install -y \
+                   gdb gdb-gdbserver \
+                   openssh openssh-server
