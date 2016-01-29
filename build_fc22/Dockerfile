@@ -36,6 +36,7 @@ FROM mdsplus/docker:fc22
 
 MAINTAINER Tom Fredian, version: 0.1
 
+RUN  ln -sf /usr/local/bin/build.conf /etc/profile.d/build_setup.sh
 COPY build* /usr/local/bin/
 
 ENTRYPOINT ["build_mdsplus"]
