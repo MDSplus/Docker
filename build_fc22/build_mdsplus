@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 set -e
-if [ -x /source/deploy/build_mdsplus ]
+if [ -x /mdsplus/source/deploy/build_mdsplus ]
 then
-    /source/deploy/build_mdsplus $@
+    /mdsplus/source/deploy/build_mdsplus $@
 else
     wget -q -O /tmp/build_mdsplus https://github.com/MDSplus/mdsplus/raw/alpha/deploy/build_mdsplus
     chmod a+x /tmp/build_mdsplus
