@@ -1,6 +1,11 @@
 #!/bin/bash
 #
 set -e
-wget -q -O /tmp/build_mdsplus https://github.com/MDSplus/mdsplus/raw/alpha/deploy/build_mdsplus
-chmod a+x /tmp/build_mdsplus
-/tmp/build_mdsplus $@
+if [ -x /source/deploy/build_mdsplus ]
+then
+    /source/deploy/build_mdsplus $@
+else
+    wget -q -O /tmp/build_mdsplus https://github.com/MDSplus/mdsplus/raw/alpha/deploy/build_mdsplus
+    chmod a+x /tmp/build_mdsplus
+    /tmp/build_mdsplus $@
+fi
