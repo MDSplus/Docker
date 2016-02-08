@@ -36,7 +36,7 @@ FROM mdsplus/roots:fc17
 
 MAINTAINER Tom Fredian, version: 0.1
 
-RUN yum install -y valgrind
+RUN yum install -y valgrind;chmod 1777 /tmp
 
 COPY build* /usr/local/bin/
 
