@@ -49,7 +49,7 @@ RUN dnf download python.x86_64 python.i686 numpy.i686; \
 #
 RUN dnf install -y \
                    perl-Test-Harness.noarch \
-                   valgrind valgrind.i686
+                   valgrind valgrind.i686 
 
 # testing python
 RUN pip2 install nose tap tap.py
