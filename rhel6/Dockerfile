@@ -41,3 +41,15 @@ RUN yum install -y wget epel-release; \
     yumdownloader hdf5-devel.i686; \
     rpm -i --force hdf5-devel*.rpm
 
+# Packages required for testing
+RUN yum install -y \
+                   perl-Test-Harness.noarch \
+                   valgrind valgrind.i686
+
+RUN yum install -y python-pip; \
+    pip2 install nose tap tap.py
+
+# to run debugger in container
+RUN yum install -y \
+                   gdb gdb-gdbserver \
+                   openssh openssh-server
