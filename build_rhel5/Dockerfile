@@ -1,4 +1,4 @@
-FROM mdsplus/roots:rhel5
+FROM mdsplus/docker:rhel5
 # To build docker image:
 #
 #    docker build -t mdsplus/docker:build_rhel5 .
@@ -36,10 +36,6 @@ FROM mdsplus/roots:rhel5
 
 MAINTAINER Tom Fredian, version: 0.1
 
-#### Use python26 in the build rpms script because python24 does not have etree.
-
-RUN cp /usr/bin/python26 /usr/local/bin/python;\
-    yum -y install globus-common-devel.i386
 COPY build* /usr/local/bin/
-
+RUN ln -sf /usr/local/bin/build.conf /etc/profile.d/mdsplus-build.sh
 ENTRYPOINT ["build_mdsplus"]
