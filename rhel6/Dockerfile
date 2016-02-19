@@ -43,7 +43,7 @@ RUN yum install -y wget epel-release; \
 
 # Packages required for testing
 RUN yum install -y \
-                   perl-Test-Harness.noarch \
+                   perl-Test-Harness \
                    valgrind valgrind.i686
 
 RUN yum install -y python-pip; \
