@@ -50,9 +50,9 @@ RUN easy_install-2.7 pip; \
 
 
 # to run debugger in container
-RUN yum install -y \
-                   gdb gdb-gdbserver \
-                   openssh openssh-server
+# RUN yum install -y \
+#                    gdb gdb-gdbserver \
+#                    openssh openssh-server
 
 
 COPY build* /usr/local/bin/
