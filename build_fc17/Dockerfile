@@ -1,4 +1,4 @@
-FROM mdsplus/roots:fc17
+FROM mdsplus/docker:fc17
 # To build docker image:
 #
 #    docker build -t mdsplus/docker:build_fc17 .
@@ -35,26 +35,6 @@ FROM mdsplus/roots:fc17
 #
 
 MAINTAINER Tom Fredian, version: 0.1
-
-RUN chmod 1777 /tmp
-
-#
-# Testing package adds ...
-#
-RUN yum install -y \
-                   perl-Test-Harness.noarch \
-                   valgrind valgrind.i686
-
-# python tests
-RUN easy_install-2.7 pip; \
-    pip2 install nose tap tap.py
-
-
-# to run debugger in container
-RUN yum install -y \
-                   gdb gdb-gdbserver \
-                   openssh openssh-server
-
 
 COPY build* /usr/local/bin/
 
