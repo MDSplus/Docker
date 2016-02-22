@@ -47,7 +47,7 @@ RUN yum install -y \
                    valgrind valgrind.i686
 
 RUN yum install -y python-pip; \
-    pip2 install nose tap tap.py
+    pip2 install --upgrade setuptools nose tap tap.py
 
 # to run debugger in container
 RUN yum install -y \
