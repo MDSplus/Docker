@@ -41,10 +41,21 @@ RUN yum install -y wget epel-release; \
     yumdownloader hdf5-devel.i686; \
     rpm -i --force hdf5-devel*.rpm
 
+
+
+# //////////////////////////////////////////////////////////////////////////// #
+# /// TESTS ////////////////////////////////////////////////////////////////// #
+# //////////////////////////////////////////////////////////////////////////// #
+
 # Packages required for testing
 RUN yum install -y \
                    perl-Test-Harness \
                    valgrind valgrind.i686
+
+# Install cpanminus installer for perl and upgrade TAP::Parser at latest
+# version.
+RUN curl -L http://cpanmin.us | perl - --self-upgrade; \
+    cpanm TAP::Parser
 
 RUN yum install -y python-pip; \
     pip2 install --upgrade setuptools nose tap tap.py
@@ -53,3 +64,6 @@ RUN yum install -y python-pip; \
 RUN yum install -y \
                    gdb gdb-gdbserver \
                    openssh openssh-server
+
+# enable devtoolset for each session
+RUN echo “. /opt/rh/devtoolset-2/enable” >> /etc/profile
