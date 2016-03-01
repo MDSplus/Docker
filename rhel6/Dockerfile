@@ -67,3 +67,5 @@ RUN yum install -y \
 
 # enable devtoolset for each session
 RUN echo “. /opt/rh/devtoolset-2/enable” >> /etc/profile
+
+Run yum install -y libasan.x86_64 libasan.i686 libtsan.x86_64
