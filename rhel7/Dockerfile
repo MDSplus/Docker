@@ -62,3 +62,5 @@ RUN yum install -y python-setuptools; \
 RUN yum install -y \
                    gdb gdb-gdbserver \
                    openssh openssh-server
+
+RUN yum install -y libasan.x86_64 libasan.i686 libtsan.x86_64
