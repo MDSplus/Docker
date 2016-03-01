@@ -24,6 +24,8 @@ RUN  yum downgrade -y krb5-libs openssl-libs nss-softokn-freebl nss-softokn nss-
      yumdownloader hdf5-devel.i686; \
      rpm -i --force --nodeps *.rpm
 
+RUN yum install -y libasan.x86_64 libasan.i686 libtsan.x86_64
+
 
 
 
