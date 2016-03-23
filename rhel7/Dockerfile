@@ -45,3 +45,22 @@ RUN yumdownloader libraw1394.i686 libraw1394-devel.i686 libdc1394.i686 libdc1394
 RUN rpm -i --nodeps --force *.rpm
 RUN rm -f /etc/yum.repos.d/fedora.repo ./*.rpm
 
+
+
+
+
+# Packages required for testing
+RUN yum install -y \
+                   perl-Test-Harness.noarch \
+                   valgrind valgrind.i686
+
+RUN yum install -y python-setuptools; \
+    easy_install-2.7 pip; \
+    pip2 install nose tap tap.py
+
+# to run debugger in container
+RUN yum install -y \
+                   gdb gdb-gdbserver \
+                   openssh openssh-server
+
+RUN yum install -y libasan.x86_64 libasan.i686 libtsan.x86_64

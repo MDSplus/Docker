@@ -29,7 +29,10 @@ RUN dnf update -y; \
       globus-gssapi-gsi-devel.x86_64 globus-gssapi-gsi-devel.i686 \
       globus-xio-gsi-driver-devel.x86_64 globus-xio-gsi-driver-devel.i686 \
       libX11-devel.x86_64 libX11-devel.i686 \
-      freetds-devel.x86_64 freetds-devel.i686; \
+      freetds-devel.x86_64 freetds-devel.i686 \
+      libtsan.x86_64 \
+      libasan.x86_64 libasan.i686 \
+      libubsan.x86_64 libubsan.i686; \
     /bin/mv /usr/bin/uil /usr/bin/uil32; \
     dnf install -y motif-devel.x86_64 libXt-devel.x86_64
 
@@ -49,7 +52,7 @@ RUN dnf download python.x86_64 python.i686 numpy.i686; \
 #
 RUN dnf install -y \
                    perl-Test-Harness.noarch \
-                   valgrind valgrind.i686
+                   valgrind valgrind.i686 
 
 # testing python
 RUN pip2 install nose tap tap.py

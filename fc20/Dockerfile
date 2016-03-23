@@ -23,3 +23,24 @@ RUN  yum downgrade -y krb5-libs openssl-libs nss-softokn-freebl nss-softokn nss-
      yum install -y motif-devel.x86_64 libXt-devel.x86_64; \
      yumdownloader hdf5-devel.i686; \
      rpm -i --force --nodeps *.rpm
+
+RUN yum install -y libasan.x86_64 libasan.i686 libtsan.x86_64
+
+
+
+
+
+#
+# Testing package adds ...
+#
+RUN yum install -y \
+                   perl-Test-Harness.noarch \
+                   valgrind valgrind.i686
+                   
+RUN yum install -y python-pip; \
+    pip install nose tap tap.py
+
+# to run debugger in container
+RUN yum install -y \
+                   gdb gdb-gdbserver \
+                   openssh openssh-server

@@ -1,4 +1,4 @@
-FROM mdsplus/roots:fc17
+FROM mdsplus/docker:fc17
 # To build docker image:
 #
 #    docker build -t mdsplus/docker:build_fc17 .
@@ -35,8 +35,6 @@ FROM mdsplus/roots:fc17
 #
 
 MAINTAINER Tom Fredian, version: 0.1
-
-RUN yum install -y valgrind;chmod 1777 /tmp
 
 COPY build* /usr/local/bin/
 
