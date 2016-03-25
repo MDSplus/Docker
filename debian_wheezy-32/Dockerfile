@@ -10,9 +10,10 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list-orig; \
       libdc1394-22-dev:i386 libraw1394-dev:i386 \
       libxml2-dev:i386 freetds-dev:i386 \
       libmotif-dev:i386 libxt-dev:i386 x11proto-print-dev:i386 \
-      g++:i386 gfortran:i386 openjdk-7-jdk:i386; \
+      g++:i386 gfortran:i386; \
     mv /usr/bin/uil /usr/bin/uil32; \
     apt-get download \
+      openjdk-7-jdk:i386 \
       globus-common-progs:i386 globus-core:i386 libglobus-callout-dev:i386 \
       libglobus-callout0:i386 \
       libglobus-common-dev:i386 \
