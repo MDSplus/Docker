@@ -14,6 +14,8 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list-orig; \
     mv /usr/bin/uil /usr/bin/uil32; \
     apt-get download \
       openjdk-7-jdk:i386 \
+      openjdk-7-jre:i386 \
+      openjdk-7-jre-headless:i386 \
       globus-common-progs:i386 globus-core:i386 libglobus-callout-dev:i386 \
       libglobus-callout0:i386 \
       libglobus-common-dev:i386 \
