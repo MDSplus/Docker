@@ -22,3 +22,8 @@ RUN apt-get install -y \
       gdb gdbserver \
       libtest-harness-perl \
       valgrind;
+
+RUN easy_install-2.7 pip; \
+    pip install --upgrade setuptools nose tap tap.py; \
+    apt-get install -y libasan0 libtsan0
+
