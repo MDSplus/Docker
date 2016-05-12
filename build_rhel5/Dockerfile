@@ -37,14 +37,6 @@ FROM mdsplus/docker:rhel5
 MAINTAINER Tom Fredian, version: 0.1
 
 
-# Perl TAP Parser for tests 
-RUN curl -L http://cpanmin.us | perl - --self-upgrade; \
-    cpanm TAP::Parser
-
-RUN easy_install-2.6 pip; \
-    pip install --upgrade setuptools nose tap tap.py
-
-
 COPY build* /usr/local/bin/
 RUN ln -sf /usr/local/bin/build.conf /etc/profile.d/mdsplus-build.sh
 ENTRYPOINT ["build_mdsplus"]
