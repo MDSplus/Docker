@@ -30,7 +30,6 @@ RUN dnf update -y; \
       globus-xio-gsi-driver-devel.x86_64 globus-xio-gsi-driver-devel.i686 \
       libX11-devel.x86_64 libX11-devel.i686 \
       freetds-devel.x86_64 freetds-devel.i686 \
-      libtsan.x86_64 \
       libasan.x86_64 libasan.i686 \
       libubsan.x86_64 libubsan.i686; \
     /bin/mv /usr/bin/uil /usr/bin/uil32; \
