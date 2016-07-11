@@ -1,13 +1,12 @@
 from ubuntu:precise
 
-RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt/sources.list.d/motif.list; \
-    apt-get update; \
+RUN apt-get update; \
     apt-get -y upgrade; \
     apt-get install -y rsync reprepro wget automake make tar \
       libcurl4-gnutls-dev:i386 libreadline-dev:i386 \
       libdc1394-22-dev:i386 libraw1394-dev:i386 \
       libxml2-dev:i386 freetds-dev:i386 \
-      libmotif-dev:i386 libxt-dev:i386 x11proto-print-dev:i386 \
+      libxt-dev:i386 x11proto-print-dev:i386 \
       g++:i386 gfortran:i386 openjdk-7-jdk:i386; \
     mv /usr/bin/uil /usr/bin/uil32; \
     apt-get download python2.7:i386 python2.7-dev:i386 python2.7-minimal:i386 \
@@ -43,5 +42,6 @@ RUN echo "deb http://mirrors.kernel.org/ubuntu lucid main multiverse" > /etc/apt
       libglobus-xio-gsi-driver-dev:i386 \
       libglobus-xio-gsi-driver0:i386 \
       libglobus-xio0:i386; \
+    wget --no-check-certificate https://motif.ics.com/sites/default/files/libmotif-dev_2.3.4-1_i386.deb https://motif.ics.com/sites/default/files/libmotif4_2.3.4-1_i386.deb; \
     for deb in *.deb; do dpkg-deb -xv ${deb} /; done
 
