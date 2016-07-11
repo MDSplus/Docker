@@ -9,6 +9,7 @@ RUN   mkdir -p /raspberrypi-rootfs; \
       tar zxf /rootfs.tar.gz; \
       cd /; \
       tar zxf gcc-arm-raspbian.tar.gz; \
+      chmod -R a+rx /gcc-linaro-arm-linux-gnueabihf-raspbian; \
       ln -sf /gcc-linaro-arm-linux-gnueabihf-raspbian/arm-linux-gnueabihf/include /usr/include/arm-linux-gnueabihf; \
       mkdir -p /raspberrypi-include; \
       cd /raspberrypi-include; \
