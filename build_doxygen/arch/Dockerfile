@@ -1,4 +1,4 @@
-FROM dock0/arch:latest
+FROM rigoni/archlinux:latest
 
 # ENV http_proxy 'eproxy2.rfx.local:8080'
 # ENV https_proxy 'eproxy2.rfx.local:8080'
