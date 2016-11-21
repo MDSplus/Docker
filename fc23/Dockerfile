@@ -31,7 +31,7 @@ RUN dnf update -y; \
       libX11-devel.x86_64 libX11-devel.i686 \
       freetds-devel.x86_64 freetds-devel.i686 \
       libasan.x86_64 libasan.i686 \
-      libubsan.x86_64 libubsan.i686; \
+      libubsan.x86_64 libubsan.i686 strace; \
     /bin/mv /usr/bin/uil /usr/bin/uil32; \
     dnf install -y motif-devel.x86_64 libXt-devel.x86_64
 
