@@ -3,14 +3,11 @@ from ubuntu:16.04
 RUN dpkg --add-architecture i386; \
     apt-get update; \
     apt-get install -y gcc-multilib g++-multilib gfortran-multilib \
-      libxml2-dev:amd64 libreadline-dev:amd64 \
       libxml2-dev:i386 libreadline-dev:i386 \
-      pkg-config rsync reprepro wget automake make \
-      libcurl4-gnutls-dev:i386 openjdk-8-jdk \
-      libdc1394-22-dev:i386 libraw1394-dev:i386 \
-      freetds-dev:i386 libmotif-dev:i386 libpython2.7-dev:i386 \
+      pkg-config rsync reprepro wget automake make libcurl4-gnutls-dev:i386 libssl-dev:i386 openjdk-8-jdk \
+      libdc1394-22-dev:i386 libraw1394-dev:i386 freetds-dev:i386 libmotif-dev:i386 libpython2.7-dev:i386 \
       openssh-server gdb:i386 gdbserver:i386 libtest-harness-perl valgrind:i386 \
-      python:i386 python-numpy:i386 python-setuptools; \
+      python:i386 python-numpy:i386 python-setuptools git; \
     easy_install pip; \
     pip2 install nose tap tap.py; \
     ln -sf /usr/bin/uil /usr/bin/uil32;
