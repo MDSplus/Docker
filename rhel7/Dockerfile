@@ -15,6 +15,7 @@ RUN yum install -y wget yum-utils python-setuptools pexpect numpy \
       libquadmath-devel libquadmath-devel.i686 \
       glibc-devel glibc-devel.i686 \
       libgfortran.i686 \
+      libusb.i686 \
       libraw1394-devel libraw1394-devel.i686 libdc1394-devel libdc1394-devel.i686 \
       hdf5-devel hdf5.i686 \
       readline-devel readline-devel.i686 \
