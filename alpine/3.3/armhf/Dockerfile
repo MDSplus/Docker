@@ -16,9 +16,11 @@ RUN echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositor
        libdc1394 libdc1394-dev libraw1394 libraw1394-dev  \
        readline readline-dev python-dev \
        motif-dev libxml2-dev libxml2 curl-dev curl freetds-dev dev86 \
-       py-numpy hdf5 hdf5-dev alpine-sdk perl-test-harness valgrind py2-pip; \
+       hdf5 hdf5-dev alpine-sdk perl-test-harness valgrind py2-pip; \
     ln -sf /usr/lib/bcc/include/sys/cdefs.h /usr/include/sys; \
-    pip2 install nose tap tap.py
+    ln -sf /usr/include/locale.h /usr/include/xlocale.h; \
+    pip install --upgrade pip; \
+    pip install numpy nose tap tap.py
 
 ADD mdsplus@mdsplus.org-589e05b6.rsa.pub /etc/apk/keys/
 ADD abuild.conf /.abuild/
