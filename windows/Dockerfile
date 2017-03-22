@@ -12,7 +12,9 @@ RUN dnf -y update;\
       java-devel libxml2-devel binutils rsync mono-devel;
 
 
-RUN dnf -y install wine; \
+RUN dnf -y install 'dnf-command(config-manager)'; \
+    dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/23/winehq.repo; \
+    dnf -y install winehq-staging; \
     wine cmd /c echo test >/dev/null 2>&1 < /dev/null; \
     ln -sf /usr/i686-w64-mingw32/sys-root/mingw/bin/*.dll ~/.wine/drive_c/windows/syswow64/; \
     ln -sf /usr/x86_64-w64-mingw32/sys-root/mingw/bin/*.dll ~/.wine/drive_c/windows/system32;
