@@ -14,7 +14,8 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list-orig;\
 		libglobus-gssapi-gsi-dev \
 		libglobus-xio-gsi-driver-dev  \
 		freetds-dev libxml2-dev libcurl4-openssl-dev reprepro \
-                libmotif-dev libxt-dev libxmu-dev libxp-dev libx11-dev; \
-    apt-get -y upgrade
+                libmotif-dev libxt-dev libxmu-dev libxp-dev libx11-dev \
+                python-numpy python-nose; \
+    apt-get -y upgrade;
 RUN apt-get install -y --force-yes libdc1394-22-dev libraw1394-dev
- 
+RUN ln -s /usr/lib/libpython2.7.so.1.0 /usr/lib/libpython2.7.so
