@@ -1,7 +1,7 @@
 from fedora:23
 
 RUN dnf -y update;\
-    dnf -y install wget make tar git \
+    dnf -y install wget make tar git psmisc\
       mingw32-gcc mingw32-gcc-c++ mingw32-gcc-gfortran mingw32-libxml2 \
       mingw32-dlfcn mingw32-winpthreads mingw32-curl mingw32-readline \
       mingw32-nsis\
