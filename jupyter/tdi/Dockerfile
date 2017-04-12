@@ -9,16 +9,12 @@ RUN echo "http://www.mdsplus.org/dist/alpine/3.3/alpha" >> /etc/apk/repositories
     apk update; \
     apk add alpine-keys
     
-RUN apk add python py-setuptools py2-numpy mdsplus-alpha-python
-RUN apk add bash automake make \
-       gcc g++ gfortran binutils libgcc libstdc++ libquadmath libgfortran \
-       readline readline-dev python-dev
-
-RUN apk add py-pip; \
+RUN apk add python py-setuptools py2-numpy mdsplus-alpha-python \
+        bash automake make \
+        gcc g++ gfortran binutils libgcc libstdc++ libquadmath libgfortran \
+        readline readline-dev python-dev git rsync py-pip; \
     pip2 install --upgrade pip; \
-    pip2 install --upgrade --force-reinstall --no-cache-dir jupyter
-    
-RUN apk add git rsync; \
+    pip2 install --upgrade --force-reinstall --no-cache-dir jupyter; \
     cd /root; \
     git clone http://github.com/MDSplus/jupyter; \
     cd jupyter/tdi_kernel; \
@@ -28,9 +24,11 @@ RUN apk add git rsync; \
     mkdir /notebooks
     
 ENTRYPOINT source /usr/local/mdsplus/setup.sh; \
+    cd /root/jupyter; \
+    git pull -q; \
     rsync -a /root/jupyter/tdi_kernel/samples /notebooks; \
     chown -R nobody:nobody /notebooks/samples; \
-    chmod a+r -R /notebooks; \
+    chmod a+rw -R /notebooks; \
     mkdir -p /home/nobody; \
     chown -R nobody:nobody /home/nobody; \
     su nobody -s /bin/sh -c "HOME=/home/nobody jupyter notebook --config=/etc/jupyter_notebook_config.py"
