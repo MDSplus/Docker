@@ -1,14 +1,13 @@
 from fedora:23
 
-RUN dnf update -y; \ 
+RUN dnf update -y; \
     dnf install -y wget python-setuptools pexpect numpy \
-      which rsync dnf-plugins-core valgrind \
+      which rsync dnf-plugins-core \
       automake make git \
-      rpm-build rpm-sign createrepo \
-      tar \
+      rpm-build rpm-sign createrepo tar \
       gcc gcc-c++.x86_64 gcc-gfortran.x86_64 \
       binutils.x86_64 \
-      libstdc++-devel.x86_64 libstdc++-devel.i686 \ 
+      libstdc++-devel.x86_64 libstdc++-devel.i686 \
       libquadmath-devel.x86_64 libquadmath-devel.i686 \
       glibc-devel.x86_64 glibc-devel.i686 \
       libgfortran.x86_64 libgfortran.i686 \
@@ -17,7 +16,7 @@ RUN dnf update -y; \
       readline-devel.x86_64 readline-devel.i686 \
       python-devel.x86_64 python-libs.i686 \
       java-1.8.0-openjdk-devel.x86_64 \
-      motif-devel.i686 libSM-devel.i686 libICE-devel.i686 \ 
+      motif-devel.i686 libSM-devel.i686 libICE-devel.i686 \
       libcurl.x86_64 libcurl.i686 libcurl-devel.x86_64 libcurl-devel.i686 \
       libxml2-devel.x86_64 libxml2-devel.i686 libxml2.x86_64 libxml2.i686 \
       globus-common-progs \
@@ -29,15 +28,12 @@ RUN dnf update -y; \
       globus-gssapi-gsi-devel.x86_64 globus-gssapi-gsi-devel.i686 \
       globus-xio-gsi-driver-devel.x86_64 globus-xio-gsi-driver-devel.i686 \
       libX11-devel.x86_64 libX11-devel.i686 \
-      freetds-devel.x86_64 freetds-devel.i686 \
-      libasan.x86_64 libasan.i686 \
-      libubsan.x86_64 libubsan.i686; \
+      freetds-devel.x86_64 freetds-devel.i686; \
     /bin/mv /usr/bin/uil /usr/bin/uil32; \
     dnf install -y motif-devel.x86_64 libXt-devel.x86_64
 
-RUN dnf download hdf5-devel.i686; \
+RUN dnf download -y hdf5-devel.i686; \
     rpm -i --force /*.rpm
-
 RUN dnf download python.x86_64 python.i686 numpy.i686; \
     dnf install -y atlas.i686; \
     rpm -e --nodeps python; \
@@ -50,8 +46,14 @@ RUN dnf download python.x86_64 python.i686 numpy.i686; \
 # Testing:
 #
 RUN dnf install -y \
-                   perl-Test-Harness.noarch \
-                   valgrind valgrind.i686 
+      perl-Test-Harness.noarch \
+      valgrind valgrind.i686 \
+      libasan.x86_64 libasan.i686 \
+      liblsan.x86_64 \
+# liblsan.i686
+      libtsan.x86_64 \
+# libtsan.i686
+      libubsan.x86_64 libubsan.i686;
 
 # testing python
 RUN pip2 install nose tap tap.py
