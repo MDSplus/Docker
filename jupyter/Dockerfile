@@ -14,13 +14,16 @@ RUN apk add python py-setuptools py2-numpy mdsplus-alpha-python \
         gcc g++ gfortran binutils libgcc libstdc++ libquadmath libgfortran \
         readline readline-dev python-dev git rsync py-pip; \
     pip2 install --upgrade pip; \
-    pip2 install --upgrade --force-reinstall --no-cache-dir jupyter; \
-    cd /root; \
+    pip2 install --upgrade --force-reinstall --no-cache-dir jupyter
+RUN cd /root; \
     git clone http://github.com/MDSplus/jupyter; \
     cd jupyter/tdi_kernel; \
     source /usr/local/mdsplus/setup.sh; \
     python setup.py install; \
     python -m tdi_kernel.install; \
+    cd ../mdstcl_kernel; \
+    python setup.py install; \
+    python -m mdstcl_kernel.install; \
     mkdir /notebooks
     
 ENTRYPOINT source /usr/local/mdsplus/setup.sh; \
