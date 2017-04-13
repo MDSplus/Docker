@@ -12,9 +12,10 @@ RUN echo "http://www.mdsplus.org/dist/alpine/3.3/alpha" >> /etc/apk/repositories
 RUN apk add python py-setuptools py2-numpy mdsplus-alpha-python \
         bash automake make \
         gcc g++ gfortran binutils libgcc libstdc++ libquadmath libgfortran \
-        readline readline-dev python-dev git rsync py-pip; \
+        readline readline-dev python-dev git rsync py-pip libpng freetype-dev py-numpy-dev; \
     pip2 install --upgrade pip; \
-    pip2 install --upgrade --force-reinstall --no-cache-dir jupyter
+    pip2 install --upgrade --force-reinstall --no-cache-dir jupyter; \
+    pip2 install --upgrade matplotlib;
 RUN cd /root; \
     git clone http://github.com/MDSplus/jupyter; \
     cd jupyter/tdi_kernel; \
@@ -29,8 +30,9 @@ RUN cd /root; \
 ENTRYPOINT source /usr/local/mdsplus/setup.sh; \
     cd /root/jupyter; \
     git pull -q; \
-    rsync -a /root/jupyter/tdi_kernel/samples /notebooks; \
+    rsync -a /root/jupyter/samples /notebooks; \
     chown -R nobody:nobody /notebooks/samples; \
+    chown -R nobody:nobody /usr/local/mdsplus/trees; \
     chmod a+rw -R /notebooks; \
     mkdir -p /home/nobody; \
     chown -R nobody:nobody /home/nobody; \
