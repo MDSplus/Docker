@@ -1,4 +1,4 @@
-from fedora:23
+from fedora:26
 
 RUN dnf -y update;\
     dnf -y install wget make tar git psmisc\
@@ -13,7 +13,7 @@ RUN dnf -y update;\
 
 
 RUN dnf -y install 'dnf-command(config-manager)'; \
-    dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/23/winehq.repo; \
+    dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/26/winehq.repo; \
     dnf -y install winehq-staging; \
     wine cmd /c echo test >/dev/null 2>&1 < /dev/null; \
     ln -sf /usr/i686-w64-mingw32/sys-root/mingw/bin/*.dll ~/.wine/drive_c/windows/syswow64/; \
