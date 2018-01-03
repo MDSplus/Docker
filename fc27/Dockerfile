@@ -53,7 +53,8 @@ RUN dnf install -y \
     globus-gss-assist-devel.x86_64            globus-gss-assist-devel.i686 \
     globus-gssapi-gsi-devel.x86_64            globus-gssapi-gsi-devel.i686 \
     globus-xio-gsi-driver-devel.x86_64        globus-xio-gsi-driver-devel.i686 \
-    globus-common-devel.i686; \
+    globus-gssapi-error-devel.x86_64         globus-gssapi-error-devel.i686 \
+    globus-common-devel.x86_64                globus-common-devel.i686; \
     /bin/ln -sf /usr/include/globus/* /usr/include/
 
 # Testing:
