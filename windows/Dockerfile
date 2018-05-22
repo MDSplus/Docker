@@ -27,5 +27,6 @@ ADD python27.tar /
 
 # for Visual Studio compiles
 
-ADD vc.tgz /
+ADD MVS.tgz /
+ADD WK.tgz /
    
