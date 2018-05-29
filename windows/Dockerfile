@@ -9,7 +9,7 @@ RUN dnf -y update;\
       mingw64-dlfcn mingw64-winpthreads mingw64-curl mingw64-readline \
       mingw32-libxml2-static mingw64-libxml2-static \
       mingw32-zlib-static mingw64-zlib-static \
-      java-devel libxml2-devel binutils rsync mono-devel;
+      java-devel libxml2-devel binutils rsync mono-devel osslsigncode;
 
 
 RUN dnf -y install 'dnf-command(config-manager)'; \
