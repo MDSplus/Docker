@@ -17,11 +17,10 @@ chown $(id -u $user):$(id -g $user) $CURRENT_LOGFILE
 chown $(id -u $user):$(id -g $user) $coredir
 while [ 1 = 1 ]
 do
-  . /etc/profile
   echo `date`, server process starting >> $CURRENT_LOGFILE
-
+  . /etc/profile
   ulimit -c 1000000
-  su -s /bin/sh -c "$MDSPLUS_DIR/bin/mdsip -p $port -s -h /etc/mdsip.hosts >> $CURRENT_LOGFILE 2>&1" $user
+  su -p -s /bin/sh -c "$MDSPLUS_DIR/bin/mdsip -p $port -s -h /etc/mdsip.hosts >> $CURRENT_LOGFILE 2>&1" $user
   status=$?
   #/usr/local/cmod/sbin/kill_mdsip_orphans
   echo `date`, server process stopped with status $status >> $CURRENT_LOGFILE

@@ -14,7 +14,8 @@ RUN echo "http://www.mdsplus.org/dist/alpine/3.3/alpha" >> /etc/apk/repositories
     apk add alpine-keys
     
 RUN apk add mdsplus-alpha-kernel
-#RUN apk add mdsplus-alpha-mitdevices mdsplus-alpha-rfxdevices mdsplus-alpha-w7xdevices
+RUN apk add mdsplus-alpha-mitdevices mdsplus-alpha-rfxdevices mdsplus-alpha-w7xdevices
+RUN apk add mdsplus-alpha-htsdevices
 
 ENTRYPOINT ["start_mdsip"]
 CMD []]
