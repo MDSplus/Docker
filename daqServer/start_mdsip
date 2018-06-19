@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+s_user=$1
+shift
+if [ ! -z "$s_user" ]
+then
+  for server in $@
+  do
+    mdsip_server ${s_user} ${server}
+  done
+fi
+inetd -fe
