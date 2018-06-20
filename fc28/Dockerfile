@@ -13,7 +13,7 @@ RUN mv /usr/bin/python2.7 /usr/bin/python-i686; \
 RUN dnf install -y \
     wget pexpect which nano rsync dnf-plugins-core \
     automake make git rpm-build rpm-sign createrepo tar \
-    gcc gcc-c++ gcc-gfortran binutils.x86_64 \
+    gcc gcc-c++ gcc-gfortran gcc-gfortran.i686 binutils.x86_64 \
     libSM-devel.i686 libICE-devel.i686
 
 RUN dnf install -y \
