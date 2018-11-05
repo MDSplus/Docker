@@ -3,7 +3,7 @@ from fedora:28
 RUN dnf update -y;
 
 RUN dnf install -y \
-    wget pexpect which nano rsync dnf-plugins-core \
+    wget python2-pexpect python3-pexpect which nano rsync dnf-plugins-core \
     automake make git rpm-build rpm-sign createrepo tar \
     gcc gcc-c++ gcc-gfortran gcc-gfortran.i686 binutils.x86_64 \
     libSM-devel.i686 libICE-devel.i686
