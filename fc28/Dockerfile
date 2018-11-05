@@ -3,7 +3,7 @@ from fedora:28
 RUN dnf update -y;
 
 RUN dnf install -y \
-    wget python2-pexpect python3-pexpect which nano rsync dnf-plugins-core \
+    wget which nano rsync dnf-plugins-core \
     automake make git rpm-build rpm-sign createrepo tar \
     gcc gcc-c++ gcc-gfortran gcc-gfortran.i686 binutils.x86_64 \
     libSM-devel.i686 libICE-devel.i686
@@ -66,7 +66,8 @@ RUN dnf install -y \
 
 # testing python
 # python3.6 64bit
-RUN pip3 install --upgrade pip; \
+RUN dnf install -y python3-pexpect; \
+    pip3 install --upgrade pip; \
     pip3 install numpy nose tap tap.py; \
     mv /usr/bin/python3.6m /usr/bin/python3.6-x86_64;
 
@@ -80,7 +81,7 @@ RUN dnf remove -y python2; \
     dnf install -y python2.i686; \
     pip2 install numpy nose tap tap.py; \
     mv /usr/bin/python2.7 /usr/bin/python2.7-i686; \
-    dnf install -y python2.x86_64
+    dnf install -y python2.x86_64 python2-pexpect
 
 # set default
 RUN ln -sf python3        /usr/bin/python; \
