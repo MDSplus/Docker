@@ -1,14 +1,6 @@
 from fedora:28
 
-
 RUN dnf update -y;
-
-# testing python
-RUN dnf install -y python2.i686; \
-    pip install --upgrade pip; \
-    pip install numpy nose tap tap.py;
-RUN mv /usr/bin/python2.7 /usr/bin/python-i686; \
-    dnf install -y python2.x86_64 numpy
 
 RUN dnf install -y \
     wget pexpect which nano rsync dnf-plugins-core \
@@ -71,3 +63,28 @@ RUN dnf install -y \
    gdb gdb-gdbserver \
    openssh-server \
    strace procps-ng
+
+# testing python
+# python3.6 64bit
+RUN pip3 install --upgrade pip; \
+    pip3 install numpy nose tap tap.py; \
+    mv /usr/bin/python3.6m /usr/bin/python3.6-x86_64;
+
+# python2.7 32bit
+RUN pip2 install numpy tap tap.py; \
+    mv /usr/bin/python2.7 /usr/bin/python2.7-x86_64; \
+    ln -sf python2.7-x86_64 /usr/bin/python2.7;
+
+# python2.7 32bit
+RUN dnf remove -y python2; \
+    dnf install -y python2.i686; \
+    pip2 install numpy nose tap tap.py; \
+    mv /usr/bin/python2.7 /usr/bin/python2.7-i686; \
+    dnf install -y python2.x86_64
+
+# set default
+RUN ln -sf python3        /usr/bin/python; \
+    ln -sf python3.6-x86_64 /usr/bin/python3; \
+    ln -sf python2.7-i686   /usr/bin/python2.7; \
+    ln -sf libpython3.6m.so.1.0 /lib64/libpython3.6.so; \
+    ln -sf libpython2.7.so.1.0  /lib/libpython2.7.so
