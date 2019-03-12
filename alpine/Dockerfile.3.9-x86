@@ -1,9 +1,8 @@
-from multiarch/alpine:x86-v3.3
+from multiarch/alpine:x86-v3.9
 RUN echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories; \
     echo "http://dl-3.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories; \
-    apk update; \
-    apk add alpine-keys; \
-    apk add bash automake make git rsync tar python py-setuptools \
+    apk add --update alpine-keys; \
+    apk add bash automake make git rsync tar wget python py-setuptools \
        gcc g++ gfortran binutils libgcc libstdc++ libquadmath libgfortran \
        libdc1394 libdc1394-dev libraw1394 libraw1394-dev  \
        readline readline-dev python-dev \
@@ -12,10 +11,9 @@ RUN echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositor
        perl-test-harness valgrind py-pip ; \
     ln -sf uil /usr/bin/uil32; \
     ln -sf /usr/lib/bcc/include/sys/cdefs.h /usr/include/sys/; \
-    pip2 install nose tap tap.py
-
-ADD mdsplus@mdsplus.org-589e05b6.rsa.pub /etc/apk/keys/
-ADD abuild.conf /.abuild/
+    pip2 install nose tap tap.py; \
+    wget -P /etc/apk/keys/ http://www.mdsplus.org/dist/mdsplus@mdsplus.org-589e05b6.rsa.pub; \
+    echo "PACKAGER_PRIVKEY=\"/sign_keys/mdsplus@mdsplus.org-589e05b6.rsa\"\n" > abuild.conf
 
 ENV JDK_DIR=/usr/lib/jvm/java-1.8-openjdk
 
