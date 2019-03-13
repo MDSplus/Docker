@@ -10,6 +10,7 @@ from multiarch/alpine:armhf-edge
 RUN echo "http://dl-3.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     echo "http://dl-3.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    apk upgrade --update-cache --available && \
     apk add --update alpine-keys && \
     apk add --update bash automake make git rsync tar wget python py-setuptools \
        gcc g++ gfortran binutils libgcc libstdc++ libgfortran \
