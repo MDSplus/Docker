@@ -1,4 +1,5 @@
-from multiarch/alpine:x86-v3.3
+FROM multiarch/alpine:x86-v3.3
+
 RUN echo "http://dl-3.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories && \
     echo "http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     echo "http://dl-3.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
