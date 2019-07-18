@@ -1,5 +1,0 @@
-#!/bin/sh
-#
-MDSPLUS_DIR=/usr/local/mdsplus
-. $MDSPLUS_DIR/setup.sh
-exec $MDSPLUS_DIR/bin/mdsip -p $1 -h ${3:-/etc/mdsip.hosts} -c 0 >> $2/$1.log 2>&1
