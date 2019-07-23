@@ -37,8 +37,8 @@ RUN yum install -y \
                    perl-Test-Harness.noarch \
                    valgrind valgrind.i686
                    
-RUN yum install -y python-pip; \
-    pip install nose tap tap.py
+#RUN yum install -y python-pip; \
+#    pip install nose tap tap.py
 
 # to run debugger in container
 RUN yum install -y \
