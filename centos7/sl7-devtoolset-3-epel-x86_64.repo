@@ -1,5 +1,0 @@
-[sl7]
-name=Devtoolset-3 - epel-7-x86_64
-baseurl=http://ftp.scientificlinux.org/linux/scientific/7x/external_products/softwarecollections/x86_64/devtoolset/
-enabled=0
-gpgcheck=0
