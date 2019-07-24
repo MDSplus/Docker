@@ -1,4 +1,4 @@
-FROM mdsplus/docker:rhel5_root
+FROM mdsplus/builder:rhel5_root
 MAINTAINER Tom Fredian, version: 0.1
 
 

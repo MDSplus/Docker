@@ -1,7 +1,35 @@
+OS_LIST=build_docs
 
-.PHONY: all build_docs
-all: build_docs
+PUSH=$(findstring push,$(MAKECMDGOALS))
+NOKEEP=$(findstring nokeep,$(MAKECMDGOALS))
+REMOVE=$(findstring remove,$(MAKECMDGOALS))
 
-build_docs :
-	docker build --no-cache -t mdsplus/builder:build_docs  arch
+ifeq 'push' '$(filter-out nokeep,$(MAKECMDGOALS))'
+GOALS=$(OS_LIST)
+endif
 
+ifeq 'remove' '$(MAKECMDGOALS)'
+GOALS=$(OS_LIST)
+endif
+
+.PHONY: all $(OS_LIST)
+all: $(OS_LIST)
+
+$(OS_LIST) :
+ifeq 'remove' '$(REMOVE)'
+	docker rmi -f mdsplus/builder:$@
+else
+	docker build --no-cache -t mdsplus/builder:$@  arch
+  ifeq 'push' '$(PUSH)'
+	docker push mdsplus/builder:$@
+    ifeq 'nokeep' '$(NOKEEP)'
+	docker rmi -f mdsplus/builder:$@
+    endif
+  endif
+endif
+
+push: $(GOALS)
+
+remove: $(GOALS)
+
+nokeep:

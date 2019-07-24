@@ -1,4 +1,4 @@
-FROM mdsplus/docker:fc18_root
+FROM mdsplus/builder:fc18_root
 
 MAINTAINER Tom Fredian, version: 0.1
 
