@@ -17,7 +17,7 @@ all: $(OS_LIST)
 
 $(OS_LIST) :
 ifeq 'remove' '$(REMOVE)'
-	docker rmi -f mdsplus/builder:$@
+	-docker rmi -f mdsplus/builder:$@
 else
 	docker build --no-cache -t mdsplus/builder:$@ -f Dockerfile-$@ .
   ifeq 'push' '$(PUSH)'

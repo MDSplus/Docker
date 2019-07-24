@@ -18,7 +18,7 @@ all: $(OS_LIST)
 
 $(OS_LIST) :
 ifeq 'remove' '$(REMOVE)'
-	docker rmi -f mdsplus/builder:alpine-$@
+	-docker rmi -f mdsplus/builder:alpine-$@
 else
 	if [ '$(findstring arm,$(value @))' == 'arm' ]; then \
 	   docker run --rm --privileged multiarch/qemu-user-static:register --reset; \
