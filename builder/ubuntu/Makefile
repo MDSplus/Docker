@@ -19,7 +19,7 @@ $(OS_LIST) :
 ifeq 'remove' '$(REMOVE)'
 	-docker rmi -f mdsplus/builder:ubuntu$@
 else
-	docker build --no-cache -t mdsplus/builder:ubuntu$@ -f Dockerfile-$@ .
+	docker build --no-cache -t mdsplus/builder:ubuntu$@ -f Dockerfile-ub$@ .
   ifeq 'push' '$(PUSH)'
 	docker push mdsplus/builder:ubuntu$@
     ifeq 'nokeep' '$(NOKEEP)'

@@ -7,7 +7,7 @@
 #                                   ### if push nokeep provided build, push and then remove image
 # make [platforms] remove           ### Remove images locally 
 #
-OS_LIST = alpine debian docs fedora raspberrypi rhel ubuntu windows
+OS_LIST = $(sort $(filter-out Makefile,$(wildcard *)))
 
 PUSH=$(findstring push,$(MAKECMDGOALS))
 NOKEEP=$(findstring nokeep,$(MAKECMDGOALS))
