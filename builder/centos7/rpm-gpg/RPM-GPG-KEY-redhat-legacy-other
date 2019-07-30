@@ -1,0 +1,78 @@
+The following public key can be used to verify RPM packages built and
+signed by Red Hat, Inc.  This key is used for packages in Red Hat
+products shipped prior to November 2006, and for all updates to those
+products.
+
+Questions about this key should be sent to security@redhat.com.
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.0.0 (GNU/Linux)
+Comment: For info see http://www.gnupg.org
+
+mQGiBDfqVDgRBADBKr3Bl6PO8BQ0H8sJoD6p9U7Yyl7pjtZqioviPwXP+DCWd4u8
+HQzcxAZ57m8ssA1LK1Fx93coJhDzM130+p5BG9mYSWShLabR3N1KXdXQYYcowTOM
+GxdwYRGr1Spw8QydLhjVfU1VSl4xt6bupPbWJbyjkg5Z3P7BlUOUJmrx3wCgobNV
+EDGaWYJcch5z5B1of/41G8kEAKii6q7Gu/vhXXnLS6m15oNnPVybyngiw/23dKjS
+ZVG7rKANEK2mxg1VB+vc/uUc4k49UxJJfCZg1gu1sPFV3GSa+Y/7jsiLktQvCiLP
+lncQt1dV+ENmHR5BdIDPWDzKBVbgWnSDnqQ6KrZ7T6AlZ74VMpjGxxkWU6vV2xsW
+XCLPA/9P/vtImA8CZN3jxGgtK5GGtDNJ/cMhhuv5tnfwFg4b/VGo2Jr8mhLUqoIb
+E6zeGAmZbUpdckDco8D5fiFmqTf5+++pCEpJLJkkzel/32N2w4qzPrcRMCiBURES
+PjCLd4Y5rPoU8E4kOHc/4BuHN903tiCsCPloCrWsQZ7UdxfQ5LQiUmVkIEhhdCwg
+SW5jIDxzZWN1cml0eUByZWRoYXQuY29tPohVBBMRAgAVBQI36lQ4AwsKAwMVAwID
+FgIBAheAAAoJECGRgM3bQqYOsBQAnRVtg7B25Hm11PHcpa8FpeddKiq2AJ9aO8sB
+XmLDmPOEFI75mpTrKYHF6rkCDQQ36lRyEAgAokgI2xJ+3bZsk8jRA8ORIX8DH05U
+lMH27qFYzLbT6npXwXYIOtVn0K2/iMDj+oEB1Aa2au4OnddYaLWp06v3d+XyS0t+
+5ab2ZfIQzdh7wCwxqRkzR+/H5TLYbMG+hvtTdylfqIX0WEfoOXMtWEGSVwyUsnM3
+Jy3LOi48rQQSCKtCAUdV20FoIGWhwnb/gHU1BnmES6UdQujFBE6EANqPhp0coYoI
+hHJ2oIO8ujQItvvNaU88j/s/izQv5e7MXOgVSjKe/WX3s2JtB/tW7utpy12wh1J+
+JsFdbLV/t8CozUTpJgx5mVA3RKlxjTA+On+1IEUWioB+iVfT7Ov/0kcAzwADBQf9
+E4SKCWRand8K0XloMYgmipxMhJNnWDMLkokvbMNTUoNpSfRoQJ9EheXDxwMpTPwK
+ti/PYrrL2J11P2ed0x7zm8v3gLrY0cue1iSba+8glY+p31ZPOr5ogaJw7ZARgoS8
+BwjyRymXQp+8Dete0TELKOL2/itDOPGHW07SsVWOR6cmX4VlRRcWB5KejaNvdrE5
+4XFtOd04NMgWI63uqZc4zkRa+kwEZtmbz3tHSdRCCE+Y7YVP6IUf/w6YPQFQriWY
+FiA6fD10eB+BlIUqIw80VgjsBKmCwvKkn4jg8kibXgj4/TzQSx77uYokw1EqQ2wk
+OZoaEtcubsNMquuLCMWijYhGBBgRAgAGBQI36lRyAAoJECGRgM3bQqYOhyYAnj7h
+VDY/FJAGqmtZpwVp9IlitW5tAJ4xQApr/jNFZCTksnI+4O1765F7tA==
+=3AHZ
+-----END PGP PUBLIC KEY BLOCK-----
+The following public key can be used to verify RPM packages built and
+signed by Red Hat, Inc.  This key is used for packages in Red Hat
+products shipped after November 2006, and for all updates to those
+products.
+
+Questions about this key should be sent to security@redhat.com.
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.2.6 (GNU/Linux)
+
+mQGiBEV2EyQRBAD4/SR69qoLzK4HIa6g9iS+baiX0o3NjkLftFHg/xy+IMOMg//i
+4c5bUpLKDTMH3+yT0G8qpul/RALUFOESKFkZm3/SlkJKuroXcB8U6s2dh5XX9DDB
+ISqRwL7M5qB8rfDPKHN+k/XwJ9CNpHMdNxnnc2WhnnmHNp6NrD/bUEH4vwCglMa0
+rFRXPaN7407DARGHvW/jugsEANFaeZsFwos/sajL1XQRfHZUTnvDjJgz31IFY+OL
+DlOVAOtV/NaECMwIJsMIhoisW4Luwp4m75Qh3ogq3bwqSWNLsfJ9WFnNqXOgamyD
+h/F4q492z6FpyIb1JZLABBSH7LEQjHlR/s/Ct5JEWc5MyfzdjBi6J9qCh3y/IYL0
+EbfRA/4yoJ/fH9uthDLZsZRWmnGJvb+VpRvcVs8IQ4aIAcOMbWu2Sp3U9pm6cxZF
+N7tShmAwiiGj9UXVtlhpj3lnqulLMD9VqXGF0YgDOaQ7CP/99OEEhUjBj/8o8udF
+gxc1i2WJjc7/sr8IMbDv/SNToi0bnZUxXa/BUjj92uaQ6/LupbQxUmVkIEhhdCwg
+SW5jLiAocmVsZWFzZSBrZXkpIDxzZWN1cml0eUByZWRoYXQuY29tPohfBBMRAgAf
+BQJFdhMkAhsDBgsJCAcDAgQVAggDAxYCAQIeAQIXgAAKCRBTJoEBNwFxhogXAKCD
+TuYeyQrkYXjg9JmOdTZvsIVfZgCcCWKJXtfbC5dbv0piTHI/cdwVzJo=
+=mhzo
+-----END PGP PUBLIC KEY BLOCK-----
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.2.6 (GNU/Linux)
+
+mQGiBEYk7/IRBACdWFJInc51/+0sqvadIvf0E+Vhv4aIqB76jWtIGqXnTeG6hEl/
+9tJoLszBh4g/KBFVF3E4VxTHXKO/L7GZRa8JzoMtvV8XiP6BaYq6ykx6H7alKvoP
+qzk7xBbvNbqsXJCO7keo+g7iIDdfAxvsSJYbhQBxDn5W4Hw7SnHcMmTDOQCg7vOj
+UzaZG32yYMBZLjOAB/QzXgsD/1JRDnQ8cL6d17B1ie57ZuVOI3ziQJSmj0zbC0IX
+OsxlcFjwydLk3TA88iCr0SO2mfXCsGTeDGFbrl2IRCoH91l3Ew49HI4OYtl+OPSt
+pIYdFLSQ+RUPs9CFYwF9Ogjrwmi6jVptKq/+v0WgnCrbfz3DYxCWt/VB1PYDj5y6
+Mv//BACKa2mUuQoukDvzqiwZXV/Z52MeDOzPbOFo6qhx+54nav9Inz1yziEjYrP/
+ZrNJ4BT6fBgin/a6UmD5FqMtkrrhOCpHFQK2H+XYZ0vVJGZI7h74/fY8U2n+1Mle
+xQ/ejWojF+H5nFUAwKHaNVNofKcw8c8msgGn2jsvrAISTSHshrQwUmVkIEhhdCwg
+SW5jLiAoUkhYIGtleSkgPHJoeC1zdXBwb3J0QHJlZGhhdC5jb20+iF8EExECAB8F
+AkYk7/ICGwMGCwkIBwMCBBUCCAMDFgIBAh4BAheAAAoJEDmhOhJCGT5r6FoAoLsB
++DOPmTc3P+77DnNhU460nmjQAKCI3BJ/SxqPqfp8jL6lTfVo2zxegQ==
+=t0np
+-----END PGP PUBLIC KEY BLOCK-----
