@@ -51,3 +51,6 @@ push: $(GOALS)
 nokeep:
 
 remove: $(GOALS)
+
+show:
+	echo $(OS_LIST)
