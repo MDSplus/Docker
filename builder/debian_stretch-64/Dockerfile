@@ -16,4 +16,5 @@ RUN apt-get update;\
 	freetds-dev libxml2-dev libcurl4-openssl-dev reprepro \
 	libmotif-dev libxt-dev libxmu-dev libx11-dev \
 	libdc1394-22-dev libraw1394-dev \
-	python-numpy python-nose;
+	python-numpy python-nose \
+	coz-profiler;
