@@ -2,7 +2,7 @@ from debian:stretch
 RUN apt-get update;\
     apt-get upgrade -y;\
     apt-get install -y \
-	nano gdb wget rsync sudo \
+	nano gdb wget rsync sudo less htop lsof \
 	autoconf automake make pkg-config \
 	cvs gcc gfortran g++ valgrind \
 	libreadline-dev openjdk-8-jdk \
@@ -17,7 +17,7 @@ RUN apt-get update;\
 	libmotif-dev libxt-dev libxmu-dev libx11-dev \
 	libdc1394-22-dev libraw1394-dev \
 	python-numpy python-nose python3-numpy python3-nose \
-	coz-profiler;
+	coz-profiler bison flex;
 RUN \
 	ln -sfT /usr/lib/x86_64-linux-gnu/libpython3.5m.so.1 /usr/lib/x86_64-linux-gnu/libpython3.5.so; \
 	ln -sfT $(which python3) $(which python)
