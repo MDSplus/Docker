@@ -1,8 +1,5 @@
 from mdsplus/builder:ubuntu14-32
 
-#RUN   wget -q -O - --no-check-certificate https://github.com/raspberrypi/tools/archive/master.tar.gz | tar zxCf / - tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian; \
-#      ln -sf /tools-master/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/arm-linux-gnueabihf/include /usr/include/arm-linux-gnueabihf
-
 COPY  *.tar.gz /
 RUN   mkdir -p /raspberrypi-rootfs; \
       cd /raspberrypi-rootfs; \
@@ -23,5 +20,4 @@ RUN   mkdir -p /raspberrypi-rootfs; \
       ln -sf /usr/include/sybfront.h ./; \
       ln -sf /usr/include/tds_sysdep_public.h ./; \
       ln -sf /usr/bin/uil32 /usr/bin/uil
-
-
+RUN   apt update; apt upgrade -y; apt install -y git
