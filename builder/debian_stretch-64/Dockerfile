@@ -17,7 +17,7 @@ RUN apt-get update;\
 	libmotif-dev libxt-dev libxmu-dev libx11-dev \
 	libdc1394-22-dev libraw1394-dev \
 	python-numpy python-nose python3-numpy python3-nose \
-	coz-profiler bison flex;
+	coz-profiler bison flex gperf;
 RUN \
 	ln -sfT /usr/lib/x86_64-linux-gnu/libpython3.5m.so.1 /usr/lib/x86_64-linux-gnu/libpython3.5.so; \
 	ln -sfT $(which python3) $(which python)
