@@ -20,6 +20,7 @@ RUN apt-get update;\
       libglobus-gsi-proxy-core-dev\
       libglobus-gss-assist-dev\
       libglobus-gssapi-gsi-dev\
-      libglobus-xio-gsi-driver-dev;
+      libglobus-xio-gsi-driver-dev\
+      python3-numpy;
 RUN pip install --upgrade setuptools nose tap tap.py;
 
