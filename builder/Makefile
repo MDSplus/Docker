@@ -7,6 +7,9 @@
 #                                ### if push nokeep provided build, push and then remove image
 # make [target] remove           ### Remove images locally 
 #
+
+DOCKERFLAGS ?=
+
 SKIP_FILES := $(wildcard Makefile*) EOL BROKEN
 OS_LIST := $(sort $(filter-out $(SKIP_FILES),$(wildcard *)))
 
@@ -35,7 +38,7 @@ $(OS_LIST) :
 	      if ( echo $@ | grep arm >/dev/null ); then \
 	        docker run --rm --privileged multiarch/qemu-user-static:register --reset; \
 	      fi; \
-	      docker build --no-cache -t $$TAG $@; \
+	      docker build $(DOCKERFLAGS) --no-cache -t $$TAG $@; \
 	      if [ ! -z "$(PUSH)" ]; then \
 	        docker push $$TAG; \
 	        if [ ! -z "$(NOKEEP)" ]; then \
