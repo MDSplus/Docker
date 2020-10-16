@@ -44,8 +44,14 @@ RUN yum install -y wget yum-utils platform-python-setuptools python3-pexpect pyt
       globus-gssapi-gsi-devel \
       globus-xio-gsi-driver-devel \
       libX11-devel \
-      freetds-devel
-RUN /bin/mv /usr/bin/uil /usr/bin/uil32
+      freetds-devel \
+      flex \
+      bison \
+      gperf \
+      libxml2-devel.i686
+
+RUN ln -s /usr/bin/python2 /usr/lib/python; 
+#RUN /bin/mv /usr/bin/uil /usr/bin/uil32
 
 # Packages required for testing
 RUN yum install -y \
@@ -60,3 +66,5 @@ RUN yum install -y \
                    openssh openssh-server
 
 RUN yum install -y libasan.x86_64 libasan.i686 libtsan.x86_64
+
+RUN yum install -y motif-devel.i686 libX11-devel.i686
