@@ -19,18 +19,10 @@ RUN yum install -y wget yum-utils platform-python-setuptools python3-pexpect pyt
       tar \
       gcc gcc-c++ gcc-gfortran \
       binutils \
-      libstdc++-devel libstdc++-devel.i686 \ 
-      libquadmath-devel libquadmath-devel.i686 \
-      glibc-devel glibc-devel.i686 \
-      libgfortran.i686 \
-      libusb.i686 \
-      libdc1394.i686 \
       libdc1394.x86_64 \
-      libraw1394.i686 \
       libraw1394.x86_64 \
       hdf5 \
-      readline-devel readline-devel.i686 \
-      platform-python-devel.i686 \
+      readline-devel \ 
       platform-python-devel.x86_64 \
       python2-libs \
       python3-libs \
@@ -48,23 +40,28 @@ RUN yum install -y wget yum-utils platform-python-setuptools python3-pexpect pyt
       flex \
       bison \
       gperf \
-      libxml2-devel.i686
+      hdf5-devel.x86_64
 
 RUN ln -s /usr/bin/python2 /usr/lib/python; 
-#RUN /bin/mv /usr/bin/uil /usr/bin/uil32
 
 # Packages required for testing
 RUN yum install -y \
                    perl-Test-Harness.noarch \
-                   valgrind valgrind.i686
+                   valgrind 
 
-RUN pip2 install tap tap.py
+RUN pip2 install tap tap.py pexpect
 
 # to run debugger in container
 RUN yum install -y \
                    gdb gdb-gdbserver \
                    openssh openssh-server
 
-RUN yum install -y libasan.x86_64 libasan.i686 libtsan.x86_64
+RUN yum install -y libasan.x86_64 \
+                   libtsan.x86_64
 
-RUN yum install -y motif-devel.i686 libX11-devel.i686
+RUN ln -s /usr/bin/python2 /usr/bin/python
+RUN ln -s /usr/lib64/libdc1394.so.22 /usr/lib64/libdc1394.so
+RUN ln -s /usr/lib64/libraw1394.so.11 /usr/lib64/libraw1394.so
+RUN wget https://pkgs.dyn.su/el8/base/x86_64/raven-release-1.0-1.el8.noarch.rpm
+RUN dnf -y install raven-release-1.0-1.el8.noarch.rpm
+RUN dnf -y install  --enablerepo=raven-multimedia --allowerasing libdc1394-devel
