@@ -44,6 +44,7 @@ RUN yum install -y wget yum-utils platform-python-setuptools python3-pexpect pyt
 
 RUN ln -s /usr/bin/python2 /usr/lib/python; 
 
+
 # Packages required for testing
 RUN yum install -y \
                    perl-Test-Harness.noarch \
@@ -53,8 +54,8 @@ RUN pip2 install tap tap.py pexpect
 
 # to run debugger in container
 RUN yum install -y \
-                   gdb gdb-gdbserver \
-                   openssh openssh-server
+	gdb gdb-gdbserver \
+	openssh openssh-server
 
 RUN yum install -y libasan.x86_64 \
                    libtsan.x86_64
