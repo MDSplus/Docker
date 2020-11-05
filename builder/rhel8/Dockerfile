@@ -40,9 +40,10 @@ RUN yum install -y wget yum-utils platform-python-setuptools python3-pexpect pyt
       flex \
       bison \
       gperf \
-      hdf5-devel.x86_64
+      hdf5-devel.x86_64\
+      maven
 
-RUN ln -s /usr/bin/python2 /usr/lib/python; 
+#RUN ln -s /usr/bin/python2 /usr/lib/python; 
 
 
 # Packages required for testing
@@ -60,9 +61,17 @@ RUN yum install -y \
 RUN yum install -y libasan.x86_64 \
                    libtsan.x86_64
 
-RUN ln -s /usr/bin/python2 /usr/bin/python
-RUN ln -s /usr/lib64/libdc1394.so.22 /usr/lib64/libdc1394.so
-RUN ln -s /usr/lib64/libraw1394.so.11 /usr/lib64/libraw1394.so
-RUN wget https://pkgs.dyn.su/el8/base/x86_64/raven-release-1.0-1.el8.noarch.rpm
-RUN dnf -y install raven-release-1.0-1.el8.noarch.rpm
-RUN dnf -y install  --enablerepo=raven-multimedia --allowerasing libdc1394-devel
+#RUN ln -s /usr/bin/python2 /usr/bin/python
+RUN  dnf -y install \
+     ftp://ftp.pbone.net/mirror/archive.fedoraproject.org/fedora/linux/releases/28/Everything/x86_64/os/Packages/l/libdc1394-devel-2.2.2-10.fc28.x86_64.rpm \ 
+     ftp://ftp.pbone.net/mirror/archive.fedoraproject.org/fedora/linux/releases/28/Everything/x86_64/os/Packages/l/libdc1394-2.2.2-10.fc28.x86_64.rpm \
+     libraw1394-devel
+#RUN ln -s /usr/lib64/libdc1394.so.22 /usr/lib64/libdc1394.so
+#RUN ln -s /usr/lib64/libraw1394.so.11 /usr/lib64/libraw1394.so
+#RUN dnf install http://repo.okay.com.mx/centos/8/x86_64/release/okay-release-1-1.noarch.rpm
+#RUN dnf install libdc1394-devel
+#RUN dnf install https://pkgs.dyn.su/el8/base/x86_64/raven-release-1.0-1.el8.noarch.rpm
+#RUN dnf install raven-release
+#RUN dnf -y install  --enablerepo=raven-multimedia --allowerasing libdc1394-devel
+#RUN rpm -i --nodeps --force http://rpmfind.net/linux/opensuse/tumbleweed/repo/oss/x86_64/libdc1394-devel-2.2.6-3.6.x86_64.rpm 
+RUN alternatives --set python /usr/bin/python2
