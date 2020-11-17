@@ -4,6 +4,7 @@ ENV JDK_DIR=/usr/lib/jvm/java-1.8-openjdk
 RUN apk upgrade --update-cache --available && \
     apk add bash automake make git rsync tar python py-setuptools \
         gcc g++ gfortran binutils libgcc libstdc++ libgfortran \
+        blas blas-dev \
         libdc1394 libdc1394-dev \
         libraw1394 libraw1394-dev \
         readline readline-dev \
