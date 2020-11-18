@@ -1,4 +1,4 @@
-from ubuntu:18.04
+from ubuntu:precise
 
 RUN apt-get update\
  && apt-get -y upgrade\
@@ -8,11 +8,7 @@ RUN apt-get update\
 	automake\
 	freetds-dev\
 	g++\
-	gdb\
-	gdbserver\
 	gfortran\
-	git\
-	libasan0\
 	libblas-dev\
 	libcurl4-gnutls-dev\
 	libdc1394-22-dev\
@@ -23,20 +19,14 @@ RUN apt-get update\
 	libglobus-gssapi-gsi-dev\
 	libglobus-gss-assist-dev\
 	libglobus-xio-gsi-driver-dev\
-	libmotif-dev\
 	libraw1394-dev\
 	libreadline-dev\
-	libtest-harness-perl\
-	libtsan0\
 	libxml2-dev\
 	libxt-dev\
 	make\
-	openjdk-8-jdk\
-	openssh-server\
-	python3-numpy\
+	openjdk-7-jdk\
 	python-dev\
 	python-numpy\
-	python-pip\
 	python-setuptools\
 	reprepro\
 	rsync\
@@ -44,8 +34,12 @@ RUN apt-get update\
 	valgrind\
 	wget\
 	x11proto-print-dev\
- && pip install --upgrade setuptools nose tap tap.py\
+ && wget -q --no-check-certificate https://motif.ics.com/sites/default/files/libmotif4_2.3.4-1_amd64.deb\
+ && wget -q --no-check-certificate https://motif.ics.com/sites/default/files/libmotif-dev_2.3.4-1_amd64.deb\
+ && dpkg -i --force-depends *.deb\
+ && apt-get install -y -f\
 # cleanup
+ && rm *.deb\
  && rm -rf /tmp/*\
  && apt-get clean
 CMD /bin/bash

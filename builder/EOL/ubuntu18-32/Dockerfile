@@ -1,4 +1,4 @@
-from ubuntu:trusty
+from ubuntu:18.04
 
 RUN dpkg --add-architecture i386\
  && apt-get update\
@@ -7,31 +7,37 @@ RUN dpkg --add-architecture i386\
  && apt-get -y install\
 	automake\
 	freetds-dev:i386\
+	gcc-multilib\
 	gdb:i386\
 	gdbserver:i386\
-	gfortran:i386\
-	g++:i386\
+	gfortran-multilib\
+	git\
+	g++-multilib\
 	libblas-dev:i386\
 	libcurl4-gnutls-dev:i386\
 	libdc1394-22-dev:i386\
 	libmotif-dev:i386\
+	libpython2.7-dev:i386\
 	libraw1394-dev:i386\
 	libreadline-dev:i386\
+	libssl-dev:i386\
 	libtest-harness-perl\
 	libxml2-dev:i386\
-	libxt-dev:i386\
 	make\
-	openjdk-7-jdk:i386\
+	openjdk-8-jdk\
 	openssh-server\
+	pkg-config\
+	python:i386\
+	python-numpy:i386\
+	python-setuptools\
 	reprepro\
 	rsync\
-	tar\
 	valgrind:i386\
 	wget\
-	x11proto-print-dev:i386\
+ && apt-get -y install python-pip\
+ && pip2 install nose tap tap.py\
  && apt-get download\
 	globus-common-progs:i386\
-	globus-core:i386\
 	libglobus-callout0:i386\
 	libglobus-callout-dev:i386\
 	libglobus-common0:i386\
@@ -62,16 +68,11 @@ RUN dpkg --add-architecture i386\
 	libglobus-openssl-module-dev:i386\
 	libglobus-xio0:i386\
 	libglobus-xio-dev:i386\
-	libglobus-xio-gsi-driver0:i386\
 	libglobus-xio-gsi-driver-dev:i386\
-	libpython2.7-dev:i386\
- && for deb in *.deb; do dpkg-deb -xv ${deb} /; done\
+ && dpkg --install --force-depends *.deb\
+ && apt-get -y install -f\
  && ln -sf /usr/bin/uil /usr/bin/uil32\
  && ln -sf /usr/lib/i386-linux-gnu/pkgconfig/*.pc /usr/lib/pkgconfig/\
-# python 32 bit
- && echo 'Yes, do as I say!' | apt-get install python:i386 python-numpy:i386 python-setuptools\
- && easy_install pip\
- && pip2 install nose tap tap.py\
 # cleanup
  && rm *.deb\
  && rm -rf /tmp/*\
