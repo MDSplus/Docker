@@ -50,6 +50,7 @@ $(OS_LIST) :
 	fi
 
 push: $(GOALS)
+	@:
 
 nokeep:
 
