@@ -22,6 +22,8 @@ RUN yum downgrade -y krb5-libs openssl-libs nss-softokn-freebl nss-softokn nss-u
 	glibc-devel.x86_64\
 	globus-callout-devel.i686\
 	globus-callout-devel.x86_64\
+	globus-common-devel.i686\
+	globus-common-devel.x86_64\
 	globus-common.i686\
 	globus-common.x86_64\
 	globus-gridmap-callout-error-devel.i686\
