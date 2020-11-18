@@ -1,4 +1,4 @@
-from debian:stretch
+from debian:buster
 RUN apt-get update\
  && apt-get -y upgrade\
 # please dont just add packages but format them using this recipe:
