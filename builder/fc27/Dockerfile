@@ -32,14 +32,14 @@ RUN dnf -y update\
 	globus-callout-devel.x86_64\
 	globus-common-devel.i686\
 	globus-common-devel.x86_64\
-	globus-common.i686\
-	globus-common.x86_64\
 	globus-gridmap-callout-error-devel.i686\
 	globus-gridmap-callout-error-devel.x86_64\
 	globus-gsi-credential-devel.i686\
 	globus-gsi-credential-devel.x86_64\
 	globus-gsi-proxy-core-devel.i686\
 	globus-gsi-proxy-core-devel.x86_64\
+	globus-gssapi-error-devel.i686\
+	globus-gssapi-error-devel.x86_64\
 	globus-gssapi-gsi-devel.i686\
 	globus-gssapi-gsi-devel.x86_64\
 	globus-gss-assist-devel.i686\
