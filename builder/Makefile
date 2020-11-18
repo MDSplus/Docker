@@ -10,7 +10,7 @@
 
 DOCKERFLAGS ?=
 
-SKIP_FILES := $(wildcard Makefile*) EOL BROKEN
+SKIP_FILES := $(wildcard Makefile*) EOL
 OS_LIST := $(sort $(filter-out $(SKIP_FILES),$(wildcard *)))
 
 PUSH=$(findstring push,$(MAKECMDGOALS))
