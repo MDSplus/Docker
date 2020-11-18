@@ -1,54 +1,106 @@
 from fedora:21
 
-RUN yum update -y; \
-    yum install -y wget yum-utils python-setuptools pexpect numpy \
-      rsync valgrind \
-      automake make git \
-      rpm-build rpm-sign createrepo \
-      tar \
-      gcc gcc-c++ gcc-gfortran \
-      binutils \
-      libstdc++-devel libstdc++-devel.i686 \ 
-      libquadmath-devel libquadmath-devel.i686 \
-      glibc-devel glibc-devel.i686 \
-      libgfortran.i686 \
-      libraw1394-devel libraw1394-devel.i686 libdc1394-devel libdc1394-devel.i686 \
-      hdf5-devel hdf5.i686 \
-      readline-devel readline-devel.i686 \
-      python-devel python-libs.i686 \
-      java-1.8.0-openjdk-devel \
-      motif-devel.i686 \ 
-      libcurl libcurl.i686 libcurl-devel libcurl-devel.i686 \
-      libxml2-devel libxml2-devel.i686 libxml2.i686 \
-      globus-common-progs \
-      globus-callout-devel globus-callout-devel.i686 \
-      globus-gridmap-callout-error-devel globus-gridmap-callout-error-devel.i686 \
-      globus-gsi-credential-devel globus-gsi-credential-devel.i686 \
-      globus-gsi-proxy-core-devel  globus-gsi-proxy-core-devel.i686 \
-      globus-gss-assist-devel globus-gss-assist-devel.i686 \
-      globus-gssapi-gsi-devel globus-gssapi-gsi-devel.i686 \
-      globus-xio-gsi-driver-devel globus-xio-gsi-driver-devel.i686 \
-      libX11-devel libX11-devel.i686 \
-      freetds-devel freetds-devel.i686; \
-    /bin/mv /usr/bin/uil /usr/bin/uil32; \
-    yum install -y motif-devel.x86_64 libXt-devel.x86_64; \
-    yumdownloader hdf5-devel.i686; \
-    rpm -i --force hdf5-devel*.rpm
-
-
-
-
-#
-# Testing package adds ...
-#
-RUN yum install -y \
-                   perl-Test-Harness.noarch \
-                   valgrind valgrind.i686
-                   
-RUN yum install -y python-pip; \
-    pip2 install nose tap tap.py
-
-# to run debugger in container
-RUN yum install -y \
-                   gdb gdb-gdbserver \
-                   openssh openssh-server
+RUN yum -y update\
+# please dont just add packages but format them using this recipe:
+# $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
+ && yum -y install\
+	automake\
+	binutils.x86_64\
+	blas-devel.i686\
+	blas-devel.x86_64\
+	createrepo\
+	freetds-devel.i686\
+	freetds-devel.x86_64\
+	gcc\
+	gcc-c++.x86_64\
+	gcc-gfortran.x86_64\
+	gdb\
+	gdb-gdbserver\
+	git\
+	glibc-devel.i686\
+	glibc-devel.x86_64\
+	globus-callout-devel.i686\
+	globus-callout-devel.x86_64\
+	globus-common.i686\
+	globus-common.x86_64\
+	globus-gridmap-callout-error-devel.i686\
+	globus-gridmap-callout-error-devel.x86_64\
+	globus-gsi-credential-devel.i686\
+	globus-gsi-credential-devel.x86_64\
+	globus-gsi-proxy-core-devel.i686\
+	globus-gsi-proxy-core-devel.x86_64\
+	globus-gssapi-gsi-devel.i686\
+	globus-gssapi-gsi-devel.x86_64\
+	globus-gss-assist-devel.i686\
+	globus-gss-assist-devel.x86_64\
+	globus-xio-devel.i686\
+	globus-xio-devel.x86_64\
+	globus-xio-gsi-driver-devel.i686\
+	globus-xio-gsi-driver-devel.x86_64\
+	hdf5.i686\
+	hdf5.x86_64\
+	java-1.8.0-openjdk-devel.x86_64\
+	libasan.i686\
+	libasan.x86_64\
+	libcurl-devel.i686\
+	libcurl-devel.x86_64\
+	libcurl.i686\
+	libcurl.x86_64\
+	libdc1394-devel.i686\
+	libdc1394-devel.x86_64\
+	libgfortran.i686\
+	libgfortran.x86_64\
+	libquadmath-devel.i686\
+	libquadmath-devel.x86_64\
+	libraw1394-devel.i686\
+	libraw1394-devel.x86_64\
+	libstdc++-devel.i686\
+	libstdc++-devel.x86_64\
+	libtsan.x86_64\
+	libubsan.i686\
+	libubsan.x86_64\
+	libX11-devel.i686\
+	libX11-devel.x86_64\
+	libxml2-devel.i686\
+	libxml2-devel.x86_64\
+	libxml2.i686\
+	libxml2.x86_64\
+	libXt-devel.i686\
+	libXt-devel.x86_64\
+	make\
+	numpy\
+	openssh\
+	openssh-server\
+	perl-Test-Harness.noarch\
+	pexpect\
+	python-devel.x86_64\
+	python-libs.i686\
+	python-libs.x86_64\
+	python-pip\
+	python-setuptools\
+	readline-devel.i686\
+	readline-devel.x86_64\
+	rpm-build\
+	rpm-sign\
+	rsync\
+	tar\
+	valgrind.i686\
+	valgrind.x86_64\
+	which\
+# preserve uil32
+ && yum -y install motif-devel.i686\
+ && mv /usr/bin/uil /usr/bin/uil32\
+ && yum -y install motif-devel.x86_64\
+# ensure download
+ && yum -y install yum-utils\
+# install hdf5-devel
+ && yum -y install hdf5-devel.x86_64\
+ && yumdownloader hdf5-devel.i686\
+ && rpm -i --force --nodeps hdf5-devel*.rpm\
+# pip
+ && pip install --upgrade nose tap tap.py\
+# clean
+ && rm -rf /tmp/*\
+ && rm *.rpm\
+ && yum clean all
+CMD /bin/bash
