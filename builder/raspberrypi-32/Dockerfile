@@ -1,25 +1,19 @@
 from mdsplus/builder:ubuntu14-32
 
-COPY *.tar.gz /
-RUN mkdir -p /raspberrypi-rootfs\
- && cd /raspberrypi-rootfs\
- && tar zxf /rootfs.tar.gz\
- && cd /\
- && tar zxf gcc-arm-raspbian.tar.gz\
- && chmod -R a+rx /gcc-linaro-arm-linux-gnueabihf-raspbian\
+ADD rootfs.tar.gz /raspberrypi-rootfs
+ADD gcc-arm-raspbian.tar.gz /
+RUN chmod -R a+rx /gcc-linaro-arm-linux-gnueabihf-raspbian\
  && ln -sf /gcc-linaro-arm-linux-gnueabihf-raspbian/arm-linux-gnueabihf/include /usr/include/arm-linux-gnueabihf\
  && mkdir -p /raspberrypi-include\
- && cd /raspberrypi-include\
- && ln -sf /raspberrypi-rootfs/usr/include/Mrm ./\
- && ln -sf /raspberrypi-rootfs/usr/include/X11 ./\
- && ln -sf /raspberrypi-rootfs/usr/include/Xm ./\
- && ln -sf /raspberrypi-rootfs/usr/include/readline ./\
- && ln -sf /raspberrypi-rootfs/usr/include/curl ./\
- && ln -sf /usr/include/sybdb.h ./\
- && ln -sf /usr/include/syberror.h ./\
- && ln -sf /usr/include/sybfront.h ./\
- && ln -sf /usr/include/tds_sysdep_public.h ./\
+ && ln -sf /raspberrypi-rootfs/usr/include/Mrm /raspberrypi-include/\
+ && ln -sf /raspberrypi-rootfs/usr/include/X11 /raspberrypi-include/\
+ && ln -sf /raspberrypi-rootfs/usr/include/Xm /raspberrypi-include/\
+ && ln -sf /raspberrypi-rootfs/usr/include/readline /raspberrypi-include/\
+ && ln -sf /raspberrypi-rootfs/usr/include/curl /raspberrypi-include/\
+ && ln -sf /usr/include/sybdb.h /raspberrypi-include/\
+ && ln -sf /usr/include/syberror.h /raspberrypi-include/\
+ && ln -sf /usr/include/sybfront.h /raspberrypi-include/\
+ && ln -sf /usr/include/tds_sysdep_public.h /raspberrypi-include/\
 # cleanup
- && rm /*.tar\
- && rm -rf /tmp/*\
+ && rm -rf /tmp/*
 CMD /bin/bash
