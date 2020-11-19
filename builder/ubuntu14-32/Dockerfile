@@ -4,7 +4,7 @@ RUN dpkg --add-architecture i386\
  && apt-get update\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
- && apt-get -y install\
+ && apt-get -qq -y install\
 	automake\
 	freetds-dev:i386\
 	gdb:i386\
@@ -29,7 +29,7 @@ RUN dpkg --add-architecture i386\
 	valgrind:i386\
 	wget\
 	x11proto-print-dev:i386\
- && apt-get download\
+ && apt-get -qq download\
 	globus-common-progs:i386\
 	globus-core:i386\
 	libglobus-callout0:i386\

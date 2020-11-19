@@ -1,10 +1,10 @@
 from ubuntu:trusty
 
-RUN apt-get update\
- && apt-get -y upgrade\
+RUN apt-get -q update\
+ && apt-get -qq -y upgrade\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
- && apt-get -y install\
+ && apt-get -qq -y install\
 	automake\
 	freetds-dev\
 	g++\

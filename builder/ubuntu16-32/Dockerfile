@@ -1,10 +1,10 @@
 from ubuntu:16.04
 
 RUN dpkg --add-architecture i386\
- && apt-get update\
+ && apt-get -q update\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
- && apt-get -y install\
+ && apt-get -qq -y install\
 	automake\
         binutils:i386\
         cpp-5:i386\
@@ -46,7 +46,7 @@ RUN dpkg --add-architecture i386\
         wget\
  && easy_install pip\
  && pip2 install nose tap tap.py\
- && apt-get download\
+ && apt-get -qq download\
         globus-common-progs:i386\
         globus-core:i386\
         libglobus-callout0:i386\
