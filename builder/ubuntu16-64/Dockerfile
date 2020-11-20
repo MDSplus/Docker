@@ -1,15 +1,13 @@
-from ubuntu:16.04
+from ubuntu:xenial
 
-RUN apt-get update\
- && apt-get -qq -y upgrade\
+RUN export HOME=/tmp && cd ~ && pwd\
+ && apt-get update\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
  && apt-get -qq -y install\
-	automake\
 	freetds-dev\
 	g++\
 	gdb\
-	gdbserver\
 	gfortran\
 	libasan0\
 	libblas-dev\
@@ -30,8 +28,9 @@ RUN apt-get update\
 	libxml2-dev\
 	libxt-dev\
 	make\
+	nano\
 	openjdk-8-jdk\
-	openssh-server\
+	pkg-config\
 	python-dev\
 	python-numpy\
 	python-pip\
@@ -40,9 +39,8 @@ RUN apt-get update\
 	rsync\
 	tar\
 	valgrind\
-	wget\
 	x11proto-print-dev\
- && pip install --upgrade nose tap tap.py\
+ && pip install nose tap tap.py\
 # cleanup
  && rm -rf /tmp/*\
  && apt-get clean

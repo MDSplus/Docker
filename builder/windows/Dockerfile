@@ -1,15 +1,15 @@
-from fedora:29
+from fedora:32
 
 ADD python27.tar /
 ADD MVS.tgz /
 ADD WK.tgz /  
-RUN dnf -y update\
- && dnf -y install 'dnf-command(config-manager)'\
- && dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/29/winehq.repo\
+RUN dnf -y install 'dnf-command(config-manager)'\
+ && dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/32/winehq.repo\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
  && dnf -y install\
 	binutils\
+	diffutils\
 	gdb\
 	gdb-gdbserver\
 	git\
@@ -46,7 +46,7 @@ RUN dnf -y update\
 	tar\
 	wget\
 	wine-filesystem\
-	winehq-staging\
+	winehq-stable\
  && wine cmd /c echo test >/dev/null 2>&1 < /dev/null\
  && ln -sf /usr/i686-w64-mingw32/sys-root/mingw/bin/*.dll ~/.wine/drive_c/windows/syswow64/\
  && ln -sf /usr/x86_64-w64-mingw32/sys-root/mingw/bin/*.dll ~/.wine/drive_c/windows/system32/\
