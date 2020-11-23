@@ -1,4 +1,4 @@
-from ubuntu:18.04
+from ubuntu:bionic
 
 RUN apt-get update\
  && apt-get -qq -y upgrade\
@@ -9,7 +9,6 @@ RUN apt-get update\
 	freetds-dev\
 	g++\
 	gdb\
-	gdbserver\
 	gfortran\
 	git\
 	libasan0\
@@ -28,23 +27,23 @@ RUN apt-get update\
 	libreadline-dev\
 	libtest-harness-perl\
 	libtsan0\
+	libubsan0\
 	libxml2-dev\
 	libxt-dev\
+	nano\
 	make\
 	openjdk-8-jdk\
-	openssh-server\
+	pkg-config\
 	python3-numpy\
 	python-dev\
 	python-numpy\
 	python-pip\
-	python-setuptools\
 	reprepro\
 	rsync\
 	tar\
 	valgrind\
-	wget\
 	x11proto-print-dev\
- && pip install --upgrade setuptools nose tap tap.py\
+ && pip install nose tap tap.py\
 # cleanup
  && rm -rf /tmp/*\
  && apt-get clean

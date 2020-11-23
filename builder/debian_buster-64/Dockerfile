@@ -1,6 +1,6 @@
-from debian:buster
+FROM debian:buster
+
 RUN apt-get update\
- && apt-get -y upgrade\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
  && apt-get -y install\

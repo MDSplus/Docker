@@ -1,23 +1,18 @@
-#FROM debian:stretch
-FROM mdsplus/builder:bootstrap
+from ubuntu:focal
 
 RUN apt-get update\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
- && apt-get -y install\
-	autoconf\
-	coz-profiler\
-	cvs\
+ && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install\
+	automake\
 	freetds-dev\
 	g++\
-	gcc\
 	gdb\
 	gfortran\
-	globus-common-progs\
-	htop\
-	less\
+	git\
+	libasan?\
 	libblas-dev\
-	libcurl4-openssl-dev\
+	libcurl4-gnutls-dev\
 	libdc1394-22-dev\
 	libglobus-callout-dev\
 	libglobus-gridmap-callout-error-dev\
@@ -29,27 +24,24 @@ RUN apt-get update\
 	libmotif-dev\
 	libraw1394-dev\
 	libreadline-dev\
-	libx11-dev\
+	libtest-harness-perl\
+	libtsan?\
+	libubsan?\
 	libxml2-dev\
-	libxmu-dev\
 	libxt-dev\
-	lsof\
-	make\
 	nano\
-	default-jdk\
+	make\
+	openjdk-8-jdk\
 	pkg-config\
-	python3-nose\
 	python3-numpy\
-	python-nose\
-	python-numpy\
+	python3-pip\
 	reprepro\
 	rsync\
-	sudo\
+	tar\
 	valgrind\
-	wget\
- && ln -sfT /usr/lib/x86_64-linux-gnu/libpython3.5m.so.1 /usr/lib/x86_64-linux-gnu/libpython3.5.so\
- && ln -sfT $(which python3) $(which python)\
- && apt-get clean\
+ && ln -sf python3.8 /usr/bin/python\
+ && python -m pip -q install nose tap tap.py\
+# cleanup
  && rm -rf /tmp/*\
- && rm -rf ~
+ && apt-get clean
 CMD /bin/bash
