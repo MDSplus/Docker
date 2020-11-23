@@ -10,8 +10,8 @@
 
 DOCKERFLAGS ?=
 
-SKIP_FILES := $(wildcard Makefile*) EOL
-OS_LIST := $(sort $(filter-out $(SKIP_FILES),$(wildcard *)))
+SKIP_FILES := $(wildcard Makefile*) EOL bootstrap raspberrypi-32
+OS_LIST := bootstrap $(sort $(filter-out $(SKIP_FILES),$(wildcard *))) raspberrypi-32
 
 PUSH=$(findstring push,$(MAKECMDGOALS))
 NOKEEP=$(findstring nokeep,$(MAKECMDGOALS))
