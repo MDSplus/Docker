@@ -106,6 +106,7 @@ RUN export repo=/etc/yum.repos.d/devtools-2.repo\
  && cpanm TAP::Parser\
 # pip 
  && pip2 install --upgrade nose tap tap.py\
+ && pip2 install importlib\
  && echo . /opt/rh/devtoolset-2/enable >> /etc/profile\
 # cleanup
  && rm -rf ~\
