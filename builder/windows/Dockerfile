@@ -40,6 +40,7 @@ RUN dnf -y install 'dnf-command(config-manager)'\
 	mingw-w64-tools\
 	mono-devel\
 	openssh-server\
+	osslsigncode\
 	perl-Test-Harness.noarch\
 	psmisc\
 	rsync\
