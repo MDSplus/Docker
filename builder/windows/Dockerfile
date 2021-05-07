@@ -10,8 +10,6 @@ RUN dnf -y install 'dnf-command(config-manager)'\
  && dnf -y install\
 	binutils\
 	diffutils\
-	gdb\
-	gdb-gdbserver\
 	git\
 	java-devel\
 	libxml2-devel\
@@ -21,6 +19,7 @@ RUN dnf -y install 'dnf-command(config-manager)'\
 	mingw32-gcc\
 	mingw32-gcc-c++\
 	mingw32-gcc-gfortran\
+	mingw32-gdb\
 	mingw32-libxml2\
 	mingw32-libxml2-static\
 	mingw32-nsis\
@@ -32,6 +31,7 @@ RUN dnf -y install 'dnf-command(config-manager)'\
 	mingw64-gcc\
 	mingw64-gcc-c++\
 	mingw64-gcc-gfortran\
+	mingw64-gdb\
 	mingw64-libxml2\
 	mingw64-libxml2-static\
 	mingw64-readline\
