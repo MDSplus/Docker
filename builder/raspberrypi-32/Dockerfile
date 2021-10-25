@@ -10,6 +10,8 @@ RUN chmod -R a+rx /gcc-linaro-arm-linux-gnueabihf-raspbian\
  && ln -sf /raspberrypi-rootfs/usr/include/Xm /raspberrypi-include/\
  && ln -sf /raspberrypi-rootfs/usr/include/readline /raspberrypi-include/\
  && ln -sf /raspberrypi-rootfs/usr/include/curl /raspberrypi-include/\
+ && ln -sf /raspberrypi-rootfs/usr/include/zlib.h /raspberrypi-include/\
+ && ln -sf /raspberrypi-rootfs/usr/include/zconf.h /raspberrypi-include/\
  && ln -sf /usr/include/sybdb.h /raspberrypi-include/\
  && ln -sf /usr/include/syberror.h /raspberrypi-include/\
  && ln -sf /usr/include/sybfront.h /raspberrypi-include/\
