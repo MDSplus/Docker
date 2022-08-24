@@ -1,4 +1,4 @@
-from ubuntu:focal
+from ubuntu:jammy
 
 RUN apt-get update\
 # please dont just add packages but format them using this recipe:
@@ -13,7 +13,7 @@ RUN apt-get update\
 	libasan?\
 	libblas-dev\
 	libcurl4-gnutls-dev\
-	libdc1394-22-dev\
+	libdc1394-dev\
 	libglobus-callout-dev\
 	libglobus-gridmap-callout-error-dev\
 	libglobus-gsi-credential-dev\
