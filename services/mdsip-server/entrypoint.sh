@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-. /etc/profile.d/mdsplus.sh
+. /usr/local/mdsplus/setup.sh
 
 deluser hostuser >/dev/null 2>&1 || true
 delgroup hostgroup >/dev/null 2>&1 || true
