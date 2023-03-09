@@ -9,7 +9,6 @@ RUN dnf -q -y install epel-release dnf-plugins-core \
 	binutils \
 	bison \
 	blas \
-	blas.i686 \
 	createrepo \
 	flex\
 	freetds-devel \
@@ -29,14 +28,15 @@ RUN dnf -q -y install epel-release dnf-plugins-core \
 	globus-xio-gsi-driver-devel \
 	gperf \
 	hdf5 \
-	hdf5-devel.x86_64 \
+	hdf5-devel \
 	java-11-openjdk-devel \
-	libasan.x86_64 \
+	libasan \
 	libcurl-devel \
-	libdc1394.x86_64 \
+	libdc1394 \
+    libdc1394-devel \
 	libraw1394-devel \
-	libraw1394.x86_64 \
-	libtsan.x86_64 \
+	libraw1394 \
+	libtsan \
 	libX11-devel \
 	libxml2 \
 	libxml2-devel \
