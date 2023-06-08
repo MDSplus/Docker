@@ -1,4 +1,56 @@
+# Docker Images for the MDSplus Build System
+
+The build scripts use Docker images that contain all of the tools and packages needed to compile MDSplus, test it, and make the release packages.
+
+The images are kept on Docker Hub under `mdsplus/builder`.  Each image is tagged according to this convention: os-version-architecture.  For example:
+- alpine-3.9-armhf
+- alpine-3.9-x86
+- alpine-3.9-x86_64
+
+Note that although Docker Hub has the ability to bundle all those images together and refer to them simply as "mdsplus/builder:alpine-3.9" (aka a multi-architecture image), that feature is not used.  For simplicity, it is just easier to give a unique tag to every image.
+
+Developers will often run the build scripts directly (`mdsplus/deploy/build.sh`).   However, the Jenkins build sever also runs the same build scripts.   Jenkins is also responsible for building the Docker images and storing them on Docker Hub.
+
+The Jenkins server is x86_64 and most of the MDSplus releases are also for x86_64.  For the non-x86 architectures, Jenkins either builds using the QEMU emulation or triggers a build on another server of the approriate architecture (e.g., Raspberry Pi, Mac mini M2).
+
+## QEMU
+
+When a x86_64 system is using QEMU to build a non-x86 image, the following command must be run at least once after the system is rebooted.
+
+`docker run --rm --privileged multiarch/qemu-user-static:register --reset`
+
+Dockerfiles for non-x86 images also have to be configured to use QEMU.  That involves a FROM and COPY statement (look for `qemu` in the Dockerfile).
+
+For more details on QEMU, visit [https://www.qemu.org](https://www.qemu.org)
+
+## ARM
+
+MDSplus supports several ARM platforms:
+- armhf = 32-bit ARM with hardware floating point (aka arm7l)
+- aarch64 = 64-bit ARM (also known as arm64)
+- Apple Silicon M1 / M2 = 64-bit ARM with Apple's custom features
+
+Jenkins runs some ARM images on a Raspberry Pi and some on a Mac mini M2.   
+
+Developers with x86 workstations can run the ARM images using QEMU, but it can take over an hour to build MDSplus.  If using an ARM CPU, it only takes a few minutes to build MDSplus.
+
+And if using an ARM CPU to create experimental Docker images for local use, can comment out the two `qemu` lines in the Dockerfile.
+
+## MacOS
+
+*!!! To Do:  will write this section after have MacOS builds working. !!!*
+
+Questions:
+- Support MDSplus on both Intel Macs and Apple Silicon Macs?
+- If so, is there an Intel Mac available for the Jenkins build system?
+- How long to support MDSplus on Intel Macs?
+- Note: M1 was introduced in November 2020, last Intel Mac was discontinued in June 2023
+
+
+
 # Dockerized MDSplus
+
+***!!! 8-Jun-2023: This entire section needs to be reviewed. !!!***
 
 [https://hub.docker.com/r/mdsplus/mdsplus](https://hub.docker.com/r/mdsplus/mdsplus)
 
