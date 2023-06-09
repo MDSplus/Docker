@@ -1,6 +1,6 @@
 # Docker Images for the MDSplus Build System
 
-The build scripts use Docker images that contain all of the tools and packages needed to compile MDSplus, test it, and make the release packages.
+The build scripts use Docker images that contain all the tools and packages needed to compile MDSplus, test it, and make the release packages.
 
 The images are kept on Docker Hub under `mdsplus/builder`.  Each image is tagged according to this convention: os-version-architecture.  For example:
 - alpine-3.9-armhf
@@ -26,8 +26,8 @@ For more details on QEMU, visit [https://www.qemu.org](https://www.qemu.org)
 ### Note
 
 As of 9-Jun-2023, there are two ways to specify QEMU in a Dockerfile.   
-- The original approach is to use the `multiarch/*` images from Docker Hub.  These images work well, but lag the official Linux releases by several versions.
-- The newer approach is to use the official Linux release images from Docker Hub and explicitly add the QEMU emulator by adding FROM and COPY statements to the Dockerfile.   If this approach works well, all QEMU related Dockerfiles will be converted to the new approach.
+- The original approach is to use the `multiarch/*` images from Docker Hub.  These images work well but lag the official Linux releases by several versions.
+- The newer approach is to use the official Linux release images from Docker Hub and explicitly add the QEMU emulator by using FROM and COPY statements in the Dockerfile.   If this approach works well, all QEMU related Dockerfiles will be converted to the new approach.
 
 ## ARM
 
@@ -40,11 +40,11 @@ Jenkins runs some ARM images on a Raspberry Pi and some on a Mac mini M2.
 
 Developers with x86 workstations can run the ARM images using QEMU, but it can take over an hour to build MDSplus.  If using an ARM CPU, it only takes a few minutes to build MDSplus.
 
-And if using an ARM CPU to create experimental Docker images for local use, can comment out the two `qemu` lines in the Dockerfile.
+And if using an ARM CPU to create experimental Docker images for local use, can comment out the two `qemu` lines in the Dockerfile.  (However, it does no harm to leave the two lines uncommented.)
 
 ## MacOS
 
-*!!! To Do:  will write this section after have MacOS builds working. !!!*
+*!!! To Do:  will write this section after have MacOS builds working on Apple Silicon (M1 / M2). !!!*
 
 Questions:
 - Support MDSplus on both Intel Macs and Apple Silicon Macs?
