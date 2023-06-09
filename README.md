@@ -38,6 +38,8 @@ MDSplus supports several ARM platforms:
 
 Note that "armhf" is used with 32-bit Raspberry Pi devices.   The "armhf" is a name created by Debian Linux to refer to arm7 devices that have the Thumb-2 and VFP3D16 instruction sets.  The "armhf" name is not an official name from ARM Ltd.
 
+Although there are some 64-bit ARM cpus that also can run 32-bit code, the Apple Silicon cpus (M1 and M2) do not.   This means that a virtual machine or Docker container hosted on an M1 or M2 cpu, probably won't be able to run code written for a 32-bit Raspberry Pi.
+
 Jenkins runs some ARM images on a Raspberry Pi and some on a Mac mini M2.   
 
 Developers with x86 workstations can run the ARM images using QEMU, but it can take over an hour to build MDSplus.  If using an ARM CPU, it only takes a few minutes to build MDSplus.
