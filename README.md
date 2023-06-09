@@ -23,6 +23,12 @@ Dockerfiles for non-x86 images also have to be configured to use QEMU.  That inv
 
 For more details on QEMU, visit [https://www.qemu.org](https://www.qemu.org)
 
+### Note
+
+As of 9-Jun-2023, there are two ways to specify QEMU in a Dockerfile.   
+- The original approach is to use the `multiarch/*` images from Docker Hub.  These images work well, but lag the official Linux releases by several versions.
+- The newer approach is to use the official Linux release images from Docker Hub and explicitly add the QEMU emulator by adding FROM and COPY statements to the Dockerfile.   If this approach works well, all QEMU related Dockerfiles will be converted to the new approach.
+
 ## ARM
 
 MDSplus supports several ARM platforms:
