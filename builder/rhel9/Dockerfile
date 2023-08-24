@@ -30,6 +30,7 @@ RUN dnf -q -y install epel-release dnf-plugins-core \
 	hdf5 \
 	hdf5-devel \
 	java-11-openjdk-devel \
+    tzdata-java \
 	libasan \
 	libcurl-devel \
 	libdc1394 \
