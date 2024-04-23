@@ -35,6 +35,7 @@ RUN apt-get update\
 	pkg-config\
 	python3-numpy\
 	python3-pip\
+	python-is-python3\
 	reprepro\
 	rsync\
 	tar\
