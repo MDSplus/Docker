@@ -26,7 +26,7 @@ pipeline {
                 checkout scm;
 
                 script {
-                    ws("builder") {
+                    dir("builder") {
                         
                         def OSList = [];
                         findFiles(glob: "*/Dockerfile").each {
