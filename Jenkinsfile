@@ -26,26 +26,28 @@ pipeline {
                 checkout scm;
 
                 script {
-                    
-                    def OSList = [];
-                    findFiles(glob: "builder/*/Dockerfile").each {
-                        file -> OSList.add(file.path.split('/')[-2]);
-                    }
+                    ws("builder") {
+                        
+                        def OSList = [];
+                        findFiles(glob: "*/Dockerfile").each {
+                            file -> OSList.add(file.path.split('/')[-2]);
+                        }
 
-                    parallel OSList.collectEntries {
+                        parallel OSList.collectEntries {
 
-                        OS -> [ "${OS} Build & Push": {
-                            stage("${OS} Build & Push") {
+                            OS -> [ "${OS} Build & Push": {
+                                stage("${OS} Build & Push") {
 
-                                stage("${OS} Build") {
-                                    echo "Building ${OS}"
+                                    stage("${OS} Build") {
+                                        sh "make ${OS}"
+                                    }
+
+                                    stage("${OS} Push") {
+                                        echo "Pushing ${OS}"
+                                    }
                                 }
-
-                                stage("${OS} Push") {
-                                    echo "Pushing ${OS}"
-                                }
-                            }
-                        }]
+                            }]
+                        }
                     }
                 }
             }
