@@ -29,7 +29,7 @@ pipeline {
                     
                     def OSList = [];
                     findFiles(glob: "builder/*/Dockerfile").each {
-                        file -> OSList.add(file.directory);
+                        file -> OSList.add(file.path.split('/')[-2]);
                     }
 
                     parallel OSList.collectEntries {
