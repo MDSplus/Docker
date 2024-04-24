@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Distributions') {
+        stage('Builders') {
             steps {
                 checkout scm;
 
@@ -29,7 +29,7 @@ pipeline {
                     
                     def OSList = [];
                     findFiles(glob: "builder/*/Dockerfile").each {
-                        file -> OSList.add(file.getParentFile().getName());
+                        file -> OSList.add(file.directory);
                     }
 
                     parallel OSList.collectEntries {
