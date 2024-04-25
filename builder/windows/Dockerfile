@@ -1,10 +1,10 @@
-from fedora:32
+from fedora:39
 
 ADD python27.tar /
 ADD MVS.tgz /
 ADD WK.tgz /  
 RUN dnf -y install 'dnf-command(config-manager)'\
- && dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/32/winehq.repo\
+ && dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/39/winehq.repo\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
  && dnf -y install\
