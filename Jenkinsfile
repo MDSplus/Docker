@@ -38,7 +38,7 @@ pipeline {
                                 stage("${OS} Build & Push") {
 
                                     dir("${OS}") {
-                                        docker.withRegistry('https://hub.docker.com/', 'dockerhub') {
+                                        docker.withRegistry('mdsplus/builder', 'dockerhub') {
                                             docker.build("mdsplus/builder:${OS}", '--no-cache').push();
                                         }
                                     }
