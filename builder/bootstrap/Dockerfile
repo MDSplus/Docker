@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:bullseye
 
 RUN apt -q -y update\
  && apt -q -y install\

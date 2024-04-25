@@ -1,7 +1,9 @@
 from centos:8
 
-RUN yum -q -y install epel-release dnf-plugins-core\
- && yum -q -y config-manager --set-enabled PowerTools\
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*\
+ && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*\
+ && yum -q -y install epel-release dnf-plugins-core\
+ && yum -q -y config-manager --set-enabled powertools\
  && yum -q -y update\
  && yum -q -y install\
 	automake\

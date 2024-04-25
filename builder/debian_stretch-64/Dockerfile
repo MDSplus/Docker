@@ -1,19 +1,27 @@
-#FROM debian:stretch
-FROM mdsplus/builder:bootstrap
+FROM debian:stretch
 
-RUN apt-get update\
+RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list\
+ && echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list\
+ && apt-get update\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
  && apt-get -y install\
 	autoconf\
+	automake\
+	bash\
+	bison\
 	coz-profiler\
 	cvs\
+	default-jdk\
+	flex\
 	freetds-dev\
 	g++\
 	gcc\
 	gdb\
 	gfortran\
+	git\
 	globus-common-progs\
+	gperf\
 	htop\
 	less\
 	libblas-dev\
@@ -23,8 +31,8 @@ RUN apt-get update\
 	libglobus-gridmap-callout-error-dev\
 	libglobus-gsi-credential-dev\
 	libglobus-gsi-proxy-core-dev\
-	libglobus-gssapi-gsi-dev\
 	libglobus-gss-assist-dev\
+	libglobus-gssapi-gsi-dev\
 	libglobus-xio-gsi-driver-dev\
 	libmotif-dev\
 	libraw1394-dev\
@@ -36,12 +44,12 @@ RUN apt-get update\
 	lsof\
 	make\
 	nano\
-	default-jdk\
 	pkg-config\
-	python3-nose\
-	python3-numpy\
 	python-nose\
 	python-numpy\
+	python\
+	python3-nose\
+	python3-numpy\
 	reprepro\
 	rsync\
 	sudo\
