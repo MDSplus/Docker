@@ -37,15 +37,17 @@ pipeline {
 
                             OS -> [ "${OS} Build & Push": {
                                 stage("${OS} Build & Push") {
+                                    dir("${OS}") {
 
-                                    def tag = "mdsplus/builder:${OS}";
+                                        def tag = "mdsplus/builder:${OS}";
 
-                                    stage("${OS} Build") {
-                                        sh "docker build --no-cache -t ${tag} ${OS}"
-                                    }
+                                        stage("${OS} Build") {
+                                            docker.build(tag)
+                                        }
 
-                                    stage("${OS} Push") {
-                                        echo "Pushing ${OS}"
+                                        stage("${OS} Push") {
+                                            echo "Pushing ${OS}"
+                                        }
                                     }
                                 }
                             }]
