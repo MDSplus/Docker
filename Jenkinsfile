@@ -34,8 +34,8 @@ pipeline {
 
                         parallel OSList.collectEntries {
 
-                            OS -> [ "${OS} Build & Push": {
-                                stage("${OS} Build & Push") {
+                            OS -> [ "${OS}": {
+                                stage("${OS}") {
 
                                     dir("${OS}") {
                                         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
