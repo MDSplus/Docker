@@ -16,6 +16,8 @@ pipeline {
             steps {
                 sh 'printenv'
 
+                checkout scm;
+
                 cleanWs disableDeferredWipeout: true, deleteDirs: true
             }
         }
