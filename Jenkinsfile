@@ -3,7 +3,6 @@ pipeline {
     agent any
     
     options {
-        skipDefaultCheckout()
         timeout(time: 1, unit: 'HOURS')
     }
     triggers {
@@ -23,8 +22,6 @@ pipeline {
 
         stage('Builders') {
             steps {
-                checkout scm;
-
                 script {
                     dir("builder") {
                         
@@ -37,20 +34,16 @@ pipeline {
 
                             OS -> [ "${OS} Build & Push": {
                                 stage("${OS} Build & Push") {
+
                                     dir("${OS}") {
-
-                                        def tag = "mdsplus/builder:${OS}";
-
-                                        stage("${OS} Build") {
-                                            docker.build(tag)
-                                        }
-
-                                        stage("${OS} Push") {
-                                            echo "Pushing ${OS}"
+                                        docker.withRegistry('https://hub.docker.com/', 'dockerhub') {
+                                            docker.build("mdsplus/builder:${OS}", '--no-cache').push();
                                         }
                                     }
+                                    
                                 }
                             }]
+
                         }
                     }
                 }
