@@ -16,6 +16,9 @@ pipeline {
             steps {
                 sh 'printenv'
 
+                // Allow docker to run multiple architectures
+                sh 'docker run --rm --privileged multiarch/qemu-user-static:register --reset'
+
                 cleanWs disableDeferredWipeout: true, deleteDirs: true
             }
         }
