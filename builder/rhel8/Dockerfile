@@ -65,10 +65,9 @@ RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*\
 	yum-utils\
  && pip2 install tap tap.py pexpect\
 # to run debugger in container
-# SLW 7/30/24 This URL no longer works
-#  && yum -q -y install\
-# 	ftp://ftp.pbone.net/mirror/archive.fedoraproject.org/fedora/linux/releases/28/Everything/x86_64/os/Packages/l/libdc1394-devel-2.2.2-10.fc28.x86_64.rpm\ 
-# 	ftp://ftp.pbone.net/mirror/archive.fedoraproject.org/fedora/linux/releases/28/Everything/x86_64/os/Packages/l/libdc1394-2.2.2-10.fc28.x86_64.rpm\
+ && yum -q -y install\
+ 	https://rpmfind.net/linux/epel/7/x86_64/Packages/l/libdc1394-devel-2.2.2-3.el7.x86_64.rpm\ 
+	https://rpmfind.net/linux/epel/7/x86_64/Packages/l/libdc1394-2.2.2-3.el7.x86_64.rpm\
  && alternatives --set python /usr/bin/python2\
 # cleanup
  && rm -rf ~\
