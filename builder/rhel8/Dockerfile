@@ -1,4 +1,7 @@
-from centos:8
+FROM centos:8
+
+COPY ./libdc1394-2.2.2-3.el7.x86_64.rpm /tmp/
+COPY ./libdc1394-devel-2.2.2-3.el7.x86_64.rpm /tmp/
 
 RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*\
  && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*\
@@ -66,8 +69,8 @@ RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*\
  && pip2 install tap tap.py pexpect\
 # to run debugger in container
  && yum -q -y install\
- 	https://rpmfind.net/linux/epel/7/x86_64/Packages/l/libdc1394-devel-2.2.2-3.el7.x86_64.rpm\ 
-	https://rpmfind.net/linux/epel/7/x86_64/Packages/l/libdc1394-2.2.2-3.el7.x86_64.rpm\
+ 	/tmp/libdc1394-2.2.2-3.el7.x86_64.rpm\ 
+	/tmp/libdc1394-devel-2.2.2-3.el7.x86_64.rpm\
  && alternatives --set python /usr/bin/python2\
 # cleanup
  && rm -rf ~\
