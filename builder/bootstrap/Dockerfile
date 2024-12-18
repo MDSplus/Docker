@@ -10,4 +10,4 @@ RUN apt -q -y update\
 	gperf\
 	python\
  && apt clean
-CMD /bin/bash
+CMD [ "/bin/bash" ]

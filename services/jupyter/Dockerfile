@@ -1,4 +1,4 @@
-from multiarch/alpine:x86_64-v3.3
+FROM multiarch/alpine:x86_64-v3.3
 
 ADD mdsplus@mdsplus.org-589e05b6.rsa.pub /etc/apk/keys/
 ADD jupyter_notebook_config.py /etc/

@@ -1,4 +1,4 @@
-from fedora:39
+FROM fedora:39
 
 ADD python27.tar /
 ADD MVS.tgz /

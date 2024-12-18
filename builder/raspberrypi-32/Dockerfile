@@ -1,4 +1,4 @@
-from mdsplus/builder:ubuntu14-32
+FROM mdsplus/builder:ubuntu14-32
 
 ADD rootfs.tar.gz /raspberrypi-rootfs
 ADD gcc-arm-raspbian.tar.gz /
@@ -18,4 +18,4 @@ RUN chmod -R a+rx /gcc-linaro-arm-linux-gnueabihf-raspbian\
  && ln -sf /usr/include/tds_sysdep_public.h /raspberrypi-include/\
 # cleanup
  && rm -rf /tmp/*
-CMD /bin/bash
+CMD [ "/bin/bash" ]

@@ -1,15 +1,12 @@
-FROM centos:8
+FROM rockylinux:8.9
 
 COPY ./libdc1394-2.2.2-3.el7.x86_64.rpm /tmp/
 COPY ./libdc1394-devel-2.2.2-3.el7.x86_64.rpm /tmp/
 
-RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*\
- && sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*\
- && yum -q -y install epel-release dnf-plugins-core\
+RUN yum -q -y install epel-release dnf-plugins-core\
  && yum -q -y config-manager --set-enabled powertools\
  && yum -q -y update\
  && yum -q -y install\
-	automake\
 	binutils\
 	bison\
 	blas-devel\
@@ -54,6 +51,7 @@ RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*\
 	platform-python-setuptools\
 	python2-libs\
 	python2-numpy\
+	python3-devel \
 	python3-libs\
 	python3-numpy\
 	python3-pexpect\
@@ -66,14 +64,18 @@ RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*\
 	wget\
 	which\
 	yum-utils\
- && pip2 install tap tap.py pexpect\
-# to run debugger in container
+ # to run debugger in container
  && yum -q -y install\
- 	/tmp/libdc1394-2.2.2-3.el7.x86_64.rpm\ 
-	/tmp/libdc1394-devel-2.2.2-3.el7.x86_64.rpm\
+ /tmp/libdc1394-2.2.2-3.el7.x86_64.rpm\ 
+ /tmp/libdc1394-devel-2.2.2-3.el7.x86_64.rpm\
  && alternatives --set python /usr/bin/python2\
+ # cmake
+ && wget https://github.com/Kitware/CMake/releases/download/v3.31.2/cmake-3.31.2-linux-x86_64.sh -O /tmp/install-cmake.sh\
+ && sh /tmp/install-cmake.sh --skip-license --prefix=/usr/local\
 # cleanup
  && rm -rf ~\
  && rm -rf /tmp/*\
  && yum clean all
-CMD /bin/bash
+
+CMD [ "/bin/bash" ]
+
