@@ -51,15 +51,16 @@ RUN yum -q -y install epel-release dnf-plugins-core\
 	platform-python-setuptools\
 	python2-libs\
 	python2-numpy\
-	python3-devel \
-	python3-libs\
-	python3-numpy\
-	python3-pexpect\
+	# the default python 3 is 3.6, however valgrind installs 3.11 (see below)
+	python3.11-devel \
+	python3.11-libs\
+	python3.11-numpy\
 	readline-devel\
 	rpm-build\
 	rpm-sign\
 	rsync\
 	tar\
+	# this installs python 3.11 for an unknown reason
 	valgrind\
 	wget\
 	which\
