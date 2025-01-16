@@ -5,12 +5,15 @@ RUN apt-get update\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
 	&& apt-get -qq -y install\
-		automake\
+		bison\
+		default-jdk\
+		flex\
 		freetds-dev\
 		g++\
 		gdb\
 		gfortran\
 		git\
+		gperf\
 		libasan0\
 		libblas-dev\
 		libcurl4-gnutls-dev\
@@ -19,8 +22,8 @@ RUN apt-get update\
 		libglobus-gridmap-callout-error-dev\
 		libglobus-gsi-credential-dev\
 		libglobus-gsi-proxy-core-dev\
-		libglobus-gssapi-gsi-dev\
 		libglobus-gss-assist-dev\
+		libglobus-gssapi-gsi-dev\
 		libglobus-xio-gsi-driver-dev\
 		libmotif-dev\
 		libraw1394-dev\
@@ -30,14 +33,14 @@ RUN apt-get update\
 		libubsan0\
 		libxml2-dev\
 		libxt-dev\
-		nano\
 		make\
+		nano\
 		openjdk-8-jdk\
 		pkg-config\
-		python3-numpy\
 		python-dev\
 		python-numpy\
 		python-pip\
+		python3-numpy\
 		reprepro\
 		rsync\
 		tar\

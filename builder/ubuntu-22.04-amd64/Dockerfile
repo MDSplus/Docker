@@ -1,14 +1,19 @@
 FROM ubuntu:jammy
 
 RUN apt-get update\
+	&& apt-get -qq -y upgrade\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
 	&& DEBIAN_FRONTEND=noninteractive apt-get -qq -y install\
+		bison\
+		default-jdk\
+		flex\
 		freetds-dev\
 		g++\
 		gdb\
 		gfortran\
 		git\
+		gperf\
 		libasan?\
 		libblas-dev\
 		libcurl4-gnutls-dev\
@@ -17,8 +22,8 @@ RUN apt-get update\
 		libglobus-gridmap-callout-error-dev\
 		libglobus-gsi-credential-dev\
 		libglobus-gsi-proxy-core-dev\
-		libglobus-gssapi-gsi-dev\
 		libglobus-gss-assist-dev\
+		libglobus-gssapi-gsi-dev\
 		libglobus-xio-gsi-driver-dev\
 		libmotif-dev\
 		libraw1394-dev\
@@ -28,13 +33,12 @@ RUN apt-get update\
 		libubsan?\
 		libxml2-dev\
 		libxt-dev\
-		nano\
 		make\
-		openjdk-8-jdk\
+		nano\
 		pkg-config\
+		python-is-python3\
 		python3-numpy\
 		python3-pip\
-		python-is-python3\
 		reprepro\
 		rsync\
 		tar\
