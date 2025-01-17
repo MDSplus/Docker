@@ -8,6 +8,6 @@ RUN apt -q -y update\
 	flex\
 	git\
 	gperf\
-	python\
+	python3\
  && apt clean
 CMD [ "/bin/bash" ]
