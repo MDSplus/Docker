@@ -45,7 +45,7 @@ RUN yum install -y epel-release \
         wget \
         which \
         yum-utils \
-    # cmake
+    # CMake
     && wget https://github.com/Kitware/CMake/releases/download/v3.31.2/cmake-3.31.2-linux-x86_64.sh -O /tmp/install-cmake.sh \
     && sh /tmp/install-cmake.sh --skip-license --prefix=/usr/local \
     # cleanup
