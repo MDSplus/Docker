@@ -1,5 +1,7 @@
 FROM rockylinux:9.3
 
+ARG CMAKE_VERSION
+
 RUN dnf -q -y install epel-release dnf-plugins-core \
     && dnf -q -y update \
     # (SLW) --enablerepo=resilientstorage is needed for libtool-ltdl-devel which is needed for globus-*-devel
@@ -62,13 +64,13 @@ RUN dnf -q -y install epel-release dnf-plugins-core \
         which \
         dnf-utils \
     # CMake
-    && wget https://github.com/Kitware/CMake/releases/download/v3.31.2/cmake-3.31.2-linux-x86_64.sh -O /tmp/install-cmake.sh\
-    && sh /tmp/install-cmake.sh --skip-license --prefix=/usr/local\
+    && wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.sh -O /tmp/install-cmake.sh \
+    && sh /tmp/install-cmake.sh --skip-license --prefix=/usr/local \
+    # Install the latest version of numpy to test against instead of python3-numpy
+    && python3 -m pip install numpy \
     # cleanup
     && rm -rf ~ \
     && rm -rf /tmp/* \
-    && dnf clean all \
-    # Install the latest version of numpy to test against instead of python3-numpy
-    && python3 -m pip install numpy
+    && dnf clean all
 
 CMD [ "/bin/bash" ]

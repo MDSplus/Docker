@@ -1,5 +1,7 @@
 FROM debian:bookworm
 
+ARG CMAKE_VERSION
+
 RUN apt-get update \
     && apt-get -qq -y upgrade \
     && DEBIAN_FRONTEND=noninteractive apt-get -qq -y install \
@@ -49,7 +51,7 @@ RUN apt-get update \
         wget\
     && ln -sfT $(which python3) /usr/bin/python\
     # CMake
-    && wget https://github.com/Kitware/CMake/releases/download/v3.31.2/cmake-3.31.2-linux-x86_64.sh -O /tmp/install-cmake.sh\
+    && wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.sh -O /tmp/install-cmake.sh \
     && sh /tmp/install-cmake.sh --skip-license --prefix=/usr/local\
     # cleanup
     && apt-get clean\

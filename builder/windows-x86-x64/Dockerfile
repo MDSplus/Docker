@@ -1,5 +1,7 @@
 FROM fedora:39
 
+ARG CMAKE_VERSION
+
 ENV WINEPATH=/usr/i686-w64-mingw32/sys-root/mingw/bin/;/usr/x86_64-w64-mingw32/sys-root/mingw/bin/
 
 ADD python27.tar /
@@ -53,7 +55,7 @@ RUN dnf -y install 'dnf-command(config-manager)' \
         wine-filesystem \
         winehq-stable \
     # CMake
-    && wget https://github.com/Kitware/CMake/releases/download/v3.31.2/cmake-3.31.2-linux-x86_64.sh -O /tmp/install-cmake.sh \
+    && wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.sh -O /tmp/install-cmake.sh \
     && sh /tmp/install-cmake.sh --skip-license --prefix=/usr \
     # cleanup
     && rm -rf /tmp/* \

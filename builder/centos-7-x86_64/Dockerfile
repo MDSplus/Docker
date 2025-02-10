@@ -1,5 +1,7 @@
 FROM centos:7
 
+ARG CMAKE_VERSION
+
 COPY ./CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
 
 RUN yum install -y epel-release \
@@ -46,7 +48,7 @@ RUN yum install -y epel-release \
         which \
         yum-utils \
     # CMake
-    && wget https://github.com/Kitware/CMake/releases/download/v3.31.2/cmake-3.31.2-linux-x86_64.sh -O /tmp/install-cmake.sh \
+    && wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.sh -O /tmp/install-cmake.sh \
     && sh /tmp/install-cmake.sh --skip-license --prefix=/usr/local \
     # cleanup
     && rm -rf ~ \

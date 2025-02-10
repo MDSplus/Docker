@@ -1,5 +1,7 @@
 FROM rockylinux:8.9
 
+ARG CMAKE_VERSION
+
 COPY ./libdc1394-2.2.2-3.el7.x86_64.rpm /tmp/
 COPY ./libdc1394-devel-2.2.2-3.el7.x86_64.rpm /tmp/
 
@@ -71,7 +73,7 @@ RUN yum -q -y install epel-release dnf-plugins-core \
         /tmp/libdc1394-devel-2.2.2-3.el7.x86_64.rpm \
     && alternatives --set python /usr/bin/python2 \
     # CMake
-    && wget https://github.com/Kitware/CMake/releases/download/v3.31.2/cmake-3.31.2-linux-x86_64.sh -O /tmp/install-cmake.sh \
+    && wget https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-linux-x86_64.sh -O /tmp/install-cmake.sh \
     && sh /tmp/install-cmake.sh --skip-license --prefix=/usr/local \
     # cleanup
     && rm -rf ~ \
