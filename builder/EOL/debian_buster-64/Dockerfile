@@ -1,6 +1,7 @@
 FROM debian:buster
 
-RUN apt-get update\
+RUN sed -i -e 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list\
+&& apt-get update\
 # please dont just add packages but format them using this recipe:
 # $list | tr ' ' '\n'| sort | uniq | sed -E 's/.*/\t\0\\/g'
  && apt-get -y install\
