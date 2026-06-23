@@ -57,6 +57,8 @@ RUN yum -q -y install epel-release dnf-plugins-core \
         python3.11-devel \
         python3.11-libs \
         python3.11-numpy \
+        # because python3.6 is somehow upgraded to python3.12, also need numpy
+        python3.12-numpy \
         readline-devel \
         rpm-build \
         rpm-sign \
